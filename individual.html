@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Personal therapy sessions with Dr. Lydia, offering one-on-one healing for anxiety, stress, and personal growth.">
+    <title>Personal Therapy Sessions - Mental Health by Dr Lydia</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        :root {
+            --primary-pink: #FC9DAC; /* A soft, feminine pink */
+            --light-pink: #FEE7ED;
+            --dark-pink: #E07B91;
+            --text-dark: #000000; /* Pure black */
+            --text-light: #FFFFFF; /* Pure white */
+            --white: #FFFFFF;
+            --black: #000000;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--light-pink); /* Light pink background for the page */
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            padding-top: 80px; /* Added padding to push content below the fixed navbar */
+        }
+
+        /* Navigation Bar Styling */
+        .navbar {
+            background-color: var(--primary-pink);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 15px 5%; /* Adjust padding for better spacing */
+            position: fixed;
+            z-index: 1000;
+            width: 100%;
+            top: 0; /* Ensure it's at the very top */
+            left: 0; /* Ensure it spans the full width */
+        }
+
+        .navbar-brand {
+            color: var(--white) !important;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .navbar-nav .nav-link {
+            color: var(--white) !important;
+            font-size: 1.1rem;
+            margin-left: 20px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--dark-pink) !important; /* Darker pink on hover */
+        }
+
+        /* Ensures the Bootstrap navbar-toggler-icon is visible */
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255, 255, 255, 1%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+        }
+
+        /* Header/Navigation for consistency */
+        .page-header {
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.3)), url("{% static 'images/drLydiah1.jpg' %}"); /* Placeholder image with an overlay */
+            background-size: cover; /* Ensures the image covers the entire header area */
+            background-position: left center; /* Positions the image to the left */
+            background-repeat: no-repeat; /* Prevents image repetition */
+            color: var(--white);
+            padding: 60px 5%; /* Increased padding for better visual appeal with background image */
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 100;
+            min-height: 250px; /* Ensure enough height for the background image to show */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .page-header h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--white);
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3); /* Add text shadow for readability */
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3); /* Add text shadow for readability */
+        }
+
+        /* Main content section styling */
+        .main-content-section {
+            padding: 60px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 60px; /* Space between major sections */
+        }
+
+        .content-card {
+            background-color: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+            padding: 40px;
+            text-align: left;
+            transition: transform 0.3s ease;
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .content-card h2 {
+            color: var(--primary-pink);
+            font-size: 2rem;
+            margin-bottom: 25px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .content-card h2::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 0;
+            width: 80px;
+            height: 3px;
+            background-color: var(--dark-pink);
+            border-radius: 2px;
+        }
+
+        .content-card h3 {
+            color: var(--dark-pink);
+            font-size: 1.5rem;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .content-card p, .content-card ul, .content-card ol {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+        }
+
+        .content-card ul, .content-card ol {
+            list-style-position: inside;
+            padding-left: 0; /* Remove default padding */
+        }
+
+        .content-card ul li, .content-card ol li {
+            margin-bottom: 10px;
+        }
+
+        /* Specific styling for "What to Expect" numbered list */
+        .content-card ol {
+            counter-reset: session-step;
+            list-style: none; /* Remove default numbering */
+            padding-left: 0;
+        }
+
+        .content-card ol li {
+            position: relative;
+            padding-left: 40px; /* Space for custom number */
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .content-card ol li::before {
+            counter-increment: session-step;
+            content: counter(session-step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-color: var(--primary-pink);
+            color: var(--white);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 700;
+            font-size: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Image and Video containers */
+        .media-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            align-items: center; /* Center media items */
+        }
+
+        .media-container img, .media-container video {
+            width: 100%;
+            max-width: 600px; /* Max width for media */
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            object-fit: cover;
+        }
+
+        /* Meet Your Therapist Section */
+        .therapist-profile {
+            display: flex;
+            flex-direction: column; /* Default to column for mobile */
+            align-items: center;
+            gap: 30px;
+            text-align: center;
+        }
+
+        .therapist-profile img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--primary-pink);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .therapist-info h3 {
+            font-size: 1.8rem;
+            color: var(--dark-pink);
+            margin-bottom: 10px;
+        }
+
+        .therapist-info p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        @media (min-width: 768px) {
+            .therapist-profile {
+                flex-direction: row; /* Row layout for larger screens */
+                text-align: left;
+                justify-content: center;
+            }
+            .therapist-profile img {
+                margin-right: 30px;
+            }
+        }
+
+        /* FAQ Section */
+        .faq-item {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed var(--light-pink);
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .faq-item strong {
+            color: var(--dark-pink);
+            font-size: 1.1rem;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .faq-item p {
+            margin-left: 15px; /* Indent answers slightly */
+            font-size: 1rem;
+        }
+
+        /* CTA Button */
+        .cta-section {
+            text-align: center;
+            margin-top: 40px;
+            padding: 30px;
+            background-color: var(--light-pink);
+            border-radius: 15px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .cta-section h2 {
+            color: var(--primary-pink);
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-section .btn-book-session {
+            background-color: var(--primary-pink);
+            color: var(--white);
+            border: none;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-section .btn-book-session:hover {
+            background-color: var(--dark-pink);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Footer (simplified for a sub-page) */
+        .site-footer {
+            background-color: var(--dark-pink);
+            color: var(--white);
+            padding: 30px 5%;
+            font-size: 0.9rem;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .site-footer a {
+            color: var(--light-pink);
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .site-footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="#">Mental Health by Dr Lydia</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html#individual-therapy-section">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html#about-us-main">About Dr Lydia</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <h1>Personal Therapy Sessions</h1>
+        <p>Welcome to your safe space for one-on-one healing with Dr Lydia. Discover a path to inner peace and strength.</p>
+    </header>
+
+    <main class="main-content-section">
+
+        <section class="content-card">
+            <h2>Your Journey to Wellness Begins Here</h2>
+            <p>At Mental Health by Dr Lydia, our personal therapy sessions are designed to help you:</p>
+            <ul>
+                <li>Unpack and understand challenging emotions</li>
+                <li>Build coping tools for everyday stressors</li>
+                <li>Reclaim balance, confidence, and inner peace</li>
+            </ul>
+            <p>Whether you’re facing anxiety, relationship struggles, career burnout, or simply want to grow, Dr Lydia will meet you exactly where you are.</p>
+            
+            <div class="media-container">
+                <img src="https://placehold.co/600x350/FC9DAC/FFFFFF?text=Therapy+Session+Image" alt="A calm therapy session in progress.">
+                <p style="font-style: italic; text-align: center; color: #555;">A serene environment for personal reflection and growth.</p>
+            </div>
+        </section>
+
+        <section class="content-card">
+            <h2>What to Expect from Your Sessions</h2>
+            <ol>
+                <li><strong>A Warm Welcome</strong><br>Your first session begins with a gentle check-in—no judgment, just curious listening.</li>
+                <li><strong>Collaborative Goal-Setting</strong><br>Together, we clarify what you want to change, heal, or learn about yourself.</li>
+                <li><strong>Tailored Techniques</strong><br>Dr Lydia will weave evidence-based approaches (CBT, mindfulness, narrative therapy) to suit your unique style.</li>
+                <li><strong>Actionable Takeaways</strong><br>You’ll leave each session with practical exercises and insights you can apply immediately.</li>
+                <li><strong>Confidentiality & Trust</strong><br>Everything you share stays between you and Dr Lydia—period.</li>
+            </ol>
+        </section>
+
+        <section class="content-card">
+            <h2>Our Guiding Philosophy</h2>
+            <p>At Mental Health by Dr Lydia, we believe every mind holds its own wisdom. Dr Lydia:</p>
+            <ul>
+                <li>Honors your story and cultural background</li>
+                <li>Blends empathy with expertise</li>
+                <li>Encourages you to tap into strengths you never knew you had</li>
+            </ul>
+            <p>By creating a consistent, supportive partnership, we help you move from surviving to thriving.</p>
+            
+            <div class="media-container">
+                <video autoplay loop muted playsinline src="https://assets.mixkit.co/videos/preview/mixkit-happy-friends-walking-on-the-beach-40914-large.mp4" style="width:100%; max-width:600px; height:auto;"></video>
+                <p style="font-style: italic; text-align: center; color: #555;">Embracing joy and connection on your journey to well-being.</p>
+            </div>
+        </section>
+
+        <section class="content-card">
+            <h2>Who Benefits Most from Personal Therapy</h2>
+            <ul>
+                <li>Individuals feeling overwhelmed by work or life transitions</li>
+                <li>Anyone struggling with persistent stress, worry, or low mood</li>
+                <li>Those seeking clarity around relationships, identity, or purpose</li>
+                <li>People ready to invest in their personal growth and resilience</li>
+            </ul>
+        </section>
+
+        <section class="content-card therapist-profile">
+            <h2>Meet Dr. Lydia</h2>
+            <img src="https://placehold.co/200x200/E07B91/FFFFFF?text=Dr.+Lydia" alt="Portrait of Dr. Lydia, a warm and insightful therapist.">
+            <div class="therapist-info">
+                <h3>Dr. Lydia Chen, Psy.D., LMFT</h3>
+                <p>With over 15 years of experience in cognitive behavioral therapy and family systems, Dr. Lydia brings a compassionate and evidence-based approach to her practice. She is dedicated to helping individuals build resilience, foster healthy relationships, and achieve profound personal growth.</p>
+            </div>
+        </section>
+
+        <section class="content-card">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <strong>How many sessions will I need?</strong>
+                <p>It varies—some clients notice relief in 4–6 sessions, others prefer ongoing weekly support. Dr Lydia will work with you to determine the best plan for your unique needs and goals.</p>
+            </div>
+            <div class="faq-item">
+                <strong>Are virtual sessions available?</strong>
+                <p>Yes. We offer secure, confidential video calls for clients, providing flexible access to care from the comfort of your home.</p>
+            </div>
+            <div class="faq-item">
+                <strong>What’s the cancellation policy?</strong>
+                <p>Please notify us 24 hours in advance if you need to cancel or reschedule your session to avoid a 50% session fee. This allows us to offer the time slot to other clients in need.</p>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <h2>Ready to Begin Your Journey?</h2>
+            <p>Take the first step toward a calmer, more empowered you.</p>
+            <a href="https://yourdomain.com/book-session" class="btn-book-session">👉 Book Your Personal Therapy Session</a>
+            <p style="margin-top: 15px; font-size: 0.9rem; color: #666;">(You’ll be redirected to our simple booking form—no commitment until you’re ready.)</p>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        &copy; <span id="current-year-footer"></span> Mental Health by Dr Lydia. All rights reserved. |
+        <a href="">Privacy Policy</a> |
+        <a href="">Terms of Service</a>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.getElementById('current-year-footer').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

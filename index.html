@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Mind Health Consultancy by Dr Lydia N. - A sanctuary for healing minds—offering personalized therapy and transformative mental health consultancy.">
+    <title>Mind Health Consultancy by Dr Lydia N. - Minding your mind</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        :root {
+            --primary-pink: #FC9DAC; /* A soft, feminine pink */
+            --light-pink: #FEE7ED;
+            --dark-pink: #E07B91;
+            --text-dark: #000000; /* Pure black */
+            --text-light: #FFFFFF; /* Pure white */
+            --beige: #FFFFFF; /* Changed to white for theme consistency */
+            --white: #FFFFFF;
+            --black: #000000;
+        }
+
+        /* Ensure HTML and Body use full height for vh units to work properly */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden; /* Prevent horizontal scroll when mobile nav is off-screen */
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--text-dark);
+        }
+
+        /* --- New Unified Hero Section Container --- */
+        .hero-section-container {
+            position: relative; /* Crucial for absolute positioning of children */
+            width: 100%;
+            height: 100vh; /* Default full height for large screens */
+            overflow: hidden; /* Contains carousel and fixed content */
+            box-sizing: border-box; /* Include padding in height calculation */
+        }
+
+        /* Media query for small screens - Unified container height adjustment */
+        @media (max-width: 768px) {
+            .hero-section-container {
+                height: 75vh; /* 3/4 (75%) of the viewport height on small screens */
+            }
+        }
+        /* --- End New Unified Hero Section Container --- */
+
+
+        /* Navigation Bar - Initial State (transparent, fixed at top) */
+        .navigation-bar {
+            position: fixed; /* Always fixed for smoother transition */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: auto; /* Auto height initially */
+            z-index: 1000; /* Ensure it's on top */
+            background-color: transparent; /* Initial state: transparent */
+            padding: 15px 20px;
+            border-radius: 0; /* Initial state: no border radius */
+            box-shadow: none; /* Initial state: no shadow */
+            transition: all 0.5s ease-in-out; /* Smooth transition for all properties */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        /* Navigation Bar - Scrolled State (fixed, white background, no bulging) */
+        .navigation-bar.scrolled {
+            top: 0; /* Fixed to top */
+            left: 0; /* Fixed to left */
+            width: 100%; /* Full width */
+            height: auto; /* Auto height to fit content */
+            border-radius: 0; /* No border radius */
+            background-image: none; /* Removed background image */
+            background-color: var(--white); /* White background */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            padding: 15px 20px; /* Restore initial padding */
+            border: none; /* No border */
+            /* Ensure flex properties are maintained */
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navigation-bar .nav-brand {
+            display: flex;
+            align-items: center; /* Align logo and text container horizontally */
+            text-decoration: none;
+            z-index: 1001; /* Ensure brand is always on top */
+            height: 100%; /* Occupy full height of navbar */
+        }
+
+        .navigation-bar .nav-logo {
+            width: 50px; /* Adjust logo size */
+            height: 50px;
+            border-radius: 50%; /* Make it rounded */
+            margin-right: 10px; /* Space between logo and text */
+            background-color: var(--white); /* Placeholder background */
+            border: 2px solid var(--primary-pink); /* Border for visibility */
+            object-fit: cover; /* Ensure image covers the area */
+            flex-shrink: 0; /* Prevent logo from shrinking */
+        }
+
+        .navigation-bar .brand-text-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Align text to the left within its container */
+            justify-content: center; /* Center text vertically */
+            height: 100%; /* Occupy full height of nav-brand */
+        }
+
+        .navigation-bar .brand-title {
+            color: var(--text-light); /* Initial state: white text */
+            font-size: 2rem;
+            font-weight: 800;
+            line-height: 0.9; /* Adjust line height for stacked text */
+            transition: color 0.3s ease;
+        }
+
+        .navigation-bar.scrolled .brand-title {
+            color: var(--text-dark); /* Make brand title dark when scrolled */
+        }
+
+        .navigation-bar .brand-slogan {
+            color: var(--text-light); /* Initial state: white text */
+            font-size: 0.8rem;
+            font-weight: 400;
+            margin-top: 2px;
+            transition: color 0.3s ease;
+        }
+
+        .navigation-bar.scrolled .brand-slogan {
+            color: var(--text-dark); /* Make brand slogan dark when scrolled */
+        }
+
+        .navigation-bar ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex; /* Default flex for large screens */
+            align-items: center;
+            width: auto;
+            flex-grow: 1;
+            justify-content: flex-end; /* Push links to the right */
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+            height: 100%; /* Occupy full height of navbar */
+        }
+
+        .navigation-bar ul li {
+            position: relative;
+            margin-left: 30px;
+        }
+
+        .navigation-bar ul li a {
+            color: var(--text-light); /* Initial state: light text */
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.05rem;
+            padding: 5px 0;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .navigation-bar.scrolled ul li a {
+            color: var(--text-dark); /* Make main nav links dark when scrolled */
+        }
+
+        .navigation-bar ul li a:hover {
+            color: var(--primary-pink);
+        }
+
+        .navigation-bar ul li i {
+            margin-right: 8px;
+            font-size: 1.1rem;
+        }
+
+        /* Dropdown Menu for large screens (hover) */
+        .navigation-bar ul li ul.dropdown-menu {
+            display: none;
+            position: absolute;
+            /* Changed top to a fixed pixel value to ensure it's below the parent link */
+            top: 82.5vh; /* Adjusted to be below the main nav link */
+            left: 0;
+            background-color: var(--white) !important; /* Force white background */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            min-width: 200px;
+            border-radius: 8px;
+            padding: 10px 0;
+            flex-direction: column;
+            opacity: 0;
+            transition: opacity 0.3s ease; /* Only fade transition */
+            z-index: 1050; /* Ensure dropdown is above other content */
+        }
+
+        .navigation-bar ul li ul.dropdown-menu-updated {
+            top: 17vh;
+        }
+
+        .navigation-bar ul li.show-dropdown ul.dropdown-menu {
+            display: flex;
+            opacity: 1;
+        }
+
+        /* Ensure dropdown menu list items are also explicitly white */
+        .navigation-bar ul li ul.dropdown-menu li {
+            background-color: var(--white) !important; /* Ensure list items themselves are white */
+        }
+
+        /* Ensure dropdown menu links are always dark and turn pink on hover */
+        .navigation-bar ul li ul.dropdown-menu li a {
+            color: var(--text-dark); /* Force black text */
+            padding: 8px 20px; /* Adjust padding for dropdown items */
+            font-weight: 500; /* Slightly lighter font weight for sub-items */
+            display: block; /* Ensure links take full width of dropdown item */
+            text-align: left; /* Align text to the left */
+        }
+
+        /* Fix the hover background to be subtle light pink */
+        .navigation-bar ul li ul.dropdown-menu li a:hover {
+            color: var(--primary-pink); /* Pink on hover */
+            background-color: var(--light-pink); /* Changed to light pink for subtle hover effect */
+        }
+
+        /* Hamburger button styling (visible only on small screens) */
+        .navigation-bar .hamburger {
+            display: none; /* Hidden by default */
+            font-size: 1.8rem;
+            cursor: pointer;
+            z-index: 1001; /* Above mobile menu */
+            color: transparent; /* Makes the fill transparent */
+            -webkit-text-stroke: 1px; /* Thicker lines for visibility, just stroke width */
+            /* Initial state: white lines on dark carousel background */
+            -webkit-text-stroke-color: var(--text-light);
+            transition: -webkit-text-stroke-color 0.3s ease;
+        }
+        /* Ensure hamburger lines are visible on scrolled white background */
+        .navigation-bar.scrolled .hamburger {
+            -webkit-text-stroke-color: var(--text-dark); /* Make hamburger dark when scrolled */
+        }
+
+
+        @media (max-width: 992px) { /* This breakpoint handles the mobile navigation */
+            .navigation-bar {
+                /* Reset bulging styles for mobile */
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: auto;
+                border-radius: 0;
+                background-image: none;
+                background-color: transparent; /* Initial state mobile */
+                box-shadow: none;
+                position: fixed; /* Keep fixed for mobile too */
+            }
+            .navigation-bar.scrolled { /* Re-apply basic fixed for mobile if scrolled */
+                background-color: var(--white); /* White background for mobile scrolled */
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: auto;
+                border-radius: 0;
+                padding: 15px 20px;
+                background-image: none; /* No background image for mobile scrolled */
+                border: none; /* No border */
+            }
+
+            /* Mobile specific brand styling */
+            .navigation-bar .nav-brand .brand-title,
+            .navigation-bar .nav-brand .brand-slogan {
+                color: var(--light-pink); /* Default pink for mobile nav brand */
+            }
+            .navigation-bar.scrolled .nav-brand .brand-title,
+            .navigation-bar.scrolled .nav-brand .brand-slogan {
+                color: var(--primary-pink); /* Pink when scrolled on mobile */
+            }
+            .navigation-bar .nav-logo {
+                background-color: var(--white); /* Always white background for logo */
+            }
+
+
+            .navigation-bar ul {
+                display: none; /* Hide default nav items initially for mobile */
+                flex-direction: column; /* Stack vertically when shown */
+                position: fixed; /* Fixed position for the slide-in menu */
+                top: 0;
+                right: -280px; /* Hidden off-screen to the right (width of menu) */
+                height: 100%; /* Full height */
+                width: 280px; /* Width of the slide-in menu */
+                background-color: var(--white); /* White background for the menu */
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2); /* Shadow on the left edge */
+                padding: 60px 20px 20px; /* Padding for content, space for brand/close btn */
+                align-items: flex-start; /* Align items to the left within the menu */
+                opacity: 0; /* Initial state for animation */
+                transition: right 0.3s ease-out, opacity 0.3s ease-out; /* Slide-in transition */
+                pointer-events: none; /* Prevent clicks when hidden */
+                z-index: 999; /* Below hamburger button */
+            }
+
+            .navigation-bar ul.show {
+                right: 0; /* Slide in to view */
+                opacity: 1;
+                pointer-events: all; /* Enable clicks when shown */
+                display: flex !important; /* Force display flex to override Bootstrap's d-none */
+            }
+
+            .navigation-bar ul li {
+                margin: 10px 0; /* Vertical margin for menu items */
+                width: 100%; /* Full width for list items */
+                text-align: left; /* Align text to the left in menu */
+            }
+
+            .navigation-bar ul li a {
+                padding: 12px 0; /* Larger tap area */
+                color: var(--text-dark); /* Dark text for readability on white background */
+            }
+
+            .navigation-bar ul li a:hover {
+                background-color: transparent; /* No background change on hover for mobile links */
+                color: var(--primary-pink); /* Only text color change */
+            }
+
+            .navigation-bar .hamburger {
+                display: block; /* Show hamburger icon */
+            }
+
+            /* Mobile Dropdown styles - for when a dropdown is opened within the mobile slide-out menu */
+            .navigation-bar ul li ul.dropdown-menu {
+                position: static; /* Stack statically within the mobile menu */
+                background-color: transparent; /* No background for sub-menu within main menu */
+                box-shadow: none; /* No shadow for sub-menu */
+                padding: 0 0 0 20px; /* Indent sub-menu items */
+                min-width: auto;
+                opacity: 1; /* Always visible when parent is "show-dropdown" */
+                transition: none; /* No transition needed as it's static */
+                z-index: auto; /* Reset z-index for static positioning */
+            }
+            .navigation-bar ul li.show-dropdown ul.dropdown-menu {
+                display: flex !important; /* Ensure it overrides display:none */
+            }
+            .navigation-bar ul li ul.dropdown-menu li a {
+                color: var(--text-dark); /* Ensure dark text on mobile dropdowns */
+            }
+            .navigation-bar ul li ul.dropdown-menu li a:hover {
+                color: var(--primary-pink); /* Pink on hover for mobile dropdowns */
+                background-color: transparent; /* No background change on hover for mobile links */
+            }
+        }
+
+
+        /* Navigation Board - Hero Section (Carousel Images) */
+        /* Now absolutely positioned to fill the .hero-section-container */
+        .navigation-board {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%; /* Fills the parent .hero-section-container */
+            border-radius: 0;
+            overflow: hidden;
+        }
+
+        .navigation-board .carousel-inner,
+        .navigation-board .carousel-item,
+        .navigation-board .carousel-item img {
+            width: 100%;
+            height: 100%; /* Fill parent height */
+            object-fit: cover;
+            border-radius: 0;
+        }
+
+        /* Force carousel images to 75vh on small screens */
+        @media (max-width: 768px) {
+            .navigation-board .carousel-inner,
+            .navigation-board .carousel-item,
+            .navigation-board .carousel-item img {
+                height: 100vh !important; /* Force this height directly on images to be 3/4 */
+                object-fit: cover;
+            }
+        }
+
+        /* Ensure carousel controls are clickable */
+        .navigation-board .carousel-control-prev,
+        .navigation-board .carousel-control-next {
+            z-index: 5; /* Ensure controls are above fixed-carousel-content (z-index 4) */
+        }
+
+
+        .navigation-board .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)); /* Darker overlay for text contrast */
+            z-index: 2;
+        }
+
+        /* Fixed Content on top of Carousel (Mind Health Consultancy, Welcome Message, CTAs) */
+        .fixed-carousel-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 4; /* Above the overlay */
+            text-align: center;
+            color: var(--text-light); /* Light text color for contrast */
+            padding: 20px;
+            max-width: 900px;
+            width: 90%;
+        }
+
+        .fixed-carousel-content h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--light-pink); /* Light pink for emphasis */
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8); /* Stronger shadow for readability */
+        }
+
+        .fixed-carousel-content .hero-welcome-text {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+            line-height: 1.6;
+            margin-left: auto;
+            margin-right: auto;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7); /* Stronger shadow */
+            text-align: center; /* Ensure text is centered */
+        }
+        .fixed-carousel-content .hero-welcome-text p {
+            margin-bottom: 10px; /* Space between paragraphs */
+        }
+        /* Removed specific list styling as per new concise welcome text */
+
+
+        .fixed-carousel-content .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .fixed-carousel-content .btn-cta {
+            background-color: var(--primary-pink);
+            color: var(--white);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Slightly stronger shadow */
+        }
+
+        .fixed-carousel-content .btn-cta:hover {
+            background-color: var(--dark-pink);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .fixed-carousel-content h1 {
+                font-size: 2.5rem; /* Adjusted for smaller screens */
+            }
+
+            .fixed-carousel-content .hero-welcome-text {
+                font-size: 1.1rem; /* Adjusted for smaller screens */
+            }
+            .fixed-carousel-content .hero-welcome-text ul {
+                max-width: 90%; /* Allow list to take more width on small screens */
+            }
+        }
+
+
+        /* About Us Section (formerly Therapeutic Insights Section) */
+        .about-us-section { /* Renamed for clarity */
+            position: relative;
+            width: 100%;
+            height: 255vh; /* 200% of viewport height */
+            background: linear-gradient(135deg, var(--light-pink) 0%, var(--primary-pink) 100%); /* Soft gradient background */
+            overflow: hidden; /* Hide overflowing animations */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start; /* Align content to the top */
+            align-items: center;
+            padding: 50px 20px; /* Default padding */
+            padding-top: 20px; /* Start content 20px from the top of this section */
+            text-align: center;
+            color: var(--text-dark); /* Black text for headings */
+            z-index: 10; /* Ensure it's above other content for snap scroll */
+        }
+
+        /* Background layers for therapeutic files */
+        .therapeutic-background-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0; /* Start hidden */
+            transition: opacity 1s ease-in-out; /* Smooth fade transition */
+            z-index: 1; /* Below content */
+        }
+
+        .therapeutic-background-layer.active {
+            opacity: 1;
+        }
+
+        /* Background animations - subtle fireflies/glows */
+        .about-us-section::before, /* Changed from therapeutic-insights-section */
+        .about-us-section::after { /* Changed from therapeutic-insights-section */
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.2); /* White subtle glow */
+            border-radius: 50%;
+            animation: floatAndFade 15s infinite ease-in-out alternate;
+            z-index: 2; /* Above background layers */
+        }
+
+        .about-us-section::before {
+            width: 80px;
+            height: 80px;
+            top: 10%;
+            left: 15%;
+            animation-delay: 0s;
+        }
+
+        .about-us-section::after {
+            width: 120px;
+            height: 120px;
+            bottom: 20%;
+            right: 10%;
+            background: rgba(255, 255, 255, 0.15); /* Slightly less opaque */
+            animation-delay: 5s;
+        }
+
+        @keyframes floatAndFade {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.5; }
+            50% { transform: translate(50px, -50px) scale(1.1); opacity: 0.8; }
+            100% { transform: translate(0, 0) scale(1); opacity: 0.5; }
+        }
+
+        /* Container for the circular widgets and descriptions */
+        .insights-container-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 1200px; /* Increased max-width to give more room */
+            padding: 20px;
+            z-index: 5; /* Above background animations */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center rows by default */
+            gap: 50px; /* Space between rows */
+        }
+
+        .insight-row {
+            display: flex;
+            align-items: center; /* Vertically align circle and text */
+            width: 100%;
+            justify-content: space-between; /* Distribute items with space between */
+            gap: 20px; /* Minimum gap */
+        }
+
+        .insight-row:nth-child(odd) { /* Odd rows (1, 3, 5, 7) - Circle on left, text on right */
+            flex-direction: row;
+        }
+
+        .insight-row:nth-child(even) { /* Even rows (2, 4, 6, 8) - Circle on right, text on left */
+            flex-direction: row-reverse; /* Reverse order for right alignment */
+        }
+
+        .insight-circle {
+            width: 160px; /* Fixed size for circle */
+            height: 160px;
+            border: 3px solid var(--primary-pink); /* Pink border only */
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0); /* Transparent fill */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            color: var(--text-dark); /* Black text */
+            flex-shrink: 0; /* Prevent shrinking */
+        }
+
+        .insight-circle:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .insight-circle .number {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--dark-pink);
+            margin-bottom: 5px;
+        }
+
+        .insight-circle .word {
+            font-size: 1.0rem;
+            font-weight: 600;
+            line-height: 1.3;
+            color: white;
+        }
+
+        .insight-description {
+            flex-grow: 1;
+            max-width: 600px; /* Set a fixed max-width for description to prevent cutoff */
+            text-align: left;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent white background for text */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            color: var(--text-dark);
+        }
+
+        .insight-description p {
+            margin: 0;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        /* Responsive adjustments for insights section */
+        @media (max-width: 768px) {
+            .about-us-section { /* Changed from therapeutic-insights-section */
+                height: auto; /* Auto height for vertical stacking */
+                min-height: 200vh; /* Ensure minimum height */
+                padding: 40px 15px;
+                padding-top: 20px; /* Maintain 20px top padding for mobile */
+            }
+            .insights-container-wrapper {
+                gap: 30px; /* Closer spacing on mobile */
+            }
+            .insight-row {
+                flex-direction: column !important; /* Force vertical stack for all rows on mobile */
+                gap: 15px; /* Space between circle and description when stacked */
+            }
+            .insight-circle {
+                width: 140px; /* Slightly smaller for mobile */
+                height: 140px;
+            }
+            .insight-circle .number {
+                font-size: 2rem;
+            }
+            .insight-circle .word {
+                font-size: 0.95rem;
+            }
+            .insight-description {
+                max-width: 90%; /* Full width for text on mobile */
+                text-align: center; /* Center text when stacked */
+            }
+        }
+
+
+        /* Our Services Section (formerly events-display) */
+        .our-services-section { /* Renamed for clarity */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 80px 5%;
+            background-color: var(--light-pink);
+        }
+
+        .our-services-section .image-container {
+            background-color: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            text-align: center;
+            padding-bottom: 20px;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .our-services-section .image-container.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .our-services-section .image-container img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--light-pink);
+        }
+
+        .our-services-section .image-container b {
+            display: block;
+            padding: 20px;
+            font-size: 1.15rem;
+            color: var(--text-dark);
+            line-height: 1.5;
+            font-weight: 600;
+        }
+
+        .our-services-section .image-container .btn-view-details {
+            background-color: var(--primary-pink);
+            color: var(--white);
+            border: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .our-services-section .image-container .btn-view-details:hover {
+            background-color: var(--dark-pink);
+        }
+
+        /* Main About Section (formerly about-us-section-new) */
+        .main-about-section { /* Renamed for clarity */
+            background-color: var(--white);
+            padding: 80px 5%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+            position: relative; /* For potential background elements */
+            overflow: hidden; /* To contain any absolute elements */
+        }
+
+        .main-about-section::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            width: 200px;
+            height: 200px;
+            background-color: rgba(var(--primary-pink), 0.1); /* Light pink blob */
+            border-radius: 50%;
+            filter: blur(50px);
+            z-index: 0;
+        }
+
+        .main-about-section::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            right: -50px;
+            width: 250px;
+            height: 250px;
+            background-color: rgba(var(--dark-pink), 0.15); /* Darker pink blob */
+            border-radius: 50%;
+            filter: blur(60px);
+            z-index: 0;
+        }
+
+        .main-about-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative; /* Ensure content is above pseudo-elements */
+            z-index: 1;
+        }
+
+        .main-about-content h2 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--primary-pink);
+            margin-bottom: 25px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .main-about-content h2::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -10px;
+            width: 80px;
+            height: 4px;
+            background-color: var(--dark-pink);
+            border-radius: 2px;
+        }
+
+        .main-about-content p {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: var(--text-dark);
+            margin-bottom: 30px;
+        }
+
+        .main-about-image {
+            width: 100%;
+            max-width: 600px;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .main-about-section {
+                padding: 60px 3%;
+            }
+            .main-about-content h2 {
+                font-size: 2.2rem;
+            }
+            .main-about-content p {
+                font-size: 1rem;
+            }
+            .main-about-image {
+                height: 250px;
+            }
+        }
+
+
+        .sessions-container { /* This section seems unused or misnamed based on previous context, keeping for now */
+            flex: 1.5;
+            min-width: 300px;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            padding: 40px;
+            background-color: var(--light-pink);
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            margin: 40px auto; /* Added margin to separate it from new About section */
+        }
+
+        .sessions-container b {
+            font-size: 1.6rem;
+            color: var(--primary-pink);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .sessions-container .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+        }
+
+        .sessions-container .image-grid img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            opacity: 0;
+            transform: scale(0.9);
+        }
+
+        .sessions-container .image-grid img.unveil {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .sessions-container .action-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .sessions-container .action-list li {
+            flex-shrink: 0;
+        }
+
+        .sessions-container .action-list li a {
+            background-color: var(--primary-pink);
+            color: var(--white);
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .sessions-container .action-list li a:hover {
+            background-color: var(--dark-pink);
+            transform: translateY(-2px);
+        }
+
+        /* Upcoming Events Section */
+        .upcoming-events {
+            padding: 80px 5%;
+            background-color: var(--beige);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .upcoming-events > div {
+            background-color: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            padding-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .upcoming-events > div.slide-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .upcoming-events > div img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            filter: blur(4px);
+            border-radius: 15px 15px 0 0;
+            transition: filter 0.3s ease;
+        }
+
+        .upcoming-events > div:hover img {
+            filter: blur(0);
+        }
+
+        .upcoming-events > div b {
+            display: block;
+            font-size: 1.25rem;
+            color: var(--text-dark);
+            margin: 20px 20px 15px;
+            line-height: 1.5;
+        }
+
+        .upcoming-events > div .btn-register-now {
+            background-color: var(--primary-pink);
+            color: var(--white);
+            border: none;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .upcoming-events > div .btn-register-now:hover {
+            background-color: var(--dark-pink);
+        }
+
+        /* Footer */
+        .site-footer {
+            background-color: var(--dark-pink);
+            color: var(--white);
+            padding: 50px 5%;
+            font-size: 0.95rem;
+        }
+
+        .site-footer .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .site-footer .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 20px;
+        }
+
+        .site-footer h4 {
+            color: var(--light-pink);
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--primary-pink);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        .site-footer ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .site-footer ul li {
+            margin-bottom: 10px;
+        }
+
+        .site-footer ul li a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .site-footer ul li a:hover {
+            color: var(--light-pink);
+        }
+
+        .site-footer .social-icons a {
+            color: var(--white);
+            font-size: 1.5rem;
+            margin-right: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .site-footer .social-icons a:hover {
+            color: var(--light-pink);
+        }
+
+        .site-footer .footer-bottom {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="hero-section-container">
+        <nav class="navigation-bar" id="navbar">
+            <a class="nav-brand" href="/wellnessCenter">
+                <img src="https://placehold.co/50x50/FFFFFF/000000?text=Logo" alt="Mind Health Logo" class="nav-logo">
+                <div class="brand-text-container">
+                    <span class="brand-title">Mind<br>Health</span>
+                    <span class="brand-slogan">Minding your mind</span>
+                </div>
+            </a>
+            <button class="hamburger d-block d-lg-none" type="button" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="d-none d-lg-flex"> <!-- Hidden by default on small screens by Bootstrap d-none -->
+                <li><a href="#about-us-main"><i class="fas fa-info-circle"></i>About Us</a></li>
+                <li class="dropdown-hover"> <!-- Added dropdown-hover to Services -->
+                    <a href="#" id="services-link"><i class="fas fa-hand-holding-heart"></i>Services <i class="fas fa-caret-down ml-2"></i></a>
+                    <ul class="dropdown-menu" id="services-dropdown">
+                        <li><a href="#individual-therapy-section"><i class="fas fa-user"></i>Individual Therapy</a></li>
+                        <li><a href="#couple-therapy-section"><i class="fas fa-heart"></i>Couple Therapy</a></li>
+                        <li><a href="#pre-marital-counseling-section"><i class="fas fa-ring"></i>Pre-marital Counseling</a></li>
+                        <li><a href="#marriage-family-therapy-section"><i class="fas fa-home"></i>Marriage & Family Therapy</a></li>
+                        <li><a href="#group-counseling-section"><i class="fas fa-users"></i>Group Counseling</a></li>
+                        <li><a href="#workplace-wellness-section"><i class="fas fa-briefcase"></i>Workplace Wellness</a></li>
+                        <li><a href="#psychometric-testing-section"><i class="fas fa-brain"></i>Psychometric Testing</a></li>
+                        <li><a href="#psychological-assessments-section"><i class="fas fa-clipboard-list"></i>Psychological Assessments</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown-hover">
+                    <a href="#" id="sessions-link"><i class="fas fa-calendar-check"></i>Sessions <i class="fas fa-caret-down ml-2"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-updated" id="sessions-dropdown">
+                        <li><a href=""><i class="fas fa-calendar-plus"></i>Book Session</a></li>
+                        <li><a href="#upcoming-events"><i class="fas fa-calendar-alt"></i>Upcoming Events</a></li>
+                    </ul>
+                </li>
+                <li><a href=""><i class="fas fa-user-plus"></i>Create Account</a></li>
+                <li><a href="">Login</a></li>
+            </ul>
+        </nav>
+
+        <div class="navigation-board">
+            <div id="heroCarousel" class="carousel slide" data-ride="carousel" data-interval="5000">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="{% static 'images/drLydiah1.jpg' %}" alt="Engaging therapeutic sessions">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{% static 'images/drLydiah3.jpg' %}" alt="People jumping happily as they engage in multiple, calming activities">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://placehold.co/1920x1080/FEE7ED/000000?text=Therapy+Sessions" alt="We also offer online sessions for personal remote clients">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://placehold.co/1920x1080/FC9DAC/FFFFFF?text=Capacity+Building" alt="Diverse group of women laughing and engaging, vibrant and full of life.">
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#heroCarousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#heroCarousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+                <div class="overlay"></div>
+
+                <div class="fixed-carousel-content">
+                    <h1 class="animate__animated animate__fadeInDown">Mind Health Consultancy by Dr Lydia N.</h1>
+                    <p class="animate__animated animate__fadeInUp animate__delay-1s hero-welcome-text">
+                        Step into a space where healing begins and growth blossoms. Discover your path to peace, resilience, and a more fulfilling life.
+                    </p>
+                    <div class="cta-buttons animate__animated animate__fadeInUp animate__delay-2s">
+                        <a href="#our-services-section" class="btn btn-cta">Explore Our Services <i class="fas fa-arrow-right ml-2"></i></a>
+                        <a href="" class="btn btn-cta">Book a Session <i class="fas fa-calendar-alt ml-2"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Us Section (formerly Therapeutic Insights Section) -->
+    <section class="about-us-section" id="about-us">
+        <h2>Our Core Principles at Mind Health Consultancy</h2>
+        <div class="insights-container-wrapper">
+            <div class="insight-row">
+                <div class="insight-circle">
+                    <div class="number">1</div>
+                    <div class="word">Empathy</div>
+                </div>
+                <div class="insight-description">
+                    <p>We deeply understand your journey, offering a compassionate space where your feelings are truly heard and valued.</p>
+                </div>
+            </div>
+            <div class="insight-row">
+                <div class="insight-circle">
+                    <div class="number">2</div>
+                    <div class="word">Guidance</div>
+                </div>
+                <div class="insight-description">
+                    <p>Our expert guidance illuminates your path, providing clear direction and support as you navigate life's challenges.</p>
+                </div>
+            </div>
+            <div class="insight-row">
+                <div class="insight-circle">
+                    <div class="number">3</div>
+                    <div class="word">Healing</div>
+                </div>
+                <div class="insight-description">
+                    <p>We foster an environment where deep healing can begin, helping you mend past wounds and build resilience.</p>
+                </div>
+            </div>
+            <div class="insight-row">
+                <div class="insight-circle">
+                    <div class="number">4</div>
+                    <div class="word">Growth</div>
+                </div>
+                <div class="insight-description">
+                    <p>Witness profound personal growth as you discover new strengths and embrace positive changes in your life.</p>
+                </div>
+            </div>
+            <div class="insight-row">
+                <div class="insight-circle">
+                    <div class="number">5</div>
+                    <div class="word">Peace</div>
+                </div>
+                <div class="insight-description">
+                    <p>Find inner tranquility and calm, as we help you quiet the noise and connect with your true self.</p>
+                </div>
+            </div>
+            <div class="insight-row">
+                <div class="insight-circle">
+                    <div class="number">6</div>
+                    <div class="word">Strength</div>
+                </div>
+                <div class="insight-description">
+                    <p>Unlock your inherent power and build unshakeable confidence to face any obstacle with courage.</p>
+                </div>
+            </div>
+            <div class="insight-row">
+                <div class="insight-circle">
+                    <div class="number">7</div>
+                    <div class="word">Community</div>
+                </div>
+                <div class="insight-description">
+                    <p>Connect with a supportive network, fostering a sense of belonging and shared understanding.</p>
+                </div>
+            </div>
+            <div class="insight-row">
+                <div class="insight-circle">
+                    <div class="number">8</div>
+                    <div class="word">Empowerment</div>
+                </div>
+                <div class="insight-description">
+                    <p>Step into your full potential, empowered to lead a fulfilling life on your own terms.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Therapeutic Background Layers -->
+        <div class="therapeutic-background-layer" id="bg-layer-0"></div>
+        <div class="therapeutic-background-layer" id="bg-layer-1"></div>
+        <div class="therapeutic-background-layer" id="bg-layer-2"></div>
+        <div class="therapeutic-background-layer" id="bg-layer-3"></div>
+    </section>
+
+    <!-- Our Services Section (formerly events-display) -->
+    <div class="our-services-section" id="our-services-section">
+        <h2 class="col-12 text-center" style="color: var(--text-dark); margin-bottom: 40px; font-weight: 700;">Our Services</h2>
+        <div class="image-container" id="individual-therapy-section">
+            <img src="https://placehold.co/600x400/000000/FFFFFF?text=Individual+Therapy" alt="A woman in a therapy session, receiving one-on-one support.">
+            <b>Individual Therapy: Personalized support for your unique journey.</b>
+            <a href="individual.html" class="btn-view-details">Learn More</a>
+        </div>
+        <div class="image-container" id="couple-therapy-section">
+            <img src="https://placehold.co/600x400/000000/FFFFFF?text=Couple+Therapy" alt="A couple in a therapy session.">
+            <b>Couple Therapy: Strengthening bonds and improving communication.</b>
+            <a href="couples.html" class="btn-view-details">Learn More</a>
+        </div>
+        <div class="image-container" id="pre-marital-counseling-section">
+            <img src="{% static 'images/Couple.png' %}" alt="A couple discussing pre-marital topics.">
+            <b>Pre-marital Counseling: Building a strong foundation for your future together.</b>
+            <a href="pre-marital.html" class="btn-view-details">Learn More</a>
+        </div>
+        <div class="image-container" id="marriage-family-therapy-section">
+            <img src="{% static 'images/Fam.png' %}" alt="A family in a therapy session.">
+            <b>Marriage & Family Therapy: Nurturing healthy family dynamics.</b>
+            <a href="marriageTherapy.html" class="btn-view-details">Learn More</a>
+        </div>
+        <div class="image-container" id="group-counseling-section">
+            <img src="{% static 'images/youngLights.jpg' %}" alt="A group of people in a counseling session.">
+            <b>Group Counseling: Connect and grow in a supportive community.</b>
+            <a href="groupCouncelling.html" class="btn-view-details">Learn More</a>
+        </div>
+        <div class="image-container" id="workplace-wellness-section">
+            <img src="https://placehold.co/600x400/000000/FFFFFF?text=Workplace+Wellness" alt="Professionals in a corporate wellness workshop.">
+            <b>Workplace Wellness: Enhancing mental health in professional environments.</b>
+            <a href="workplaceWellness.html" class="btn-view-details">Learn More</a>
+        </div>
+        <div class="image-container" id="psychometric-testing-section">
+            <img src="https://placehold.co/600x400/000000/FFFFFF?text=Psychometric+Testing" alt="A person taking a psychometric test.">
+            <b>Psychometric Testing: Gaining insights into personality and abilities.</b>
+            <a href="" class="btn-view-details">Learn More</a>
+        </div>
+        <div class="image-container" id="psychological-assessments-section">
+            <img src="https://placehold.co/600x400/000000/FFFFFF?text=Psychological+Assessments" alt="A psychologist conducting an assessment.">
+            <b>Psychological Assessments & Screening: Comprehensive evaluations for clarity.</b>
+            <a href="" class="btn-view-details">Learn More</a>
+        </div>
+    </div>
+
+    <!-- Main About Section (formerly about-us-section-new) -->
+    <div class="main-about-section" id="about-us-main">
+        <div class="main-about-content">
+            <h2>About Dr Lydia N.</h2>
+            <p>At Mind Health Consultancy, led by Dr. Lydia N., we believe in the transformative power of empathy and professional guidance. We walk with you through the darkest valleys, illuminating your path from moments of utter depression towards renewed hope, profound peace, and vibrant happiness. Your unique journey of healing and self-discovery is honored here, as we empower you to reclaim your strength and embrace a brighter tomorrow. Our diverse services are tailored to meet your individual needs, fostering growth, healing, and empowered living. Explore how we can support you.</p>
+        </div>
+        <img src="https://placehold.co/800x450/FC9DAC/000000?text=Dr+Lydia+Ngunjiri" alt="A serene image symbolizing healing and growth" class="main-about-image">
+    </div>
+
+    <div class="upcoming-events" id="upcoming-events">
+        <div>
+            <img src="https://placehold.co/600x400/E07B91/FFFFFF?text=Women's+Workshop" alt="Women's Empowerment Workshop">
+            <b>Join our transformative "Embrace Your Inner Strength" workshop, designed to empower women with resilience and self-discovery.</b>
+            <a href="" class="btn-register-now">Register Now</a>
+        </div>
+        <div>
+            <img src="https://placehold.co/600x400/E07B91/FFFFFF?text=Stress+Management" alt="Stress Management Seminar">
+            <b>Learn effective techniques to navigate daily pressures in our "Mindful Living: Stress Management" seminar.</b>
+            <a href="" class="btn-register-now">Register Now</a>
+        </div>
+        <div>
+            <img src="https://placehold.co/600x400/FC9DAC/000000?text=Parenting+Group" alt="Parenting Support Group">
+            <b>Find support and strategies in our "Nurturing Families: Parenting with Purpose" group.</b>
+            <a href="" class="btn-register-now">Register Now</a>
+        </div>
+        <div>
+            <img src="https://placehold.co/600x400/FC9DAC/000000?text=Anxiety+Relief" alt="Anxiety Relief Workshop">
+            <b>Discover peace and coping mechanisms in our "Calm Your Mind: Anxiety Relief" workshop.</b>
+            <a href="" class="btn-register-now">Register Now</a>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-section about">
+                <h4>About Mind Health Consultancy</h4>
+                <p>Mind Health Consultancy is dedicated to providing compassionate mental health support for individuals, organizations, and communities, with a focus on empowering women.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-section links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#about-us-main">About Us</a></li>
+                    <li><a href="#our-services-section">Services</a></li>
+                    <li><a href="#upcoming-events">Events</a></li>
+                    <li><a href="">Book a Session</a></li>
+                    <li><a href="">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-section contact">
+                <h4>Contact Us</h4>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Wellness Way, Nairobi, Kenya</p>
+                <p><i class="fas fa-phone-alt"></i> +254 7XX XXX XXX</p>
+                <p><i class="fas fa-envelope"></i> info@mindhealthconsultancy.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; <span id="current-year"></span> Mind Health Consultancy. All rights reserved. | <a href="" style="color: var(--light-pink);">Privacy Policy</a> | <a href="" style="color: var(--light-pink);">Terms of Service</a>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Get current year for footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // --- Navbar Scroll Effect ---
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            const scrollThreshold = 200; // Scrolls 200px down before changing
+
+            // Console logs for debugging the scroll effect
+            console.log('ScrollY:', window.scrollY);
+            console.log('Scrolled class active:', navbar.classList.contains('scrolled'));
+
+            if (window.scrollY > scrollThreshold) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // --- Dropdown menu on hover (for larger screens) ---
+        // Get specific dropdown elements
+        const servicesDropdownParent = document.querySelector('li.dropdown-hover:has(#services-link)');
+        const sessionsDropdownParent = document.querySelector('li.dropdown-hover:has(#sessions-link)');
+
+        if (servicesDropdownParent) {
+            servicesDropdownParent.addEventListener('mouseenter', () => {
+                if (window.innerWidth >= 992) {
+                    servicesDropdownParent.classList.add('show-dropdown');
+                }
+            });
+            servicesDropdownParent.addEventListener('mouseleave', () => {
+                if (window.innerWidth >= 992) {
+                    servicesDropdownParent.classList.remove('show-dropdown');
+                }
+            });
+        }
+
+        if (sessionsDropdownParent) {
+            sessionsDropdownParent.addEventListener('mouseenter', () => {
+                if (window.innerWidth >= 992) {
+                    sessionsDropdownParent.classList.add('show-dropdown');
+                }
+            });
+            sessionsDropdownParent.addEventListener('mouseleave', () => {
+                if (window.innerWidth >= 992) {
+                    sessionsDropdownParent.classList.remove('show-dropdown');
+                }
+            });
+        }
+
+        // --- Hamburger menu toggle for smaller screens ---
+        document.querySelector('.hamburger').addEventListener('click', function() {
+            const navUl = document.querySelector('.navigation-bar ul');
+            navUl.classList.toggle('show');
+            if (navUl.classList.contains('show')) {
+                document.body.style.overflow = 'hidden'; // Prevent scrolling when mobile menu is open
+            } else {
+                document.body.style.overflow = ''; // Re-enable scrolling
+            }
+        });
+
+        // --- Close hamburger menu if screen resized to large while open ---
+        window.addEventListener('resize', function() {
+            const navUl = document.querySelector('.navigation-bar ul');
+            if (window.innerWidth >= 992) {
+                navUl.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // --- Handle dropdown clicks for mobile menu (for parent toggles like "Services") ---
+        document.querySelectorAll('.navigation-bar ul li.dropdown-hover > a').forEach(dropdownToggle => {
+            dropdownToggle.addEventListener('click', function(e) {
+                // Ensure this only applies to mobile and to dropdown toggles (href="#")
+                if (window.innerWidth < 992 && this.getAttribute('href') === '#') {
+                    e.preventDefault(); // Prevent the default # jump
+                    const parentLi = this.closest('li.dropdown-hover');
+                    if (parentLi) {
+                        parentLi.classList.toggle('show-dropdown');
+                        // Ensure sub-menu links are clickable when the dropdown is open
+                        const dropdownMenu = parentLi.querySelector('.dropdown-menu');
+                        if (dropdownMenu) {
+                            if (parentLi.classList.contains('show-dropdown')) {
+                                dropdownMenu.style.pointerEvents = 'all';
+                            } else {
+                                dropdownMenu.style.pointerEvents = 'none';
+                            }
+                        }
+                    }
+                }
+            });
+        });
+
+        // --- Aesthetic Loading for sections (Intersection Observer) ---
+        const fadeInElements = document.querySelectorAll('.our-services-section .image-container');
+        const slideInElements = document.querySelectorAll('.upcoming-events > div');
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.2
+        };
+
+        const observerCallback = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (entry.target.classList.contains('image-container')) {
+                        entry.target.classList.add('fade-in');
+                    } else if (entry.target.closest('.upcoming-events')) {
+                        entry.target.classList.add('slide-in');
+                    }
+                    observer.unobserve(entry.target);
+                }
+            });
+        };
+
+        const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+        fadeInElements.forEach(el => observer.observe(el));
+        slideInElements.forEach(el => observer.observe(el));
+
+        // --- Therapeutic Backgrounds (Placeholder) ---
+        const therapeuticBackgrounds = [
+            "{% static 'images/sitin.png' %}",
+            "{% static 'images/Couple.png' %}",
+            "{% static 'images/pinkTerritory1.png' %}",
+            "{% static 'images/pinkTerritory.png' %}"
+        ];
+        let currentBgIndex = 0;
+        const bgLayers = document.querySelectorAll('.therapeutic-background-layer');
+
+        function updateTherapeuticBackground() {
+            const nextBgIndex = (currentBgIndex + 1) % therapeuticBackgrounds.length;
+            const currentLayer = bgLayers[currentBgIndex % bgLayers.length];
+            const nextLayer = bgLayers[nextBgIndex % bgLayers.length];
+
+            // Set the next background
+            const nextBg = therapeuticBackgrounds[nextBgIndex];
+            nextLayer.style.backgroundImage = `url('${nextBg}')`;
+            nextLayer.innerHTML = ''; // Clear video if present
+
+
+            // Fade out current, fade in next
+            currentLayer.classList.remove('active');
+            nextLayer.classList.add('active');
+
+            currentBgIndex = nextBgIndex;
+        }
+
+        // Initial background set
+        if (therapeuticBackgrounds.length > 0) {
+            const initialBg = therapeuticBackgrounds[0];
+            bgLayers[0].style.backgroundImage = `url('${initialBg}')`;
+            bgLayers[0].classList.add('active');
+            setInterval(updateTherapeuticBackground, 10000); // Change every 10 seconds
+        }
+
+        // --- Smooth scrolling for specific anchor links ---
+        function smoothScrollTo(targetId) {
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                // Close mobile menu if open
+                const navUl = document.querySelector('.navigation-bar ul');
+                if (navUl.classList.contains('show')) {
+                    navUl.classList.remove('show');
+                    document.body.style.overflow = '';
+                }
+
+                // Scroll to the element, adjusting for fixed navbar height
+                const navbarHeight = document.getElementById('navbar').offsetHeight;
+                console.log('Target Element Offset Top:', targetElement.offsetTop);
+                console.log('Navbar Height:', navbarHeight);
+                console.log('Scroll To Position:', targetElement.offsetTop - navbarHeight);
+                window.scrollTo({
+                    top: targetElement.offsetTop,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // Direct reference for "About Us" link
+        const aboutUsLink = document.querySelector('a[href="#about-us-main"]');
+        if (aboutUsLink) {
+            aboutUsLink.addEventListener('click', function(e) {
+                e.preventDefault(); // Prevent default jump
+                smoothScrollTo('#about-us-main');
+            });
+        }
+
+        // Direct reference for "Upcoming Events" link
+        const upcomingEventsLink = document.querySelector('a[href="#upcoming-events"]');
+        if (upcomingEventsLink) {
+            upcomingEventsLink.addEventListener('click', function(e) {
+                e.preventDefault(); // Prevent default jump
+                smoothScrollTo('#upcoming-events');
+            });
+        }
+
+        // --- General click listener for the mobile navigation list to close it when any non-dropdown-toggle link is clicked ---
+        document.querySelector('.navigation-bar ul').addEventListener('click', function(e) {
+            // Check if the clicked element is an anchor tag AND it's not a dropdown toggle (href="#")
+            // This now excludes the specific #about-us-main and #upcoming-events links which are handled above.
+            if (e.target.tagName === 'A' && e.target.getAttribute('href') !== '#' &&
+                e.target.getAttribute('href') !== '#about-us-main' &&
+                e.target.getAttribute('href') !== '#upcoming-events') {
+                const navUl = document.querySelector('.navigation-bar ul');
+                if (navUl.classList.contains('show')) {
+                    navUl.classList.remove('show');
+                    document.body.style.overflow = '';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

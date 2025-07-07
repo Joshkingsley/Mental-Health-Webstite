@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Marriage & Family Therapy with Dr. Lydia, strengthening family bonds and healing relationships.">
+    <title>Marriage & Family Therapy - Mental Health by Dr Lydia</title>
+    <!-- Bootstrap CSS for responsive grid and components -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Define CSS Variables for consistent theming */
+        :root {
+            --primary-pink: #FC9DAC; /* A soft, feminine pink */
+            --light-pink: #FEE7ED;
+            --dark-pink: #E07B91;
+            --text-dark: #000000; /* Pure black */
+            --text-light: #FFFFFF; /* Pure white */
+            --white: #FFFFFF;
+            --black: #000000;
+        }
+
+        /* Base body styles */
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--light-pink); /* Light pink background for the page */
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            padding-top: 80px; /* Added padding to push content below the fixed navbar */
+        }
+
+        /* Navigation Bar Styling */
+        .navbar {
+            background-color: var(--primary-pink);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 15px 5%; /* Adjust padding for better spacing */
+            position: fixed; /* Fixes the navbar at the top */
+            z-index: 1000; /* Ensures it stays on top of other content */
+            width: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .navbar-brand {
+            color: var(--white) !important;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .navbar-nav .nav-link {
+            color: var(--white) !important;
+            font-size: 1.1rem;
+            margin-left: 20px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--dark-pink) !important; /* Darker pink on hover */
+        }
+
+        /* Ensures the Bootstrap navbar-toggler-icon is visible */
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255, 255, 255, 1%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+        }
+
+        /* Page Header Styling for Marriage & Family Therapy */
+        .page-header-family {
+            /* Using a placeholder image for family therapy with a white overlay */
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.4)), url('https://placehold.co/1200x400/FEE7ED/E07B91?text=Family+Therapy+Background');
+            background-size: cover;
+            background-position: center center; /* Center the image */
+            background-repeat: no-repeat;
+            color: var(--text-dark); /* Changed to dark text for better contrast with white overlay */
+            padding: 80px 5%; /* Increased padding for visual impact */
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 100;
+            min-height: 300px; /* Ensure enough height for the background image */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .page-header-family h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--primary-pink); /* Use primary pink for heading */
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.2); /* Stronger text shadow */
+        }
+
+        .page-header-family p {
+            font-size: 1.3rem;
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.6;
+            color: var(--text-dark); /* Ensure readability */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        /* Main content section for full-width areas */
+        .main-content-full-width {
+            padding: 40px 0; /* Padding top/bottom, no horizontal padding here */
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0; /* No gap between full-width sections */
+        }
+
+        /* Styling for full-width sections */
+        .full-width-section {
+            background-color: var(--white);
+            padding: 60px 5%; /* Padding within the section, 5% on sides */
+            margin-bottom: 40px; /* Space between sections */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+            text-align: left;
+            border-radius: 0; /* No rounded corners for full width */
+        }
+
+        .full-width-section:nth-child(even) {
+            background-color: var(--light-pink); /* Alternate background for readability */
+        }
+
+        .full-width-section h2 {
+            color: var(--primary-pink);
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .full-width-section h2::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 0;
+            width: 100px;
+            height: 4px;
+            background-color: var(--dark-pink);
+            border-radius: 2px;
+        }
+
+        .full-width-section h3 {
+            color: var(--dark-pink);
+            font-size: 1.8rem;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        .full-width-section p,
+        .full-width-section ul,
+        .full-width-section ol {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-dark);
+            max-width: 900px; /* Limit text width for readability */
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 20px;
+        }
+
+        .full-width-section ul,
+        .full-width-section ol {
+            list-style-position: outside; /* Ensure bullets/numbers are outside */
+            padding-left: 25px; /* Add padding for list items */
+        }
+
+        .full-width-section ul li,
+        .full-width-section ol li {
+            margin-bottom: 10px;
+        }
+
+        /* Specific styling for numbered lists (How Dr Lydia Guides You, What to Expect) */
+        .full-width-section ol.numbered-steps {
+            counter-reset: therapy-step;
+            list-style: none; /* Remove default numbering */
+            padding-left: 0;
+            display: grid; /* Use grid for better layout of steps */
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive columns */
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .full-width-section ol.numbered-steps li {
+            position: relative;
+            padding: 20px;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            text-align: left;
+            padding-left: 60px; /* Space for custom number */
+            transition: transform 0.2s ease;
+        }
+
+        .full-width-section ol.numbered-steps li:hover {
+            transform: translateY(-5px);
+        }
+
+        .full-width-section ol.numbered-steps li::before {
+            counter-increment: therapy-step;
+            content: counter(therapy-step);
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            background-color: var(--dark-pink); /* Darker pink for numbers */
+            color: var(--white);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .full-width-section ol.numbered-steps li strong {
+            display: block;
+            font-size: 1.2rem;
+            color: var(--primary-pink);
+            margin-bottom: 5px;
+        }
+
+        /* FAQ Section Specifics */
+        .faq-item {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed var(--dark-pink); /* Darker dashed line */
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .faq-item strong {
+            color: var(--dark-pink);
+            font-size: 1.15rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .faq-item p {
+            margin-left: 20px; /* Indent answers slightly */
+            font-size: 1.05rem;
+            color: var(--text-dark);
+        }
+
+        /* CTA Section */
+        .cta-section-family {
+            text-align: center;
+            padding: 60px 5%;
+            background-color: var(--primary-pink); /* Primary pink background */
+            color: var(--white);
+            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .cta-section-family h2 {
+            color: var(--white); /* White heading */
+            font-size: 2.8rem;
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .cta-section-family p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .cta-section-family .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap; /* Allow buttons to wrap on small screens */
+        }
+
+        .cta-section-family .btn-cta {
+            background-color: var(--white); /* White button background */
+            color: var(--primary-pink); /* Pink text */
+            border: 2px solid var(--white);
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-section-family .btn-cta:hover {
+            background-color: var(--dark-pink); /* Darker pink on hover */
+            color: var(--white);
+            border-color: var(--dark-pink);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Footer */
+        .site-footer {
+            background-color: var(--dark-pink);
+            color: var(--white);
+            padding: 30px 5%;
+            font-size: 0.9rem;
+            text-align: center;
+            margin-top: 0; /* No margin-top as sections handle spacing */
+        }
+
+        .site-footer a {
+            color: var(--light-pink);
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .site-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .page-header-family h1 {
+                font-size: 2.5rem;
+            }
+            .page-header-family p {
+                font-size: 1rem;
+            }
+            .full-width-section h2 {
+                font-size: 2rem;
+            }
+            .full-width-section p,
+            .full-width-section ul,
+            .full-width-section ol {
+                font-size: 1rem;
+            }
+            .full-width-section ol.numbered-steps {
+                grid-template-columns: 1fr; /* Single column on small screens */
+            }
+            .cta-section-family h2 {
+                font-size: 2rem;
+            }
+            .cta-section-family .btn-cta {
+                font-size: 1rem;
+                padding: 12px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="#">Mental Health by Dr Lydia</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Services <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About Dr Lydia</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header for Marriage & Family Therapy -->
+    <header class="page-header-family">
+        <h1>Marriage & Family Therapy with Dr Lydia N.</h1>
+        <p>Step into a supportive environment where relationships heal, family bonds strengthen, and each member’s voice is honored. Dr Lydia N. integrates systemic insights with compassionate guidance to help families navigate challenges and thrive together.</p>
+    </header>
+
+    <!-- Main content area for full-width sections -->
+    <main class="main-content-full-width">
+
+        <!-- Who Benefits Section -->
+        <section class="full-width-section">
+            <h2>Who Benefits</h2>
+            <p>Families and married couples facing:</p>
+            <ul>
+                <li>Communication breakdowns and persistent conflicts</li>
+                <li>Parenting challenges and differing child-rearing philosophies</li>
+                <li>Adjusting to life transitions (blended families, relocation, loss)</li>
+                <li>Intergenerational tension or unresolved family patterns</li>
+                <li>Marital strain impacting the wider family system</li>
+                <li>Desire to foster resilience, empathy, and unity</li>
+            </ul>
+        </section>
+
+        <!-- How Dr Lydia Guides You Section -->
+        <section class="full-width-section">
+            <h2>How Dr Lydia Guides You</h2>
+            <p>Dr Lydia’s holistic, family-centered approach ensures every member feels heard, respected, and empowered:</p>
+            <ol class="numbered-steps">
+                <li>
+                    <strong>Family Systems Assessment</strong>
+                    Each family member shares perspectives through structured interviews and genogram mapping to reveal interaction patterns and strengths.
+                </li>
+                <li>
+                    <strong>Collaborative Goal-Setting</strong>
+                    Together, you define clear objectives—improving communication circles, aligning parenting approaches, or healing past hurts.
+                </li>
+                <li>
+                    <strong>Tailored Intervention Plan</strong>
+                    Sessions draw on Structural Family Therapy, Bowenian techniques, and narrative therapy to address roles, boundaries, and family stories.
+                </li>
+                <li>
+                    <strong>Skill Development & Modeling</strong>
+                    Dr Lydia leads exercises in active listening, boundary-setting, and problem-solving, demonstrating tools that family members practice between sessions.
+                </li>
+                <li>
+                    <strong>Ongoing Review & Adaptation</strong>
+                    Regular check-ins measure progress, celebrate changes, and adjust strategies to keep therapy aligned with your evolving family dynamics.
+                </li>
+            </ol>
+        </section>
+
+        <!-- What to Expect in a Session Section -->
+        <section class="full-width-section">
+            <h2>What to Expect in a Session</h2>
+            <p>Each 75-minute session follows a consistent framework to optimize engagement and growth:</p>
+            <ol class="numbered-steps">
+                <li>
+                    <strong>Opening Roundtable (15 minutes):</strong>
+                    Each member briefly shares wins or challenges since the last session.
+                </li>
+                <li>
+                    <strong>Focused Exploration (30 minutes):</strong>
+                    Deep dive into the chosen topic—communication patterns, role conflicts, or emotional triggers.
+                </li>
+                <li>
+                    <strong>Interactive Exercises (25 minutes):</strong>
+                    Guided activities like role swaps, boundary-setting drills, or collaborative problem maps.
+                </li>
+                <li>
+                    <strong>Action Steps & Reflection (5 minutes):</strong>
+                    Assign personalized tasks—weekly family check-ins, emotion journals, or a shared ritual.
+                </li>
+            </ol>
+        </section>
+
+        <!-- Core Focus Areas Section -->
+        <section class="full-width-section">
+            <h2>Core Focus Areas</h2>
+            <ul>
+                <li><strong>Communication cycles and repair strategies</strong></li>
+                <li><strong>Parenting alignment, co-parenting in blended families</strong></li>
+                <li><strong>Establishing healthy boundaries and roles</strong></li>
+                <li><strong>Resolving intergenerational conflicts and family legacies</strong></li>
+                <li><strong>Navigating grief, loss, and major life transitions</strong></li>
+                <li><strong>Strengthening couple relationships within the family system</strong></li>
+            </ul>
+        </section>
+
+        <!-- Frequently Asked Questions Section -->
+        <section class="full-width-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <strong>How many sessions are typical?</strong>
+                <p>Most families see meaningful shifts in 10–14 sessions, though plans adapt to your pace.</p>
+            </div>
+            <div class="faq-item">
+                <strong>Can we include children or teens?</strong>
+                <p>Yes—Dr Lydia tailors activities to each age group’s developmental needs.</p>
+            </div>
+            <div class="faq-item">
+                <strong>Do you offer virtual family sessions?</strong>
+                <p>Secure video conferencing makes it easy to connect from anywhere.</p>
+            </div>
+            <div class="faq-item">
+                <strong>What if one member resists therapy?</strong>
+                <p>Dr Lydia uses engagement strategies to foster safety and willingness for all participants.</p>
+            </div>
+        </section>
+
+        <!-- Call to Action Section -->
+        <section class="cta-section-family">
+            <h2>Ready to Nurture Healthier Family Dynamics and Lasting Harmony?</h2>
+            <p>Schedule a complimentary 15-minute consultation to explore your needs and how Dr Lydia’s marriage and family therapy can guide you toward unity and growth.</p>
+            <div class="cta-buttons">
+                <a href="#" class="btn-cta">Book Your Consultation</a>
+                <a href="#" class="btn-cta">Contact Us</a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Site Footer -->
+    <footer class="site-footer">
+        &copy; <span id="current-year-footer"></span> Mental Health by Dr Lydia. All rights reserved. |
+        <a href="">Privacy Policy</a> |
+        <a href="">Terms of Service</a>
+    </footer>
+
+    <!-- Bootstrap and jQuery JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Dynamically set the current year in the footer
+        document.getElementById('current-year-footer').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

@@ -1,0 +1,685 @@
+:root {
+    --primary-pink: #FC9DAC; /* A soft, feminine pink */
+    --light-pink: #FEE7ED;
+    --dark-pink: #E07B91;
+    --text-dark: #000000; /* Changed to pure black */
+    --text-light: #FFFFFF; /* Ensures pure white */
+    --beige: #FFFFFF; /* Changed to white */
+    --white: #FFFFFF;
+    --black: #000000;
+}
+
+/* Ensure HTML and Body use full height for vh units to work properly */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Prevent horizontal scroll when mobile nav is off-screen */
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    color: var(--text-dark);
+}
+
+/* --- New Unified Hero Section Container --- */
+.hero-section-container {
+    position: relative; /* Crucial for absolute positioning of children */
+    width: 100%;
+    height: 100vh; /* Default full height for large screens */
+    overflow: hidden; /* Contains carousel and fixed content */
+}
+
+/* Media query for small screens - Unified container height adjustment */
+@media (max-width: 768px) {
+    .hero-section-container {
+        height: 75vh; /* 3/4 (75%) of the viewport height on small screens */
+    }
+}
+/* --- End New Unified Hero Section Container --- */
+
+
+/* Navigation Bar (now absolute within .hero-section-container) */
+.navigation-bar {
+    position: absolute; /* Changed from fixed to absolute */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Ensure it's on top */
+    background-color: transparent; /* Transparent initially */
+    padding: 15px 20px;
+    transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* The scrolled state will now apply when the user scrolls past the *hero-section-container* */
+.navigation-bar.scrolled {
+    position: fixed; /* Becomes fixed when scrolled */
+    background-color: var(--white);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navigation-bar .nav-brand {
+    color: var(--light-pink); /* Matches fixed-carousel-content color */
+    font-size: 2rem;
+    font-weight: 800;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    z-index: 1001; /* Ensure brand is always on top */
+}
+
+.navigation-bar.scrolled .nav-brand {
+    color: var(--primary-pink); /* Changes color on scroll */
+}
+
+.navigation-bar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex; /* Default flex for large screens */
+    align-items: center;
+    width: auto;
+    flex-grow: 1;
+    justify-content: flex-end; /* Push links to the right */
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+.navigation-bar ul li {
+    position: relative;
+    margin-left: 30px;
+}
+
+.navigation-bar ul li a {
+    color: var(--text-light); /* Matches fixed-carousel-content color */
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.05rem;
+    padding: 5px 0;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.navigation-bar.scrolled ul li a {
+    color: var(--text-dark); /* Changes color on scroll */
+}
+
+.navigation-bar ul li a:hover {
+    color: var(--primary-pink);
+}
+
+.navigation-bar ul li i {
+    margin-right: 8px;
+    font-size: 1.1rem;
+}
+
+/* Dropdown Menu for large screens (hover) */
+.navigation-bar ul li ul.dropdown-menu { /* Added .dropdown-menu for specificity */
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--white);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    min-width: 200px;
+    border-radius: 8px;
+    padding: 10px 0;
+    flex-direction: column;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+
+
+.navigation-bar ul li.show-dropdown ul.dropdown-menu { /* Added .dropdown-menu for specificity */
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Hamburger button styling (visible only on small screens) */
+.navigation-bar .hamburger {
+    display: none; /* Hidden by default */
+    font-size: 1.8rem;
+    cursor: pointer;
+    z-index: 1001; /* Above mobile menu */
+    color: transparent; /* Makes the fill transparent */
+    -webkit-text-stroke: 1px; /* Thicker lines for visibility, just stroke width */
+    /* Override colors set by scrolled state for initial transparent nav */
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+/* Ensure hamburger lines are visible on scrolled white background */
+.navigation-bar.scrolled .hamburger {
+    -webkit-text-stroke-color: var(--black); /* Black lines on white background */
+}
+/* Default for non-scrolled transparent background - white lines */
+.navigation-bar:not(.scrolled) .hamburger {
+    -webkit-text-stroke-color: var(--text-light); /* White lines on dark carousel background */
+}
+
+
+@media (max-width: 992px) { /* This breakpoint handles the mobile navigation */
+    .navigation-bar {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
+    .navigation-bar ul {
+        display: none; /* Hide default nav items initially for mobile */
+        flex-direction: column; /* Stack vertically when shown */
+        position: fixed; /* Fixed position for the slide-in menu */
+        top: 0;
+        right: -280px; /* Hidden off-screen to the right (width of menu) */
+        height: 100%; /* Full height */
+        width: 280px; /* Width of the slide-in menu */
+        background-color: var(--white); /* White background for the menu */
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2); /* Shadow on the left edge */
+        padding: 60px 20px 20px; /* Padding for content, space for brand/close btn */
+        align-items: flex-start; /* Align items to the left within the menu */
+        opacity: 0; /* Initial state for animation */
+        transition: right 0.3s ease-out, opacity 0.3s ease-out; /* Slide-in transition */
+        pointer-events: none; /* Prevent clicks when hidden */
+        z-index: 999; /* Below hamburger button */
+    }
+
+    .navigation-bar ul.show {
+        right: 0; /* Slide in to view */
+        opacity: 1;
+        pointer-events: all; /* Enable clicks when shown */
+        display: flex !important; /* Force display flex to override Bootstrap's d-none */
+    }
+
+    .navigation-bar ul li {
+        margin: 10px 0; /* Vertical margin for menu items */
+        width: 100%; /* Full width for list items */
+        text-align: left; /* Align text to the left in menu */
+    }
+
+    .navigation-bar ul li a {
+        padding: 12px 0; /* Larger tap area */
+        color: var(--text-dark); /* Dark text for readability on white background */
+    }
+
+    .navigation-bar ul li a:hover {
+        background-color: transparent; /* No background change on hover for mobile links */
+        color: var(--primary-pink); /* Only text color change */
+    }
+
+    .navigation-bar .hamburger {
+        display: block; /* Show hamburger icon */
+    }
+
+    .navigation-bar.scrolled .nav-brand {
+        color: var(--primary-pink); /* Maintain color change on scroll */
+    }
+
+    /* Mobile Dropdown styles - for when a dropdown is opened within the mobile slide-out menu */
+    .navigation-bar ul li ul.dropdown-menu {
+        position: static; /* Stack statically within the mobile menu */
+        background-color: transparent; /* No background for sub-menu within main menu */
+        box-shadow: none; /* No shadow for sub-menu */
+        padding: 0 0 0 20px; /* Indent sub-menu items */
+        min-width: auto;
+        opacity: 1; /* Always visible when parent is "show-dropdown" */
+        transform: translateY(0);
+        transition: none; /* No transition needed as it's static */
+    }
+    .navigation-bar ul li.show-dropdown ul.dropdown-menu {
+        display: flex; /* Show the sub-menu */
+    }
+}
+
+
+/* Navigation Board - Hero Section (Carousel Images) */
+/* Now absolutely positioned to fill the .hero-section-container */
+.navigation-board {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* Fills the parent .hero-section-container */
+    border-radius: 0;
+    overflow: hidden;
+}
+
+.navigation-board .carousel-inner,
+.navigation-board .carousel-item,
+.navigation-board .carousel-item img {
+    width: 100%;
+    height: 100%; /* Fill parent height */
+    object-fit: cover;
+    border-radius: 0;
+}
+
+/* Force carousel images to 75vh on small screens */
+@media (max-width: 768px) {
+    .navigation-board .carousel-inner,
+    .navigation-board .carousel-item,
+    .navigation-board .carousel-item img {
+        height: 95vh !important; /* Force this height directly on images to be 3/4 */
+        object-fit: cover;
+    }
+}
+
+
+.navigation-board .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)); /* Darker overlay for text contrast */
+    z-index: 2;
+}
+
+/* Fixed Content on top of Carousel (Nuru Wellness, Mission, CTAs) */
+.fixed-carousel-content {
+    position: absolute; /* Positioned relative to .navigation-board */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 4; /* Above the overlay */
+    text-align: center;
+    color: var(--text-light); /* Light text color for contrast */
+    padding: 20px;
+    max-width: 900px;
+    width: 90%;
+}
+
+.fixed-carousel-content h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: var(--light-pink); /* Light pink for emphasis */
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8); /* Stronger shadow for readability */
+}
+
+.fixed-carousel-content p {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    max-width: 700px;
+    line-height: 1.6;
+    margin-left: auto;
+    margin-right: auto;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7); /* Stronger shadow */
+}
+
+.fixed-carousel-content .cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.fixed-carousel-content .btn-cta {
+    background-color: var(--primary-pink);
+    color: var(--white);
+    border: none;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Slightly stronger shadow */
+}
+
+.fixed-carousel-content .btn-cta:hover {
+    background-color: var(--dark-pink);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
+}
+
+@media (max-width: 768px) {
+    .fixed-carousel-content h1 {
+        font-size: 2.5rem; /* Adjusted for smaller screens */
+    }
+
+    .fixed-carousel-content p {
+        font-size: 1.1rem; /* Adjusted for smaller screens */
+    }
+}
+
+
+/* Content below the hero section */
+.events-display {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 80px 5%;
+    background-color: var(--light-pink);
+}
+
+.events-display .image-container {
+    background-color: var(--white);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    text-align: center;
+    padding-bottom: 20px;
+    opacity: 0;
+    transform: translateY(50px);
+}
+
+.events-display .image-container.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.events-display .image-container img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-bottom: 1px solid var(--light-pink);
+}
+
+.events-display .image-container b {
+    display: block;
+    padding: 20px;
+    font-size: 1.15rem;
+    color: var(--text-dark);
+    line-height: 1.5;
+    font-weight: 600;
+}
+
+.events-display .image-container .btn-view-details {
+    background-color: var(--primary-pink);
+    color: var(--white);
+    border: none;
+    padding: 10px 25px;
+    border-radius: 30px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.events-display .image-container .btn-view-details:hover {
+    background-color: var(--dark-pink);
+}
+
+/* About Section */
+.about-section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 80px 5%;
+    background-color: var(--white);
+    gap: 40px;
+    justify-content: center;
+}
+
+.about-section .about-statement {
+    flex: 1;
+    min-width: 300px;
+    max-width: 500px;
+    position: relative;
+    /* Reverted background to original gradient */
+    background: linear-gradient(to right, var(--beige), var(--white) 60%, transparent);
+    padding: 40px;
+    border-radius: 15px;
+    display: flex; /* Will be flex-row for large, flex-column for small */
+    align-items: center; /* Center items vertically */
+    justify-content: center; /* Center items horizontally */
+    overflow: hidden;
+    gap: 20px; /* Space between image and text */
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+.about-section .about-statement img {
+    /* Style for the rounded image */
+    width: 180px; /* Fixed size for rounding effect */
+    height: 180px;
+    object-fit: cover;
+    border-radius: 50%; /* Makes it a circle */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Optional shadow */
+    flex-shrink: 0; /* Prevent shrinking */
+    order: 2; /* Image after text by default (flex-row) */
+}
+
+.about-section .about-statement b {
+    font-size: 1.8rem;
+    color: var(--text-dark); /* Changed to black for readability on white background */
+    line-height: 1.6;
+    z-index: 1;
+    position: relative;
+    flex-grow: 1; /* Allow text to take remaining space */
+    text-align: left; /* Align text left */
+    max-width: 60%; /* Limit text width to make space for image on desktop */
+    /* Removed text-shadow as white text on light background won't need it */
+}
+
+@media (max-width: 768px) {
+    .about-section .about-statement {
+        flex-direction: column; /* Stack image and text vertically on small screens */
+        text-align: center; /* Center everything */
+        padding: 30px 20px; /* Adjust padding for mobile */
+    }
+
+    .about-section .about-statement img {
+        margin-bottom: 20px; /* Space below image when stacked */
+        order: 1; /* Image first when stacked */
+    }
+
+    .about-section .about-statement b {
+        font-size: 1.5rem; /* Slightly smaller font for mobile */
+        max-width: 100%; /* Text takes full width when stacked */
+        text-align: center; /* Center text when stacked */
+    }
+}
+
+
+.about-section .sessions-container {
+    flex: 1.5;
+    min-width: 300px;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 40px;
+    background-color: var(--light-pink);
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.about-section .sessions-container b {
+    font-size: 1.6rem;
+    color: var(--primary-pink);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.about-section .sessions-container .image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+}
+
+.about-section .sessions-container .image-grid img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    opacity: 0;
+    transform: scale(0.9);
+}
+
+.about-section .sessions-container .image-grid img.unveil {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.about-section .sessions-container .action-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.about-section .sessions-container .action-list li {
+    flex-shrink: 0;
+}
+
+.about-section .sessions-container .action-list li a {
+    background-color: var(--primary-pink);
+    color: var(--white);
+    text-decoration: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    display: inline-block;
+}
+
+.about-section .sessions-container .action-list li a:hover {
+    background-color: var(--dark-pink);
+    transform: translateY(-2px);
+}
+
+/* Upcoming Events Section */
+.upcoming-events {
+    padding: 80px 5%;
+    background-color: var(--beige);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.upcoming-events > div {
+    background-color: var(--white);
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    padding-bottom: 25px;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.upcoming-events > div.slide-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.upcoming-events > div img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    filter: blur(4px);
+    border-radius: 15px 15px 0 0;
+    transition: filter 0.3s ease;
+}
+
+.upcoming-events > div:hover img {
+    filter: blur(0);
+}
+
+.upcoming-events > div b {
+    display: block;
+    font-size: 1.25rem;
+    color: var(--text-dark);
+    margin: 20px 20px 15px;
+    line-height: 1.5;
+}
+
+.upcoming-events > div .btn-register-now {
+    background-color: var(--primary-pink);
+    color: var(--white);
+    border: none;
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.upcoming-events > div .btn-register-now:hover {
+    background-color: var(--dark-pink);
+}
+
+/* Footer */
+.site-footer {
+    background-color: var(--dark-pink);
+    color: var(--white);
+    padding: 50px 5%;
+    font-size: 0.95rem;
+}
+
+.site-footer .footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.site-footer .footer-section {
+    flex: 1;
+    min-width: 250px;
+    margin-bottom: 20px;
+}
+
+.site-footer h4 {
+    color: var(--light-pink);
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--primary-pink);
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+.site-footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.site-footer ul li {
+    margin-bottom: 10px;
+}
+
+.site-footer ul li a {
+    color: var(--white);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.site-footer ul li a:hover {
+    color: var(--light-pink);
+}
+
+.site-footer .social-icons a {
+    color: var(--white);
+    font-size: 1.5rem;
+    margin-right: 15px;
+    transition: color 0.3s ease;
+}
+
+.site-footer .social-icons a:hover {
+    color: var(--light-pink);
+}
+
+.site-footer .footer-bottom {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
