@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Mind Health Consultancy by Dr Lydia N. - A sanctuary for healing minds—offering personalized therapy and transformative mental health consultancy.">
     <title>Mind Health Consultancy by Dr Lydia N. - Minding your mind</title>
-    {% load static %}
+    load static %}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
@@ -1034,7 +1034,7 @@
 <body>
     <div class="hero-section-container">
         <nav class="navigation-bar" id="navbar">
-            <a class="nav-brand" href="/wellnessCenter">
+            <a class="nav-brand" href="index.html">
                 <img src="https://placehold.co/50x50/FFFFFF/000000?text=Logo" alt="Mind Health Logo" class="nav-logo">
                 <div class="brand-text-container">
                     <span class="brand-title">Mind<br>Health</span>
@@ -1075,10 +1075,10 @@
             <div id="heroCarousel" class="carousel slide" data-ride="carousel" data-interval="5000">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="{% static 'images/drLydiah1.jpg' %}" alt="Engaging therapeutic sessions">
+                        <img src="images/drLydiah1.jpg" alt="Engaging therapeutic sessions">
                     </div>
                     <div class="carousel-item">
-                        <img src="{% static 'images/drLydiah3.jpg' %}" alt="People jumping happily as they engage in multiple, calming activities">
+                        <img src="images/drLydiah3.jpg" alt="People jumping happily as they engage in multiple, calming activities">
                     </div>
                     <div class="carousel-item">
                         <img src="https://placehold.co/1920x1080/FEE7ED/000000?text=Therapy+Sessions" alt="We also offer online sessions for personal remote clients">
@@ -1210,17 +1210,17 @@
             <a href="couples.html" class="btn-view-details">Learn More</a>
         </div>
         <div class="image-container" id="pre-marital-counseling-section">
-            <img src="{% static 'images/Couple.png' %}" alt="A couple discussing pre-marital topics.">
+            <img src="images/Couple.png" alt="A couple discussing pre-marital topics.">
             <b>Pre-marital Counseling: Building a strong foundation for your future together.</b>
             <a href="pre-marital.html" class="btn-view-details">Learn More</a>
         </div>
         <div class="image-container" id="marriage-family-therapy-section">
-            <img src="{% static 'images/Fam.png' %}" alt="A family in a therapy session.">
+            <img src="images/Fam.png" alt="A family in a therapy session.">
             <b>Marriage & Family Therapy: Nurturing healthy family dynamics.</b>
             <a href="marriageTherapy.html" class="btn-view-details">Learn More</a>
         </div>
         <div class="image-container" id="group-counseling-section">
-            <img src="{% static 'images/youngLights.jpg' %}" alt="A group of people in a counseling session.">
+            <img src="images/youngLights.jpg" alt="A group of people in a counseling session.">
             <b>Group Counseling: Connect and grow in a supportive community.</b>
             <a href="groupCouncelling.html" class="btn-view-details">Learn More</a>
         </div>
@@ -1434,10 +1434,10 @@
 
         // --- Therapeutic Backgrounds (Placeholder) ---
         const therapeuticBackgrounds = [
-            "{% static 'images/sitin.png' %}",
-            "{% static 'images/Couple.png' %}",
-            "{% static 'images/pinkTerritory1.png' %}",
-            "{% static 'images/pinkTerritory.png' %}"
+            "images/sitin.png",
+            "images/Couple.png",
+            "images/pinkTerritory1.png",
+            "images/pinkTerritory.png"
         ];
         let currentBgIndex = 0;
         const bgLayers = document.querySelectorAll('.therapeutic-background-layer');
