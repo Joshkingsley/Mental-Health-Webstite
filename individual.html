@@ -4,78 +4,326 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Personal therapy sessions with Dr. Lydia, offering one-on-one healing for anxiety, stress, and personal growth.">
-    <title>Personal Therapy Sessions - Mental Health by Dr Lydia</title>
-    {% load static %}
+    <title>Personal Therapy Sessions - Mind Health Consultancy</title>
+    
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
+        /* Color Palette: Purple and Teal dominant, balanced blend */
         :root {
-            --primary-pink: #FC9DAC; /* A soft, feminine pink */
-            --light-pink: #FEE7ED;
-            --dark-pink: #E07B91;
+            --primary-color-dark: #6A0DAD; /* Deep Purple */
+            --primary-color-light: #C3A0DA; /* Lighter Lavender Purple */
+            --secondary-color-dark: #4B0082; /* Indigo/Darker Purple */
+            --secondary-color-light: #E0BBE4; /* Very Light Purple/Pinkish */
+            --accent-teal-dark: #008080; /* Strong Teal/Cyan */
+            --accent-teal-light: #66CCCC; /* Lighter Teal/Cyan */
             --text-dark: #000000; /* Pure black */
             --text-light: #FFFFFF; /* Pure white */
-            --white: #FFFFFF;
-            --black: #000000;
+            --background-light: #F8F8F8; /* Off-white for general backgrounds */
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            padding-top: 80px; /* Space for the fixed navigation bar */
         }
 
         body {
             font-family: 'Open Sans', sans-serif;
             color: var(--text-dark);
-            background-color: var(--light-pink); /* Light pink background for the page */
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-            padding-top: 80px; /* Added padding to push content below the fixed navbar */
+            background-color: var(--background-light);
         }
 
-        /* Navigation Bar Styling */
-        .navbar {
-            background-color: var(--primary-pink);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 15px 5%; /* Adjust padding for better spacing */
+        /* Navigation Bar Styling (Copied from previous page) */
+        .navigation-bar {
             position: fixed;
-            z-index: 1000;
+            top: 0;
+            left: 0;
             width: 100%;
-            top: 0; /* Ensure it's at the very top */
-            left: 0; /* Ensure it spans the full width */
+            height: auto;
+            z-index: 1000;
+            background-color: var(--primary-color-dark); /* Purple background for navbar */
+            padding: 15px 20px;
+            border-radius: 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s ease-in-out;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
         }
 
-        .navbar-brand {
-            color: var(--white) !important;
-            font-size: 1.8rem;
-            font-weight: 700;
+        .navigation-bar.scrolled {
+            background-color: var(--background-light); /* White background when scrolled */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
-        .navbar-nav .nav-link {
-            color: var(--white) !important;
-            font-size: 1.1rem;
-            margin-left: 20px;
+        .navigation-bar .nav-brand {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            z-index: 1001;
+            height: 100%;
+        }
+
+        .navigation-bar .nav-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+            background-color: var(--text-light);
+            border: 2px solid var(--accent-teal-dark); /* Teal border for logo */
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .navigation-bar .brand-text-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .navigation-bar .brand-title {
+            color: var(--text-light);
+            font-size: 2rem;
+            font-weight: 800;
+            line-height: 0.9;
             transition: color 0.3s ease;
         }
 
-        .navbar-nav .nav-link:hover {
-            color: var(--dark-pink) !important; /* Darker pink on hover */
+        .navigation-bar.scrolled .brand-title {
+            color: var(--primary-color-dark); /* Deep purple when scrolled */
         }
 
-        /* Ensures the Bootstrap navbar-toggler-icon is visible */
-        .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255, 255, 255, 1%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+        .navigation-bar .brand-slogan {
+            color: var(--text-light);
+            font-size: 0.8rem;
+            font-weight: 400;
+            margin-top: 2px;
+            transition: color 0.3s ease;
         }
+
+        .navigation-bar.scrolled .brand-slogan {
+            color: var(--primary-color-dark); /* Deep purple when scrolled */
+        }
+
+        .navigation-bar ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            width: auto;
+            flex-grow: 1;
+            justify-content: flex-end;
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+            height: 100%;
+        }
+
+        .navigation-bar ul li {
+            position: relative;
+            margin-left: 30px;
+        }
+
+        .navigation-bar ul li a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.05rem;
+            padding: 5px 0;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .navigation-bar.scrolled ul li a {
+            color: var(--text-dark); /* Dark text when scrolled */
+        }
+
+        .navigation-bar ul li a:hover {
+            color: var(--accent-teal-light); /* Lighter teal on hover */
+        }
+
+        .navigation-bar ul li i {
+            margin-right: 8px;
+            font-size: 1.1rem;
+        }
+
+        /* Dropdown Menu Styling */
+        .navigation-bar ul li ul.dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 34vw; /* Position directly below the parent link */
+            left: 0;
+            background-color: var(--background-light) !important;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            min-width: 220px; /* Slightly wider for content */
+            border-radius: 8px;
+            padding: 10px 0;
+            flex-direction: column;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1050;
+        }
+
+        .navigation-bar ul li.show-dropdown ul.dropdown-menu {
+            display: flex;
+            opacity: 1;
+        }        
+
+        .navigation-bar ul li ul.dropdown-menu-updated {
+            top: 7vw;
+        }
+        .navigation-bar ul li ul.dropdown-menu-updated-2 {
+            top: 4vw;
+        }
+
+        .navigation-bar ul li ul.dropdown-menu li {
+            background-color: var(--background-light) !important;
+            margin: 0; /* Reset margin for dropdown items */
+        }
+
+        .navigation-bar ul li ul.dropdown-menu li a {
+            color: var(--text-dark); /* Dark text for dropdown links */
+            padding: 8px 20px;
+            font-weight: 500;
+            display: block;
+            text-align: left;
+        }
+
+        .navigation-bar ul li ul.dropdown-menu li a:hover {
+            color: var(--primary-color-dark); /* Deep purple on hover */
+            background-color: var(--secondary-color-light); /* Very light purple/pinkish for background */
+        }
+
+        /* Hamburger button styling */
+        .navigation-bar .hamburger {
+            display: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            z-index: 1001;
+            color: transparent;
+            -webkit-text-stroke: 1.5px var(--primary-color-light); /* Light purple stroke */
+            border: none;
+            background: none;
+            padding: 0;
+            transition: -webkit-text-stroke-color 0.3s ease;
+        }
+
+        .navigation-bar.scrolled .hamburger {
+            -webkit-text-stroke-color: var(--primary-color-dark); /* Deep purple when scrolled */
+        }
+
+        @media (max-width: 992px) {
+            .navigation-bar {
+                background-color: var(--primary-color-dark); /* Always purple on mobile */
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+            .navigation-bar.scrolled {
+                background-color: var(--primary-color-dark); /* Keep purple on mobile even when scrolled */
+            }
+
+            .navigation-bar .nav-brand .brand-title,
+            .navigation-bar .nav-brand .brand-slogan {
+                color: var(--text-light); /* Always light text on mobile nav brand */
+            }
+            .navigation-bar.scrolled .nav-brand .brand-title,
+            .navigation-bar.scrolled .nav-brand .brand-slogan {
+                color: var(--text-light); /* Keep light text on mobile nav brand even when scrolled */
+            }
+            .navigation-bar .nav-logo {
+                border: 2px solid var(--accent-teal-light); /* Lighter teal border for logo on mobile */
+            }
+            .navigation-bar .hamburger {
+                display: block;
+                -webkit-text-stroke-color: var(--text-light); /* White stroke for hamburger on mobile */
+            }
+            .navigation-bar.scrolled .hamburger {
+                -webkit-text-stroke-color: var(--text-light); /* Keep white stroke on mobile even when scrolled */
+            }
+
+            .navigation-bar ul {
+                display: none;
+                flex-direction: column;
+                position: fixed;
+                top: 0;
+                right: -280px;
+                height: 100%;
+                width: 280px;
+                background-color: var(--background-light);
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+                padding: 80px 20px 20px; /* Adjusted padding for mobile menu content */
+                align-items: flex-start;
+                opacity: 0;
+                transition: right 0.3s ease-out, opacity 0.3s ease-out;
+                pointer-events: none;
+                z-index: 999;
+            }
+
+            .navigation-bar ul.show {
+                right: 0;
+                opacity: 1;
+                pointer-events: all;
+                display: flex !important;
+            }
+
+            .navigation-bar ul li {
+                margin: 10px 0;
+                width: 100%;
+                text-align: left;
+            }
+
+            .navigation-bar ul li a {
+                padding: 12px 0;
+                color: var(--text-dark); /* Dark text for mobile menu links */
+            }
+
+            .navigation-bar ul li a:hover {
+                background-color: transparent;
+                color: var(--primary-color-dark); /* Deep purple on hover for mobile links */
+            }
+
+            /* Mobile Dropdown styles */
+            .navigation-bar ul li ul.dropdown-menu {
+                position: static;
+                background-color: transparent;
+                box-shadow: none;
+                padding: 0 0 0 20px;
+                min-width: auto;
+                opacity: 1;
+                transition: none;
+                z-index: auto;
+            }
+            .navigation-bar ul li.show-dropdown ul.dropdown-menu {
+                display: flex !important;
+            }
+            .navigation-bar ul li ul.dropdown-menu li a {
+                color: var(--text-dark);
+            }
+            .navigation-bar ul li ul.dropdown-menu li a:hover {
+                color: var(--primary-color-dark);
+                background-color: transparent;
+            }
+        }
+
 
         /* Header/Navigation for consistency */
         .page-header {
-            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.3)), url("https://joshkingsley.github.io/Mental-Health-Webstite/images/drLydiah1.jpg'"); /* Placeholder image with an overlay */
-            background-size: cover; /* Ensures the image covers the entire header area */
-            background-position: left center; /* Positions the image to the left */
-            background-repeat: no-repeat; /* Prevents image repetition */
-            color: var(--white);
-            padding: 60px 5%; /* Increased padding for better visual appeal with background image */
+            background-image: linear-gradient(to right, rgba(106, 13, 173, 0.5), rgba(75, 0, 130, 0.3)), url("images/drLydiah1.jpg"); /* Purple overlay with image */
+            background-size: cover;
+            background-position: center; /* Changed to center for better image display */
+            background-repeat: no-repeat;
+            color: var(--text-light); /* Light text for contrast */
+            padding: 60px 5%;
             text-align: center;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             position: relative;
             z-index: 100;
-            min-height: 250px; /* Ensure enough height for the background image to show */
+            min-height: 250px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -86,8 +334,8 @@
             font-size: 2.8rem;
             font-weight: 700;
             margin-bottom: 10px;
-            color: var(--white);
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.3); /* Add text shadow for readability */
+            color: var(--text-light); /* White text */
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
         }
 
         .page-header p {
@@ -95,7 +343,7 @@
             max-width: 800px;
             margin: 0 auto;
             line-height: 1.6;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.3); /* Add text shadow for readability */
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
         }
 
         /* Main content section styling */
@@ -105,11 +353,11 @@
             margin: 0 auto;
             display: flex;
             flex-direction: column;
-            gap: 60px; /* Space between major sections */
+            gap: 60px;
         }
 
         .content-card {
-            background-color: var(--white);
+            background-color: var(--text-light); /* White background for cards */
             border-radius: 15px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
             padding: 40px;
@@ -122,7 +370,7 @@
         }
 
         .content-card h2 {
-            color: var(--primary-pink);
+            color: var(--primary-color-dark); /* Deep purple for main headings */
             font-size: 2rem;
             margin-bottom: 25px;
             text-align: center;
@@ -138,12 +386,12 @@
             bottom: 0;
             width: 80px;
             height: 3px;
-            background-color: var(--dark-pink);
+            background-color: var(--accent-teal-dark); /* Dark teal underline */
             border-radius: 2px;
         }
 
         .content-card h3 {
-            color: var(--dark-pink);
+            color: var(--secondary-color-dark); /* Darker purple for subheadings */
             font-size: 1.5rem;
             margin-top: 30px;
             margin-bottom: 15px;
@@ -158,7 +406,7 @@
 
         .content-card ul, .content-card ol {
             list-style-position: inside;
-            padding-left: 0; /* Remove default padding */
+            padding-left: 0;
         }
 
         .content-card ul li, .content-card ol li {
@@ -168,13 +416,13 @@
         /* Specific styling for "What to Expect" numbered list */
         .content-card ol {
             counter-reset: session-step;
-            list-style: none; /* Remove default numbering */
+            list-style: none;
             padding-left: 0;
         }
 
         .content-card ol li {
             position: relative;
-            padding-left: 40px; /* Space for custom number */
+            padding-left: 40px;
             margin-bottom: 15px;
             font-weight: 500;
         }
@@ -185,8 +433,8 @@
             position: absolute;
             left: 0;
             top: 0;
-            background-color: var(--primary-pink);
-            color: var(--white);
+            background-color: var(--primary-color-dark); /* Deep purple number circle */
+            color: var(--text-light);
             width: 30px;
             height: 30px;
             border-radius: 50%;
@@ -205,12 +453,12 @@
             gap: 30px;
             margin-top: 30px;
             margin-bottom: 30px;
-            align-items: center; /* Center media items */
+            align-items: center;
         }
 
         .media-container img, .media-container video {
             width: 100%;
-            max-width: 600px; /* Max width for media */
+            max-width: 600px;
             height: auto;
             border-radius: 10px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
@@ -220,7 +468,7 @@
         /* Meet Your Therapist Section */
         .therapist-profile {
             display: flex;
-            flex-direction: column; /* Default to column for mobile */
+            flex-direction: column;
             align-items: center;
             gap: 30px;
             text-align: center;
@@ -231,13 +479,13 @@
             height: 200px;
             border-radius: 50%;
             object-fit: cover;
-            border: 5px solid var(--primary-pink);
+            border: 5px solid var(--primary-color-dark); /* Deep purple border */
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         .therapist-info h3 {
             font-size: 1.8rem;
-            color: var(--dark-pink);
+            color: var(--secondary-color-dark); /* Darker purple */
             margin-bottom: 10px;
         }
 
@@ -248,7 +496,7 @@
 
         @media (min-width: 768px) {
             .therapist-profile {
-                flex-direction: row; /* Row layout for larger screens */
+                flex-direction: row;
                 text-align: left;
                 justify-content: center;
             }
@@ -261,7 +509,7 @@
         .faq-item {
             margin-bottom: 20px;
             padding-bottom: 15px;
-            border-bottom: 1px dashed var(--light-pink);
+            border-bottom: 1px dashed var(--primary-color-light); /* Lighter purple dashed line */
         }
 
         .faq-item:last-child {
@@ -270,14 +518,14 @@
         }
 
         .faq-item strong {
-            color: var(--dark-pink);
+            color: var(--primary-color-dark); /* Deep purple for questions */
             font-size: 1.1rem;
             display: block;
             margin-bottom: 5px;
         }
 
         .faq-item p {
-            margin-left: 15px; /* Indent answers slightly */
+            margin-left: 15px;
             font-size: 1rem;
         }
 
@@ -286,20 +534,20 @@
             text-align: center;
             margin-top: 40px;
             padding: 30px;
-            background-color: var(--light-pink);
+            background-color: var(--secondary-color-light); /* Very light purple/pinkish background */
             border-radius: 15px;
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
         }
 
         .cta-section h2 {
-            color: var(--primary-pink);
+            color: var(--primary-color-dark); /* Deep purple for CTA heading */
             font-size: 2.2rem;
             margin-bottom: 20px;
         }
 
         .cta-section .btn-book-session {
-            background-color: var(--primary-pink);
-            color: var(--white);
+            background-color: var(--accent-teal-dark); /* Dark teal for CTA button */
+            color: var(--text-light);
             border: none;
             padding: 15px 35px;
             border-radius: 50px;
@@ -311,15 +559,15 @@
         }
 
         .cta-section .btn-book-session:hover {
-            background-color: var(--dark-pink);
+            background-color: var(--primary-color-dark); /* Deep purple on hover */
             transform: translateY(-3px);
             box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
         }
 
         /* Footer (simplified for a sub-page) */
         .site-footer {
-            background-color: var(--dark-pink);
-            color: var(--white);
+            background-color: var(--secondary-color-dark); /* Darker purple for footer */
+            color: var(--text-light);
             padding: 30px 5%;
             font-size: 0.9rem;
             text-align: center;
@@ -327,7 +575,7 @@
         }
 
         .site-footer a {
-            color: var(--light-pink);
+            color: var(--accent-teal-light); /* Lighter teal for footer links */
             text-decoration: none;
             margin: 0 10px;
         }
@@ -339,30 +587,48 @@
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg">
-        <a class="navbar-brand" href="#">Mental Health by Dr Lydia</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+    <nav class="navigation-bar" id="navbar">
+        <a class="nav-brand" href="/wellnessCenter">
+            <img src="https://placehold.co/50x50/FFFFFF/000000?text=Logo" alt="Mind Health Logo" class="nav-logo">
+            <div class="brand-text-container">
+                <span class="brand-title">Mind<br>Health Consultancy</span>
+                <span class="brand-slogan">Minding your mind</span>
+            </div>
+        </a>
+        <button class="hamburger d-block d-lg-none" type="button" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="index.html#individual-therapy-section">Services</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="index.html#about-us-main">About Dr Lydia</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
-                </li>
-            </ul>
-        </div>
+        <ul class="d-none d-lg-flex">
+            <li><a href="/wellnessCenter/#about-us-main"><i class="fas fa-info-circle"></i>About Dr Lydiah</a></li>
+            <li class="dropdown-hover">
+                <a href="#" id="services-link"><i class="fas fa-hand-holding-heart"></i>Services <i class="fas fa-caret-down ml-2"></i></a>
+                <ul class="dropdown-menu" id="services-dropdown">
+                    <li><a href="/personalSessions/"><i class="fas fa-user"></i>Individual Therapy</a></li>
+                    <li><a href="/couplesTherapy/"><i class="fas fa-heart"></i>Couple Therapy</a></li>
+                    <li><a href="/pre-maritalTherapy/"><i class="fas fa-ring"></i>Pre-marital Counseling</a></li>
+                    <li><a href="/marriageTherapy/"><i class="fas fa-home"></i>Marriage & Family Therapy</a></li>
+                    <li><a href="/groupCouncelling/"><i class="fas fa-users"></i>Group Counseling</a></li>
+                    <li><a href=""><i class="fas fa-graduation-cap"></i>Mentorship Programs</a></li>
+                    <li><a href="/workplace/"><i class="fas fa-briefcase"></i>Workplace Wellness</a></li>
+                    <li><a href="/wellnessCenter/#psychometric-testing-section"><i class="fas fa-brain"></i>Psychometric Testing</a></li>
+                </ul>
+            </li>
+            <li class="dropdown-hover">
+                <a href="#" id="programs-link"><i class="fas fa-chalkboard-teacher"></i>Programs <i class="fas fa-caret-down ml-2"></i></a>
+                <ul class="dropdown-menu dropdown-menu-updated" id="programs-dropdown">
+                    <li><a href="/wellnessCenter/#redefined-ladies-section"><i class="fas fa-female"></i>Redefined Ladies 2</a></li>
+                    <li><a href="/wellnessCenter/#other-programs-section"><i class="fas fa-lightbulb"></i>Other Programs</a></li>
+                </ul>
+            </li>
+            <li class="dropdown-hover dropdown-menu-updated-2">
+                <a href="#" id="sessions-link"><i class="fas fa-calendar-check"></i>Sessions <i class="fas fa-caret-down ml-2"></i></a>
+                <ul class="dropdown-menu dropdown-menu-updated" id="sessions-dropdown">
+                    <li><a href="https://yourdomain.com/book-session"><i class="fas fa-calendar-plus"></i>Book Session</a></li>
+                    <li><a href="/wellnessCenter/#gallery-section"><i class="fas fa-images"></i>Gallery</a></li>
+                </ul>
+            </li>
+            <li><a href="/contact"><i class="fas fa-phone-alt"></i> Contact</a></li>
+        </ul>
     </nav>
 
     <header class="page-header">
@@ -374,63 +640,63 @@
 
         <section class="content-card">
             <h2>Your Journey to Wellness Begins Here</h2>
-            <p>At Mental Health by Dr Lydia, our personal therapy sessions are designed to help you:</p>
+            <p>At Mind Health Consultancy, our personal therapy sessions are designed to help you:</p>
             <ul>
                 <li>Unpack and understand challenging emotions</li>
                 <li>Build coping tools for everyday stressors</li>
                 <li>Reclaim balance, confidence, and inner peace</li>
             </ul>
-            <p>Whether you’re facing anxiety, relationship struggles, career burnout, or simply want to grow, Dr Lydia will meet you exactly where you are.</p>
+            <p>Whether you’re facing anxiety, relationship struggles, career burnout, or simply want to grow, Dr Lydia will meet you exactly where you are, offering a confidential and supportive environment for your personal journey.</p>
             
             <div class="media-container">
-                <img src="https://placehold.co/600x350/FC9DAC/FFFFFF?text=Therapy+Session+Image" alt="A calm therapy session in progress.">
-                <p style="font-style: italic; text-align: center; color: #555;">A serene environment for personal reflection and growth.</p>
+                <img src="images/individualTherapy.jpg" alt="A calm therapy session in progress.">
+                <p style="font-style: italic; text-align: center; color: var(--text-dark);">A serene environment for personal reflection and growth.</p>
             </div>
         </section>
 
         <section class="content-card">
             <h2>What to Expect from Your Sessions</h2>
             <ol>
-                <li><strong>A Warm Welcome</strong><br>Your first session begins with a gentle check-in—no judgment, just curious listening.</li>
-                <li><strong>Collaborative Goal-Setting</strong><br>Together, we clarify what you want to change, heal, or learn about yourself.</li>
-                <li><strong>Tailored Techniques</strong><br>Dr Lydia will weave evidence-based approaches (CBT, mindfulness, narrative therapy) to suit your unique style.</li>
-                <li><strong>Actionable Takeaways</strong><br>You’ll leave each session with practical exercises and insights you can apply immediately.</li>
-                <li><strong>Confidentiality & Trust</strong><br>Everything you share stays between you and Dr Lydia—period.</li>
+                <li><strong>A Warm Welcome</strong><br>Your first session begins with a gentle check-in—no judgment, just curious listening to understand your unique story and needs.</li>
+                <li><strong>Collaborative Goal-Setting</strong><br>Together, we clarify what you want to change, heal, or learn about yourself, setting realistic and empowering goals for our work together.</li>
+                <li><strong>Tailored Techniques</strong><br>Dr Lydia will weave evidence-based approaches such as Cognitive Behavioral Therapy (CBT), mindfulness practices, and narrative therapy to suit your unique style and challenges, ensuring a personalized therapeutic experience.</li>
+                <li><strong>Actionable Takeaways</strong><br>You’ll leave each session with practical exercises, insights, and coping strategies that you can immediately apply to your daily life, fostering continuous progress.</li>
+                <li><strong>Confidentiality & Trust</strong><br>Everything you share stays strictly confidential between you and Dr Lydia, creating a foundation of trust essential for deep and meaningful therapeutic work. Your privacy is our utmost priority.</li>
             </ol>
         </section>
 
         <section class="content-card">
             <h2>Our Guiding Philosophy</h2>
-            <p>At Mental Health by Dr Lydia, we believe every mind holds its own wisdom. Dr Lydia:</p>
+            <p>At Mind Health Consultancy, we believe every mind holds its own wisdom and capacity for healing. Dr Lydia:</p>
             <ul>
-                <li>Honors your story and cultural background</li>
-                <li>Blends empathy with expertise</li>
-                <li>Encourages you to tap into strengths you never knew you had</li>
+                <li>Honors your story, cultural background, and individual experiences, recognizing their profound impact on your well-being.</li>
+                <li>Blends empathy with expertise, offering both compassionate understanding and professional guidance rooted in psychological science.</li>
+                <li>Encourages you to tap into strengths you never knew you had, empowering you to discover your inherent resilience and potential.</li>
             </ul>
-            <p>By creating a consistent, supportive partnership, we help you move from surviving to thriving.</p>
+            <p>By creating a consistent, supportive partnership, we help you move from merely surviving to truly thriving, building a life filled with purpose and peace.</p>
             
             <div class="media-container">
-                <video autoplay loop muted playsinline src="https://assets.mixkit.co/videos/preview/mixkit-happy-friends-walking-on-the-beach-40914-large.mp4" style="width:100%; max-width:600px; height:auto;"></video>
-                <p style="font-style: italic; text-align: center; color: #555;">Embracing joy and connection on your journey to well-being.</p>
+                <video autoplay loop muted playsinline src="images/happyPeople.mp4" style="width:100%; max-width:600px; height:auto;"></video>
+                <p style="font-style: italic; text-align: center; color: var(--text-dark);">Embracing joy and connection on your journey to well-being.</p>
             </div>
         </section>
 
         <section class="content-card">
             <h2>Who Benefits Most from Personal Therapy</h2>
             <ul>
-                <li>Individuals feeling overwhelmed by work or life transitions</li>
-                <li>Anyone struggling with persistent stress, worry, or low mood</li>
-                <li>Those seeking clarity around relationships, identity, or purpose</li>
-                <li>People ready to invest in their personal growth and resilience</li>
+                <li>Individuals feeling overwhelmed by work or life transitions, seeking clarity and effective coping mechanisms.</li>
+                <li>Anyone struggling with persistent stress, worry, anxiety, or low mood, looking for strategies to manage and alleviate these feelings.</li>
+                <li>Those seeking clarity around relationships, identity, or life purpose, aiming to gain deeper self-understanding and direction.</li>
+                <li>People ready to invest in their personal growth and resilience, committed to building a stronger, more adaptable self.</li>
             </ul>
         </section>
 
         <section class="content-card therapist-profile">
-            <h2>Meet Dr. Lydia</h2>
-            <img src="https://placehold.co/200x200/E07B91/FFFFFF?text=Dr.+Lydia" alt="Portrait of Dr. Lydia, a warm and insightful therapist.">
+            <h2>Meet Dr. Lydia N.</h2>
+            <img src="images/drLydiah2.jpg" alt="Portrait of Dr. Lydia, a warm and insightful therapist.">
             <div class="therapist-info">
-                <h3>Dr. Lydia Chen, Psy.D., LMFT</h3>
-                <p>With over 15 years of experience in cognitive behavioral therapy and family systems, Dr. Lydia brings a compassionate and evidence-based approach to her practice. She is dedicated to helping individuals build resilience, foster healthy relationships, and achieve profound personal growth.</p>
+                <h3>Dr. Lydia N., Psy.D., LMFT</h3>
+                <p>With over 15 years of extensive experience in cognitive behavioral therapy, family systems, and holistic wellness, Dr. Lydia N. brings a compassionate, insightful, and evidence-based approach to her practice. She is deeply dedicated to helping individuals, couples, and families navigate complex emotional landscapes, build resilience, foster healthy relationships, and achieve profound personal growth. Dr. Lydia's philosophy centers on creating a safe, non-judgmental space where clients feel truly heard and empowered to embark on their unique healing journey. Her expertise spans anxiety, depression, trauma, relationship dynamics, and life transitions, always tailored to meet the individual needs of her clients. She is passionate about empowering her clients to lead fulfilling lives and cultivate well-being from within.</p>
             </div>
         </section>
 
@@ -438,29 +704,29 @@
             <h2>Frequently Asked Questions</h2>
             <div class="faq-item">
                 <strong>How many sessions will I need?</strong>
-                <p>It varies—some clients notice relief in 4–6 sessions, others prefer ongoing weekly support. Dr Lydia will work with you to determine the best plan for your unique needs and goals.</p>
+                <p>The duration of therapy is highly individualized. Some clients may experience significant relief and progress within 4-6 sessions, while others benefit from ongoing weekly or bi-weekly support for deeper, more sustained growth. Dr. Lydia will collaborate with you to establish a personalized treatment plan that aligns with your unique needs, goals, and pace.</p>
             </div>
             <div class="faq-item">
                 <strong>Are virtual sessions available?</strong>
-                <p>Yes. We offer secure, confidential video calls for clients, providing flexible access to care from the comfort of your home.</p>
+                <p>Yes, we proudly offer secure and confidential virtual therapy sessions for clients across various locations. This provides flexible access to high-quality care from the comfort and convenience of your own home, ensuring continuity of support regardless of your geographical location.</p>
             </div>
             <div class="faq-item">
                 <strong>What’s the cancellation policy?</strong>
-                <p>Please notify us 24 hours in advance if you need to cancel or reschedule your session to avoid a 50% session fee. This allows us to offer the time slot to other clients in need.</p>
+                <p>To ensure fairness to all clients and to allow us to offer available time slots to others in need, we kindly request a minimum of 24 hours' notice for any cancellation or rescheduling of your session. Sessions cancelled or rescheduled with less than 24 hours' notice will incur a 50% session fee.</p>
             </div>
         </section>
 
         <section class="cta-section">
             <h2>Ready to Begin Your Journey?</h2>
-            <p>Take the first step toward a calmer, more empowered you.</p>
+            <p>Take the first step toward a calmer, more empowered you. Your path to healing and growth starts here.</p>
             <a href="https://yourdomain.com/book-session" class="btn-book-session">👉 Book Your Personal Therapy Session</a>
-            <p style="margin-top: 15px; font-size: 0.9rem; color: #666;">(You’ll be redirected to our simple booking form—no commitment until you’re ready.)</p>
+            <p style="margin-top: 15px; font-size: 0.9rem; color: var(--text-dark);">(You’ll be redirected to our simple booking form—no commitment until you’re ready.)</p>
         </section>
 
     </main>
 
     <footer class="site-footer">
-        &copy; <span id="current-year-footer"></span> Mental Health by Dr Lydia. All rights reserved. |
+        &copy; <span id="current-year-footer"></span> Mind Health Consultancy. All rights reserved. |
         <a href="">Privacy Policy</a> |
         <a href="">Terms of Service</a>
     </footer>
@@ -470,6 +736,174 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         document.getElementById('current-year-footer').textContent = new Date().getFullYear();
+
+        // --- Navbar Scroll Effect ---
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            const scrollThreshold = 20; // Small threshold for immediate change
+
+            if (window.scrollY > scrollThreshold) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // --- Dropdown menu on hover (for larger screens) ---
+        document.querySelectorAll('li.dropdown-hover').forEach(dropdownParent => {
+            dropdownParent.addEventListener('mouseenter', () => {
+                if (window.innerWidth >= 992) {
+                    dropdownParent.classList.add('show-dropdown');
+                }
+            });
+            dropdownParent.addEventListener('mouseleave', () => {
+                if (window.innerWidth >= 992) {
+                    dropdownParent.classList.remove('show-dropdown');
+                }
+            });
+        });
+
+        // --- Hamburger menu toggle for smaller screens ---
+        document.querySelector('.hamburger').addEventListener('click', function() {
+            const navUl = document.querySelector('.navigation-bar ul');
+            navUl.classList.toggle('show');
+            if (navUl.classList.contains('show')) {
+                document.body.style.overflow = 'hidden'; // Prevent scrolling when mobile menu is open
+            } else {
+                document.body.style.overflow = ''; // Re-enable scrolling
+            }
+        });
+
+        // --- Close hamburger menu if screen resized to large while open ---
+        window.addEventListener('resize', function() {
+            const navUl = document.querySelector('.navigation-bar ul');
+            if (window.innerWidth >= 992) {
+                navUl.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // --- Handle dropdown clicks for mobile menu (for parent toggles like "Services", "Programs") ---
+        document.querySelectorAll('.navigation-bar ul li.dropdown-hover > a').forEach(dropdownToggle => {
+            dropdownToggle.addEventListener('click', function(e) {
+                // Only apply this logic on mobile and for dropdown toggles (href="#")
+                if (window.innerWidth < 992 && this.getAttribute('href') === '#') {
+                    e.preventDefault(); // Prevent the default # jump
+                    const parentLi = this.closest('li.dropdown-hover');
+                    if (parentLi) {
+                        parentLi.classList.toggle('show-dropdown');
+                        // Ensure sub-menu links are clickable when the dropdown is open
+                        const dropdownMenu = parentLi.querySelector('.dropdown-menu');
+                        if (dropdownMenu) {
+                            if (parentLi.classList.contains('show-dropdown')) {
+                                dropdownMenu.style.pointerEvents = 'all';
+                            } else {
+                                dropdownMenu.style.pointerEvents = 'none';
+                            }
+                        }
+                    }
+                }
+            });
+        });
+
+        // --- Smooth scrolling for specific anchor links (updated for this page's anchors) ---
+        function smoothScrollTo(targetId) {
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                // Close mobile menu if open
+                const navUl = document.querySelector('.navigation-bar ul');
+                if (navUl.classList.contains('show')) {
+                    navUl.classList.remove('show');
+                    document.body.style.overflow = '';
+                }
+
+                // Scroll to the element, adjusting for fixed navbar height
+                const navbarHeight = document.getElementById('navbar').offsetHeight;
+                window.scrollTo({
+                    top: targetElement.offsetTop - navbarHeight,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // Add smooth scroll listeners for internal links on this page
+        document.querySelectorAll('.main-content-section a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                smoothScrollTo(this.getAttribute('href'));
+            });
+        });
+
+        // Update external links to point to the main wellnessCenter page with specific sections
+        document.querySelector('.navigation-bar ul li a[href="/wellnessCenter/#about-us-main"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = '/wellnessCenter/#about-us-main';
+        });
+        document.querySelector('.navigation-bar ul li a[href="/wellnessCenter/#psychometric-testing-section"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = '/wellnessCenter/#psychometric-testing-section';
+        });
+        document.querySelector('.navigation-bar ul li a[href="/wellnessCenter/#redefined-ladies-section"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = '/wellnessCenter/#redefined-ladies-section';
+        });
+        document.querySelector('.navigation-bar ul li a[href="/wellnessCenter/#other-programs-section"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = '/wellnessCenter/#other-programs-section';
+        });
+        document.querySelector('.navigation-bar ul li a[href="/wellnessCenter/#gallery-section"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = '/wellnessCenter/#gallery-section';
+        });
+
+        // Ensure home link works
+        document.querySelector('.navigation-bar ul li.nav-item.active a[href="/wellnessCenter/"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = '/wellnessCenter/';
+        });
+
+        // Update the main "Services" link to go to the services section on the main page
+        document.querySelector('.navigation-bar ul li a[href="/wellnessCenter/#individual-therapy-section"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = '/wellnessCenter/#individual-therapy-section';
+        });
+
+        // Update the main "About Dr Lydiah" link to go to the about section on the main page
+        document.querySelector('.navigation-bar ul li a[href="/wellnessCenter/#about-us-main"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = '/wellnessCenter/#about-us-main';
+        });
+
+        // Update the main "Contact" link
+        document.querySelector('.navigation-bar ul li a[href="/contact"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = '/contact';
+        });
+
+        // Update the main "Create Account" link
+        document.querySelector('.navigation-bar ul li a[href="/create-account"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = '/create-account';
+        });
+
+        // Update the main "Login" link
+        document.querySelector('.navigation-bar ul li a[href="/login"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = '/login';
+        });
+
+        // Update the main "Book Session" link in the CTA
+        document.querySelector('.cta-section .btn-book-session').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = 'https://yourdomain.com/book-session';
+        });
+
+        // Update the main "Book Session" link in the Sessions dropdown
+        document.querySelector('#sessions-dropdown a[href=""]').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = 'https://yourdomain.com/book-session';
+        });
+
     </script>
 </body>
 </html>
