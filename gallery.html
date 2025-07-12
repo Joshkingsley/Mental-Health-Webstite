@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore the Mind Health Consultancy gallery: images, videos, and programs.">
+    <title>Gallery - Mind Health Consultancy</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Color Palette: Lighter Purple dominant, with more dominant teal as an accent, and black/gold included */
+        :root {
+            --primary-color-dark: #8A2BE2; /* Blue Violet - Lighter, vibrant purple */
+            --primary-color-light: #D8BFD8; /* Thistle - Very light, soft purple */
+            --secondary-color-dark: #5D3FD3; /* Medium Purple - for depth/footer */
+            --secondary-color-light: #E6E6FA; /* Lavender Blush - Very light purple */
+            --accent-teal-dark: #00A3A3; /* Stronger, more vibrant teal - dominant accent */
+            --accent-teal-light: #4DDADA; /* Lighter, brighter teal - for lighter accents */
+            --accent-gold-dark: #B8860B; /* Dark Goldenrod - for emphasis */
+            --accent-gold-light: #FFD700; /* Gold - for lighter emphasis */
+            --text-dark: #000000; /* Pure black */
+            --text-light: #FFFFFF; /* Pure white */
+            --background-light: #F8F8F8; /* Off-white for general backgrounds */
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            /* Removed padding-top as the header is now part of the main content flow */
+            background-color: var(--background-light);
+            font-family: 'Open Sans', sans-serif;
+            color: var(--text-dark);
+        }
+
+        /* Restyled Header/Navigation */
+        .page-header-content {
+            background-image: linear-gradient(to right, rgba(0, 163, 163, 0.6), rgba(77, 218, 218, 0.4)), url("{% static 'images/gallery_banner.jpg' %}"); /* Teal overlay with image */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: var(--text-light);
+            padding: 80px 5%;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 100;
+            min-height: 350px; /* Increased height for content */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .page-header-content h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--accent-gold-light); /* Gold for main title */
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+        }
+
+        .page-header-content p {
+            font-size: 1.3rem;
+            max-width: 900px;
+            margin: 0 auto 30px auto;
+            line-height: 1.6;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+        }
+        
+        /* Floating Back Button */
+        .back-button-float {
+            position: fixed; /* Fixed position for floating */
+            top: 20px; /* Distance from top */
+            left: 20px; /* Distance from left */
+            background-color: rgba(138, 43, 226, 0.8); /* Semi-transparent dark purple */
+            color: var(--text-light);
+            border: none;
+            padding: 12px; /* Increased padding for a larger touch target */
+            border-radius: 50%; /* Circular button */
+            font-size: 1.5rem; /* Larger icon */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            z-index: 1001; /* Ensure it's above other content */
+            cursor: pointer;
+        }
+
+        .back-button-float:hover {
+            background-color: var(--accent-teal-dark); /* Dark teal on hover */
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .page-header-content h1 {
+                font-size: 2.5rem;
+            }
+            .page-header-content p {
+                font-size: 1.1rem;
+            }
+            .back-button-float {
+                top: 15px;
+                left: 15px;
+                padding: 10px;
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Main Content Sections */
+        .main-gallery-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .gallery-section {
+            margin-bottom: 60px;
+            background-color: var(--text-light);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .gallery-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color-dark); /* Dark purple for section headings */
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .gallery-section h2::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 0;
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent-teal-dark); /* Teal underline */
+            border-radius: 2px;
+        }
+
+        /* Image Gallery Grid */
+        .image-gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .image-item {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .image-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .image-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Video Gallery Grid */
+        .video-gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .video-item {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background-color: var(--background-light);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+
+        .video-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .video-item iframe {
+            width: 100%;
+            height: 200px;
+            border: none;
+            display: block;
+        }
+
+        .video-item .video-title {
+            padding: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--accent-teal-dark); /* Teal for video titles */
+            text-align: center;
+        }
+
+        /* Programs Section Cards */
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .program-card {
+            background-color: var(--secondary-color-light); /* Light purple for program cards */
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            text-align: center;
+            padding-bottom: 20px;
+            border: 1px solid var(--accent-teal-light); /* Light teal border */
+        }
+
+        .program-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .program-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--primary-color-light);
+        }
+
+        .program-card h3 {
+            display: block;
+            padding: 20px;
+            font-size: 1.3rem;
+            color: var(--primary-color-dark); /* Dark purple for program titles */
+            line-height: 1.5;
+            font-weight: 700;
+        }
+
+        .program-card p {
+            font-size: 1rem;
+            color: var(--text-dark);
+            padding: 0 20px 15px;
+            line-height: 1.6;
+        }
+
+        .program-card .btn-learn-more {
+            background-color: var(--accent-teal-dark); /* Dark teal button */
+            color: var(--text-light);
+            border: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .program-card .btn-learn-more:hover {
+            background-color: var(--primary-color-dark); /* Dark purple on hover */
+        }
+
+        /* Footer */
+        .site-footer {
+            background-color: var(--secondary-color-dark); /* Darker purple for footer */
+            color: var(--accent-gold-light); /* Light gold for general footer text */
+            padding: 30px 5%;
+            font-size: 0.9rem;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .site-footer a {
+            color: var(--accent-gold-light); /* Light gold for footer links */
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        .site-footer a:hover {
+            color: var(--accent-teal-light); /* Lighter teal on hover for footer links */
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <a href="/wellnessCenter/" class="back-button-float" aria-label="Back to Home">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+
+    <header class="page-header-content">
+        <h1>Our Gallery & Programs</h1>
+        <p>A journey of healing and growth, spearheaded by Dr. Lydia, has transformed countless lives and revamped communities.</p>
+    </header>
+
+    <main class="main-gallery-content">
+
+        <section class="gallery-section" id="image-gallery">
+            <h2>Image Gallery</h2>
+            <div class="image-gallery-grid" id="image-gallery-grid">
+                <!-- Images will be dynamically loaded here -->
+            </div>
+        </section>
+
+        <section class="gallery-section" id="video-gallery">
+            <h2>Video Highlights</h2>
+            <div class="video-gallery-grid" id="video-gallery-grid">
+                <!-- Videos will be dynamically loaded here -->
+            </div>
+        </section>
+
+        <section class="gallery-section" id="programs-section">
+            <h2>Our Programs</h2>
+            <div class="programs-grid" id="programs-grid">
+                <!-- Programs will be dynamically loaded here -->
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        &copy; <span id="current-year-footer"></span> Mind Health Consultancy. All rights reserved. |
+        <a href="/privacy-policy">Privacy Policy</a> |
+        <a href="/terms-of-service">Terms of Service</a>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="module">
+        document.getElementById('current-year-footer').textContent = new Date().getFullYear();
+
+        // Simulate fetching data from a Django endpoint
+        async function fetchGalleryContent() {
+            // In a real Django app, this would be a fetch to your API endpoint, e.g., '/api/gallery-data/'
+            // For this example, we'll use a mock data structure.
+            const mockData = {
+                "images": [
+                    {"src": "{% static 'images/workplaceWellness.jpg' %}", "alt": "Group therapy session"},
+                    {"src": "{% static 'images/capacityBuilding.jpg' %}", "alt": "Mindfulness retreat"},
+                    {"src": "{% static 'images/youngLights.jpg' %}", "alt": "Workshop discussion"},
+                    {"src": "{% static 'images/individualTherapy.jpg' %}", "alt": "One-on-one counseling"},
+                    {"src": "{% static 'images/workplaceWellness2.jpg' %}", "alt": "Outdoor wellness activity"},
+                    {"src": "{% static 'images/galleryImage1.jpg' %}", "alt": "Team building exercise"}
+                ],
+                "videos": [
+                    {"src": "https://www.youtube.com/embed/eaHnqL-Bmdk?si=NKCrYIepOO5G40ki", "title": "Gender and Suicide"},
+                    {"src": "https://www.youtube.com/embed/ROPekFL4Fvk?si=0xXjTP0Ma4Y_GIvr", "title": "Lineage and Suicide"},
+                    {"src": "https://www.youtube.com/embed/FG3YMeQYLUo?si=xH6ZO137RGAodM5x", "title": "Dr Lydiah on predicting suicide"},
+                    {"src": "https://www.youtube.com/embed/tD6ms3zlRVA?si=P4Pkkpd8zOh9AYVs", "title": "Client Testimonials"}
+                ],
+                "programs": [
+                    {"image": "{% static 'images/refinedLadies.jpg' %}", "title": "Redefined Ladies 1", "description": "Empowering women to embrace their true selves, foster resilience, and build a supportive community.", "link": "/wellnessCenter/#redefined-ladies-section"},
+                    {"image": "{% static 'images/mentorship_program.jpg' %}", "title": "Youth Mentorship Program", "description": "Guiding young minds towards their full potential through personalized support and development.", "link": "/mentorship-program-details/"},
+                    {"image": "{% static 'images/corporate_wellness.jpg' %}", "title": "Corporate Wellness Initiatives", "description": "Tailored programs to enhance mental well-being and productivity in professional environments.", "link": "/workplace/"},
+                    {"image": "{% static 'images/family_harmony.jpg' %}", "title": "Family Harmony Workshops", "description": "Workshops designed to strengthen family bonds and improve communication dynamics.", "link": "/family-harmony-details/"}
+                ]
+            };
+
+            // Simulate network delay
+            await new Promise(resolve => setTimeout(resolve, 500)); // 0.5 second delay
+
+            return mockData;
+        }
+
+        // Render Images
+        function renderImages(images) {
+            const imageGalleryGrid = document.getElementById('image-gallery-grid');
+            if (imageGalleryGrid) {
+                imageGalleryGrid.innerHTML = ''; // Clear existing content
+                images.forEach(image => {
+                    const imageItem = document.createElement('div');
+                    imageItem.classList.add('image-item');
+                    imageItem.innerHTML = `<img src="${image.src}" alt="${image.alt}">`;
+                    imageGalleryGrid.appendChild(imageItem);
+                });
+            }
+        }
+
+        // Render Videos
+        function renderVideos(videos) {
+            const videoGalleryGrid = document.getElementById('video-gallery-grid');
+            if (videoGalleryGrid) {
+                videoGalleryGrid.innerHTML = ''; // Clear existing content
+                videos.forEach(video => {
+                    const videoItem = document.createElement('div');
+                    videoItem.classList.add('video-item');
+                    videoItem.innerHTML = `
+                        <iframe src="${video.src}" title="${video.title}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <div class="video-title">${video.title}</div>
+                    `;
+                    videoGalleryGrid.appendChild(videoItem);
+                });
+            }
+        }
+
+        // Render Programs
+        function renderPrograms(programs) {
+            const programsGrid = document.getElementById('programs-grid');
+            if (programsGrid) {
+                programsGrid.innerHTML = ''; // Clear existing content
+                programs.forEach(program => {
+                    const programCard = document.createElement('div');
+                    programCard.classList.add('program-card');
+                    programCard.innerHTML = `
+                        <img src="${program.image}" alt="${program.title} Poster">
+                        <h3>${program.title}</h3>
+                        <p>${program.description}</p>
+                        <a href="${program.link}" class="btn-learn-more">Learn More</a>
+                    `;
+                    programsGrid.appendChild(programCard);
+                });
+            }
+        }
+
+        // Load content on page load
+        window.addEventListener('load', async () => {
+            try {
+                const data = await fetchGalleryContent();
+                renderImages(data.images);
+                renderVideos(data.videos);
+                renderPrograms(data.programs);
+            } catch (error) {
+                console.error("Failed to load gallery content:", error);
+                // Optionally display an error message to the user
+            }
+        });
+
+        // Firebase imports (if needed for other features, otherwise can be removed)
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Firebase Initialization (MANDATORY, even if not directly used in this script)
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+
+        let app;
+        let db;
+        let auth;
+
+        if (Object.keys(firebaseConfig).length > 0) {
+            app = initializeApp(firebaseConfig);
+            db = getFirestore(app);
+            auth = getAuth(app);
+
+            // Authenticate with custom token or anonymously
+            if (typeof __initial_auth_token !== 'undefined') {
+                signInWithCustomToken(auth, __initial_auth_token).catch((error) => {
+                    console.error("Firebase custom token sign-in failed:", error);
+                    signInAnonymously(auth).catch((anonError) => {
+                        console.error("Firebase anonymous sign-in failed:", anonError);
+                    });
+                });
+            } else {
+                signInAnonymously(auth).catch((error) => {
+                    console.error("Firebase anonymous sign-in failed:", error);
+                });
+            }
+        } else {
+            console.warn("Firebase config not found. Firebase services will not be initialized.");
+        }
+
+    </script>
+</body>
+</html>

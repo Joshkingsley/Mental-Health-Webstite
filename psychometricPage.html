@@ -3,43 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Workplace Wellness with Dr. Lydia, driving engagement, productivity, and resilience in organizations.">
-    <title>Workplace Wellness - Mind Health Consultancy</title>
+    <meta name="description" content="Discover your mind with professional psychometric testing at Mind Health Consultancy. Unlock insights into personality, strengths, and career fit.">
+    <title>Psychometric Testing - Mind Health Consultancy</title>
     {% load static %}
-    <!-- Bootstrap CSS for responsive grid and components -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
-        /* Define CSS Variables for consistent theming (Purple and Teal dominant) */
+        /* Color Palette: Lighter Purple dominant, with more dominant teal as an accent, and black/gold included */
         :root {
-            --primary-color-dark: #6A0DAD; /* Deep Purple - Dominant */
-            --primary-color-light: #C3A0DA; /* Lighter Lavender Purple */
-            --secondary-color-dark: #4B0082; /* Indigo/Darker Purple - for depth/footer */
-            --secondary-color-light: #E0BBE4; /* Very Light Purple/Pinkish */
-            --accent-teal-dark: #008080; /* Strong Teal/Cyan - now a prominent accent */
-            --accent-teal-light: #66CCCC; /* Lighter Teal/Cyan - for lighter accents */
+            --primary-color-dark: #8A2BE2; /* Blue Violet - Lighter, vibrant purple */
+            --primary-color-light: #D8BFD8; /* Thistle - Very light, soft purple */
+            --secondary-color-dark: #5D3FD3; /* Medium Purple - for depth/footer */
+            --secondary-color-light: #E6E6FA; /* Lavender Blush - Very light purple */
+            --accent-teal-dark: #00A3A3; /* Stronger, more vibrant teal - dominant accent */
+            --accent-teal-light: #4DDADA; /* Lighter, brighter teal - for lighter accents */
+            --accent-gold-dark: #B8860B; /* Dark Goldenrod - for emphasis */
+            --accent-gold-light: #FFD700; /* Gold - for lighter emphasis */
             --text-dark: #000000; /* Pure black */
             --text-light: #FFFFFF; /* Pure white */
             --background-light: #F8F8F8; /* Off-white for general backgrounds */
         }
 
-        /* Base body styles */
         html, body {
             height: 100%;
             margin: 0;
             padding: 0;
-            overflow-x: hidden; /* Prevent horizontal scroll */
-            padding-top: 80px; /* Added padding to push content below the fixed navbar */
+            overflow-x: hidden;
+            padding-top: 80px; /* Space for the fixed navigation bar */
         }
 
         body {
             font-family: 'Open Sans', sans-serif;
             color: var(--text-dark);
-            background-color: var(--background-light); /* Light background for the page */
+            background-color: var(--background-light);
         }
 
-        /* Navigation Bar Styling (Copied from previous page's consistent navbar) */
+        /* Navigation Bar Styling (Copied from previous page) */
         .navigation-bar {
             position: fixed;
             top: 0;
@@ -158,7 +157,7 @@
         .navigation-bar ul li ul.dropdown-menu {
             display: none;
             position: absolute;
-            top: 85px; /* Fixed position below the navbar */
+            top: 34vw; /* Position directly below the parent link */
             left: 0;
             background-color: var(--background-light) !important;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
@@ -174,10 +173,13 @@
         .navigation-bar ul li.show-dropdown ul.dropdown-menu {
             display: flex;
             opacity: 1;
-        }
+        }        
 
         .navigation-bar ul li ul.dropdown-menu-updated {
-            top: 33vw;
+            top: 7vw;
+        }
+        .navigation-bar ul li ul.dropdown-menu-updated-2 {
+            top: 4vw;
         }
 
         .navigation-bar ul li ul.dropdown-menu li {
@@ -305,14 +307,13 @@
             }
         }
 
-        /* Page Header Styling for Workplace Wellness */
-        .page-header-workplace {
-            /* Purple dominant with teal accent */
-            background-image: linear-gradient(to right, rgba(106, 13, 173, 0.7), rgba(0, 128, 128, 0.4)), url("{% static 'images/workplaceWellness.jpg' %}"); /* Stronger purple overlay */
+        /* Page Header / Hero Section */
+        .page-header {
+            background-image: linear-gradient(to right, rgba(0, 163, 163, 0.6), rgba(77, 218, 218, 0.4)), url("{% static 'images/assessment_banner.jpg' %}"); /* Teal overlay with image */
             background-size: cover;
-            background-position: center center;
+            background-position: center;
             background-repeat: no-repeat;
-            color: var(--text-light); /* Light text for contrast */
+            color: var(--text-light);
             padding: 80px 5%;
             text-align: center;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -325,56 +326,70 @@
             align-items: center;
         }
 
-        .page-header-workplace h1 {
+        .page-header h1 {
             font-size: 3.5rem;
             font-weight: 700;
             margin-bottom: 15px;
-            color: var(--text-light); /* White text for heading */
-            text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+            color: var(--accent-gold-light); /* Gold for main title */
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
         }
 
-        .page-header-workplace p {
+        .page-header p {
             font-size: 1.3rem;
             max-width: 900px;
-            margin: 0 auto;
+            margin: 0 auto 30px auto;
             line-height: 1.6;
-            color: var(--text-light); /* White text for readability */
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
         }
 
-        /* Main content section for full-width areas */
-        .main-content-full-width {
-            padding: 40px 0; /* Padding top/bottom, no horizontal padding here */
+        .page-header .btn-primary {
+            background-color: var(--primary-color-dark); /* Dark purple for CTA button */
+            color: var(--text-light);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(100, 77, 77, 0.3);
+        }
+
+        .page-header .btn-primary:hover {
+            background-color: var(--accent-teal-dark); /* Dark teal on hover */
+            transform: translateY(-3px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
+        }
+        
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+            .page-header p {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Main content section styling */
+        .main-content-section {
+            padding: 60px 5%;
+            max-width: 1200px;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
-            gap: 0; /* No gap between full-width sections */
+            gap: 60px;
         }
 
-        /* Styling for full-width sections */
-        .full-width-section {
-            background-color: var(--background-light); /* Light background for sections */
-            padding: 60px 5%; /* Padding within the section, 5% on sides */
-            margin-bottom: 40px; /* Space between sections */
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); /* Subtle shadow */
-            text-align: left;
-            border-radius: 0; /* No rounded corners for full width */
-        }
-
-        .full-width-section:nth-child(even) {
-            background-color: var(--secondary-color-light); /* Changed to lighter purple for alternating background */
-        }
-
-        .full-width-section h2 {
-            color: var(--primary-color-dark); /* Deep purple */
+        .section-heading {
             font-size: 2.5rem;
-            margin-bottom: 30px;
+            font-weight: 700;
+            color: var(--accent-teal-dark); /* Dominant teal for main section headings */
             text-align: center;
+            margin-bottom: 40px;
             position: relative;
-            padding-bottom: 15px;
+            padding-bottom: 10px;
         }
 
-        .full-width-section h2::after {
+        .section-heading::after {
             content: '';
             position: absolute;
             left: 50%;
@@ -382,279 +397,194 @@
             bottom: 0;
             width: 100px;
             height: 4px;
-            background-color: var(--accent-teal-dark); /* Dark teal */
+            background-color: var(--primary-color-dark); /* Dark purple underline */
             border-radius: 2px;
         }
 
-        .full-width-section h3 {
-            color: var(--secondary-color-dark); /* Darker purple for subheadings */
-            font-size: 1.8rem;
-            margin-top: 40px;
-            margin-bottom: 20px;
-        }
-
-        .full-width-section p,
-        .full-width-section ul,
-        .full-width-section ol {
-            font-size: 1.1rem;
-            line-height: 1.8;
+        .text-content {
+            font-size: 1.05rem;
+            line-height: 1.7;
             color: var(--text-dark);
-            max-width: 900px; /* Limit text width for readability */
-            margin-left: auto;
-            margin-right: auto;
             margin-bottom: 20px;
         }
 
-        .full-width-section ul,
-        .full-width-section ol {
-            list-style-position: outside; /* Ensure bullets/numbers are outside */
-            padding-left: 25px; /* Add padding for list items */
-        }
-
-        .full-width-section ul li,
-        .full-width-section ol li {
-            margin-bottom: 10px;
-        }
-
-        /* Specific styling for numbered lists (How Dr Lydia Guides You, What to Expect) */
-        .full-width-section ol.numbered-steps {
-            counter-reset: therapy-step;
-            list-style: none; /* Remove default numbering */
+        .list-style-custom {
+            list-style: none;
             padding-left: 0;
-            display: grid; /* Use grid for better layout of steps */
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive columns */
-            gap: 30px;
-            max-width: 1000px;
-            margin: 0 auto;
         }
 
-        .full-width-section ol.numbered-steps li {
+        .list-style-custom li {
             position: relative;
-            padding: 20px;
-            background-color: var(--background-light); /* Off-white background for list items */
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-            text-align: left;
-            padding-left: 60px; /* Space for custom number */
-            transition: transform 0.2s ease;
+            padding-left: 30px;
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: var(--text-dark);
         }
 
-        .full-width-section ol.numbered-steps li:hover {
-            transform: translateY(-5px);
-        }
-
-        .full-width-section ol.numbered-steps li::before {
-            counter-increment: therapy-step;
-            content: counter(therapy-step);
+        .list-style-custom li::before {
+            content: "\f00c"; /* Font Awesome check icon */
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
             position: absolute;
-            left: 15px;
-            top: 15px;
-            background-color: var(--primary-color-dark); /* Changed to deep purple for numbers */
+            left: 0;
+            color: var(--accent-teal-dark); /* Teal checkmark */
+            font-size: 1.1rem;
+            top: 2px;
+        }
+
+        .list-decimal-custom {
+            counter-reset: step-counter;
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .list-decimal-custom li {
+            position: relative;
+            padding-left: 40px;
+            margin-bottom: 15px;
+            font-weight: 500;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: var(--text-dark);
+        }
+
+        .list-decimal-custom li::before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-color: var(--accent-teal-dark); /* Dark teal number circle */
             color: var(--text-light);
-            width: 35px;
-            height: 35px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
             font-weight: 700;
-            font-size: 1.2rem;
+            font-size: 1rem;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
-        .full-width-section ol.numbered-steps li strong {
-            display: block;
-            font-size: 1.2rem;
-            color: var(--primary-color-dark); /* Deep purple for strong text */
-            margin-bottom: 5px;
-        }
-
-        /* FAQ Section Specifics */
-        .faq-item {
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px dashed var(--primary-color-light); /* Lighter purple dashed line */
-            max-width: 900px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .faq-item:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-        }
-
-        .faq-item strong {
-            color: var(--primary-color-dark); /* Changed to dark purple for questions */
-            font-size: 1.15rem;
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        .faq-item p {
-            margin-left: 20px; /* Indent answers slightly */
-            font-size: 1.05rem;
-            color: var(--text-dark);
-        }
-
-        /* Image Gallery Section */
-        .image-gallery-section {
-            background-color: var(--background-light);
-            padding: 60px 5%;
-            margin-bottom: 40px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            text-align: center;
-            border-radius: 0;
-        }
-
-        .image-gallery-section h2 {
-            color: var(--primary-color-dark);
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-            position: relative;
-            padding-bottom: 15px;
-        }
-
-        .image-gallery-section h2::after {
-            content: '';
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            bottom: 0;
-            width: 100px;
-            height: 4px;
-            background-color: var(--accent-teal-dark);
-            border-radius: 2px;
-        }
-
-        .image-grid {
+        .card-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
+            gap: 30px;
         }
 
-        .image-grid img {
-            width: 100%;
-            height: 200px; /* Fixed height for consistency */
-            object-fit: cover; /* Cover the area, cropping if necessary */
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .image-grid img:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-        }
-
-
-        /* CTA Section */
-        .cta-section-workplace {
+        .info-card {
+            background-color: var(--text-light);
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            padding: 30px;
             text-align: center;
-            padding: 60px 5%;
-            background-color: var(--primary-color-dark); /* Deep purple background for CTA */
-            color: var(--text-light);
-            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
-            border-radius: 0; /* No rounded corners for full width */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--primary-color-light); /* Light purple border */
         }
 
-        .cta-section-workplace h2 {
-            color: var(--text-light); /* White heading */
-            font-size: 2.8rem;
-            margin-bottom: 25px;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
         }
 
-        .cta-section-workplace p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
+        .info-card h3 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--primary-color-dark); /* Dark purple for card titles */
+            margin-bottom: 15px;
+        }
+
+        .info-card p {
+            font-size: 1rem;
+            color: var(--text-dark);
             line-height: 1.6;
         }
 
-        .cta-section-workplace .cta-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap; /* Allow buttons to wrap on small screens */
+        .testimonial-block {
+            background-color: var(--secondary-color-light); /* Light purple/pinkish background */
+            border-left: 5px solid var(--accent-teal-dark); /* Strong teal accent line */
+            padding: 30px;
+            border-radius: 10px;
+            font-style: italic;
+            color: var(--text-dark);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
         }
 
-        .cta-section-workplace .btn-cta {
-            background-color: var(--accent-teal-dark); /* Dark teal button background */
+        .testimonial-block footer {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: var(--secondary-color-dark); /* Darker purple for footer */
+            font-style: normal;
+        }
+
+        /* Final CTA Section */
+        .final-cta-section {
+            text-align: center;
+            margin-top: 40px;
+            padding: 40px;
+            background-color: var(--primary-color-light); /* Light purple background */
+            border-radius: 15px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .final-cta-section p {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            margin-bottom: 25px;
+        }
+
+        .final-cta-section .btn-secondary {
+            background-color: var(--accent-teal-dark); /* Dark teal for CTA button */
             color: var(--text-light);
-            border: 2px solid var(--text-light); /* White border */
+            border: none;
             padding: 15px 35px;
             border-radius: 50px;
             font-size: 1.2rem;
             font-weight: 600;
             text-decoration: none;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         }
 
-        .cta-section-workplace .btn-cta:hover {
-            background-color: var(--accent-teal-light); /* Lighter teal on hover */
-            border-color: var(--primary-color-light); /* Lighter purple border on hover */
+        .final-cta-section .btn-secondary:hover {
+            background-color: var(--primary-color-dark); /* Dark purple on hover */
             transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
         }
 
-        /* Footer */
+        hr {
+            border: none;
+            border-top: 1px solid var(--primary-color-light); /* Light purple horizontal rule */
+            margin: 60px 0;
+        }
+
+        /* Footer (simplified for a sub-page) */
         .site-footer {
             background-color: var(--secondary-color-dark); /* Darker purple for footer */
-            color: var(--text-light);
+            color: var(--accent-gold-light); /* Light gold for general footer text */
             padding: 30px 5%;
             font-size: 0.9rem;
             text-align: center;
-            margin-top: 0; /* No margin-top as sections handle spacing */
+            margin-top: 60px;
         }
 
         .site-footer a {
-            color: var(--accent-teal-light); /* Lighter teal for footer links */
+            color: var(--accent-gold-light); /* Light gold for footer links */
             text-decoration: none;
             margin: 0 10px;
+            transition: color 0.3s ease;
         }
 
         .site-footer a:hover {
+            color: var(--accent-teal-light); /* Lighter teal on hover for footer links */
             text-decoration: underline;
-        }
-
-        /* Responsive Adjustments */
-        @media (max-width: 768px) {
-            .page-header-workplace h1 {
-                font-size: 2.5rem;
-            }
-            .page-header-workplace p {
-                font-size: 1rem;
-            }
-            .full-width-section h2 {
-                font-size: 2rem;
-            }
-            .full-width-section p,
-            .full-width-section ul,
-            .full-width-section ol {
-                font-size: 1rem;
-            }
-            .full-width-section ol.numbered-steps {
-                grid-template-columns: 1fr; /* Single column on small screens */
-            }
-            .cta-section-workplace h2 {
-                font-size: 2.2rem;
-            }
-            .cta-section-workplace .btn-cta {
-                font-size: 1rem;
-                padding: 12px 25px;
-            }
         }
     </style>
 </head>
 <body>
 
-    <!-- Navigation Bar -->
     <nav class="navigation-bar" id="navbar">
         <a class="nav-brand" href="/wellnessCenter">
             <img src="{% static 'images/mindhealthLogo.png' %}" alt="Mind Health Logo" class="nav-logo">
@@ -670,7 +600,7 @@
             <li><a href="/wellnessCenter/#about-us-main"><i class="fas fa-info-circle"></i>About Dr Lydiah</a></li>
             <li class="dropdown-hover">
                 <a href="#" id="services-link"><i class="fas fa-hand-holding-heart"></i>Services <i class="fas fa-caret-down ml-2"></i></a>
-                <ul class="dropdown-menu dropdown-menu-updated" id="services-dropdown">
+                <ul class="dropdown-menu" id="services-dropdown">
                     <li><a href="/personalSessions/"><i class="fas fa-user"></i>Individual Therapy</a></li>
                     <li><a href="/couplesTherapy/"><i class="fas fa-heart"></i>Couple Therapy</a></li>
                     <li><a href="/pre-maritalTherapy/"><i class="fas fa-ring"></i>Pre-marital Counseling</a></li>
@@ -678,19 +608,19 @@
                     <li><a href="/groupCouncelling/"><i class="fas fa-users"></i>Group Counseling</a></li>
                     <li><a href=""><i class="fas fa-graduation-cap"></i>Mentorship Programs</a></li>
                     <li><a href="/workplace/"><i class="fas fa-briefcase"></i>Workplace Wellness</a></li>
-                    <li><a href="/wellnessCenter/testing/"><i class="fas fa-brain"></i>Psychometric Testing</a></li>
+                    <li><a href="/psychometricTesting/"><i class="fas fa-brain"></i>Psychometric Testing</a></li>
                 </ul>
             </li>
             <li class="dropdown-hover">
                 <a href="#" id="programs-link"><i class="fas fa-chalkboard-teacher"></i>Programs <i class="fas fa-caret-down ml-2"></i></a>
-                <ul class="dropdown-menu" id="programs-dropdown">
+                <ul class="dropdown-menu dropdown-menu-updated" id="programs-dropdown">
                     <li><a href="/wellnessCenter/#redefined-ladies-section"><i class="fas fa-female"></i>Redefined Ladies 2</a></li>
                     <li><a href="/wellnessCenter/#redefined-ladies-section"><i class="fas fa-lightbulb"></i>Other Programs</a></li>
                 </ul>
             </li>
-            <li class="dropdown-hover">
+            <li class="dropdown-hover dropdown-menu-updated-2">
                 <a href="#" id="sessions-link"><i class="fas fa-calendar-check"></i>Sessions <i class="fas fa-caret-down ml-2"></i></a>
-                <ul class="dropdown-menu" id="sessions-dropdown">
+                <ul class="dropdown-menu dropdown-menu-updated" id="sessions-dropdown">
                     <li><a href="https://yourdomain.com/book-session"><i class="fas fa-calendar-plus"></i>Book Session</a></li>
                     <li><a href="/wellnessCenter/#gallery-section"><i class="fas fa-images"></i>Gallery</a></li>
                 </ul>
@@ -699,157 +629,117 @@
         </ul>
     </nav>
 
-    <!-- Page Header for Workplace Wellness -->
-    <header class="page-header-workplace">
-        <h1>Workplace Wellness</h1>
-        <p>Enter a thriving environment where employee well-being drives engagement, productivity, and resilience. Dr Lydia N. combines organizational psychology, evidence-based stress management, and compassionate coaching to help organizations cultivate healthier, happier teams.</p>
+    <header class="page-header">
+        <h1>Discover Your Mind with Professional Psychometric Testing</h1>
+        <p>Unlock insights into personality, strengths, and career fit through scientifically validated assessments.</p>
+        <a href="https://yourdomain.com/book-assessment" class="btn btn-primary">
+            Book Your Assessment
+        </a>
     </header>
 
-    <!-- Main content area for full-width sections -->
-    <main class="main-content-full-width">
+    <main class="main-content-section">
 
-        <!-- Who Benefits Section -->
-        <section class="full-width-section">
-            <h2>Who Benefits</h2>
-            <p>Organizations and teams seeking to:</p>
-            <ul>
-                <li>Reduce burnout, absenteeism, and turnover</li>
-                <li>Improve stress resilience and emotional regulation</li>
-                <li>Strengthen team cohesion and psychological safety</li>
-                <li>Foster a culture of open communication and mutual support</li>
-                <li>Enhance leadership skills and managerial empathy</li>
+        <!-- What is Psychometric Testing? -->
+        <section class="intro">
+            <h2 class="section-heading">What Is Psychometric Testing?</h2>
+            <p class="text-content">
+                Psychometric testing uses standardized questionnaires and exercises to measure mental faculties and personality traits.
+                Our certified psychologists interpret your results to provide actionable guidance. These assessments are designed to be objective and reliable, offering a clear picture of an individual's cognitive abilities, behavioral style, and potential.
+            </p>
+        </section>
+
+        <hr>
+
+        <!-- Key Benefits -->
+        <section class="benefits">
+            <h2 class="section-heading">Why Choose MindHealth?</h2>
+            <ul class="list-style-custom">
+                <li>Scientifically validated assessment tools ensuring accuracy and reliability.</li>
+                <li>Personalized, in-depth reports that go beyond scores to provide meaningful insights.</li>
+                <li>Expert interpretation by licensed psychologists, offering professional guidance.</li>
+                <li>Actionable recommendations for personal and professional growth.</li>
+                <li>Confidential and secure testing environment, prioritizing your privacy.</li>
+                <li>Holistic approach that considers your unique context and goals.</li>
             </ul>
         </section>
 
-        <!-- How Dr Lydia Guides You Section -->
-        <section class="full-width-section">
-            <h2>How We Guide You</h2>
-            <p>Our holistic, data-driven approach ensures interventions align with your unique workplace culture:</p>
-            <ol class="numbered-steps">
-                <li>
-                    <strong>Organizational Assessment</strong>
-                    Deploy anonymous surveys, focus groups, and leadership interviews to map stressors, strengths, and wellness gaps.
-                </li>
-                <li>
-                    <strong>Customized Wellness Strategy</strong>
-                    Co-create a roadmap of workshops, coaching, and policy recommendations tailored to your company’s size, industry, and values.
-                </li>
-                <li>
-                    <strong>Interactive Workshops & Training</strong>
-                    Deliver modules on mindfulness, emotional intelligence, conflict-resolution, and work-life integration—engaging employees through experiential exercises and real-world scenarios.
-                </li>
-                <li>
-                    <strong>Leadership Coaching</strong>
-                    Equip managers with skills in compassionate communication, active listening, and team-centered decision-making to model and reinforce healthy practices.
-                </li>
-                <li>
-                    <strong>Policy Integration & Support</strong>
-                    Advise on sustainable wellness policies—flexible work arrangements, mental health days, and peer-support networks.
-                </li>
-                <li>
-                    <strong>Ongoing Evaluation & Refinement</strong>
-                    Track key metrics (engagement scores, absenteeism rates, turnover) and gather qualitative feedback to refine initiatives and celebrate milestones.
-                </li>
+        <hr>
+
+        <!-- Our Test Offerings -->
+        <section class="offerings">
+            <h2 class="section-heading">Our Assessments</h2>
+            <div class="card-grid">
+                <div class="info-card">
+                    <h3>Personality Profiling</h3>
+                    <p>Measure core traits like openness, conscientiousness, extraversion, agreeableness, and neuroticism to understand your behavioral preferences.</p>
+                </div>
+                <div class="info-card">
+                    <h3>Cognitive Ability Tests</h3>
+                    <p>Assess logical reasoning, problem-solving, numerical aptitude, and verbal comprehension skills crucial for various roles and academic pursuits.</p>
+                </div>
+                <div class="info-card">
+                    <h3>Emotional Intelligence</h3>
+                    <p>Evaluate self-awareness, self-regulation, motivation, empathy, and social skills—key indicators for success in personal and professional relationships.</p>
+                </div>
+                <div class="info-card">
+                    <h3>Career Aptitude</h3>
+                    <p>Identify optimal career paths based on your inherent abilities, interests, and values, helping you make informed decisions about your future.</p>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <!-- Process Steps -->
+        <section class="process">
+            <h2 class="section-heading">How It Works</h2>
+            <ol class="list-decimal-custom">
+                <li><strong>Initial Consultation:</strong> We begin with a brief discussion to understand your needs and recommend the most suitable assessment battery.</li>
+                <li><strong>Secure Online Questionnaire:</strong> Complete our scientifically designed questionnaires at your convenience through our secure online platform.</li>
+                <li><strong>Expert Analysis:</strong> Our team of certified psychologists meticulously scores and analyzes your responses, ensuring accurate and comprehensive results.</li>
+                <li><strong>Detailed Report:</strong> Receive a personalized, in-depth report outlining your strengths, development areas, and key insights derived from your assessment.</li>
+                <li><strong>Feedback Session:</strong> Schedule a confidential one-on-one feedback session with a psychologist to discuss your report, clarify findings, and explore implications.</li>
+                <li><strong>Actionable Recommendations:</strong> Work with our experts to develop a personalized action plan, implementing recommendations for your personal or professional growth.</li>
             </ol>
         </section>
 
-        <!-- What to Expect in a Workshop Section -->
-        <section class="full-width-section">
-            <h2>What to Expect in a Workshop</h2>
-            <p>Each 90-minute session follows a dynamic structure to maximize learning and application:</p>
-            <ol class="numbered-steps">
-                <li>
-                    <strong>Opening Check-In (10 minutes):</strong>
-                    Gauge mood, set intentions, and reinforce confidentiality.
-                </li>
-                <li>
-                    <strong>Core Module (45 minutes):</strong>
-                    Interactive exercises on the chosen theme—stress inoculation, mindful communication, or resilience building.
-                </li>
-                <li>
-                    <strong>Group Reflection (25 minutes):</strong>
-                    Share insights, challenges, and practical implementation ideas.
-                </li>
-                <li>
-                    <strong>Action Planning (10 minutes):</strong>
-                    Commit to small, team-based tasks—mindful pauses, peer check-ins, or brief gratitude rituals.
-                </li>
-            </ol>
-        </section>
+        <hr>
 
-        <!-- Core Focus Areas Section -->
-        <section class="full-width-section">
-            <h2>Core Focus Areas</h2>
-            <ul>
-                <li><strong>Stress management and burnout prevention</strong></li>
-                <li><strong>Mindfulness and emotional regulation</strong></li>
-                <li><strong>Building psychological safety and trust</strong></li>
-                <li><strong>Healthy boundary-setting and work-life integration</strong></li>
-                <li><strong>Conflict-resolution and assertive communication</strong></li>
-                <li><strong>Leadership empathy and supportive supervision</strong></li>
-            </ul>
-        </section>
-
-        <!-- Frequently Asked Questions Section -->
-        <section class="full-width-section">
-            <h2>Frequently Asked Questions</h2>
-            <div class="faq-item">
-                <strong>How many employees can participate?</strong>
-                <p>Workshops scale from small teams (8–12 participants) to full-company rollouts.</p>
+        <!-- Testimonials Placeholder -->
+        <section class="testimonials">
+            <h2 class="section-heading">What Our Clients Say</h2>
+            <div class="testimonial-block">
+                "MindHealth's psychometric assessments were a game-changer for my career. The detailed report and the feedback session with Dr. Lydia provided unparalleled clarity on my strengths and areas for development. I now have a clear roadmap for my professional growth, and I feel much more confident in my decisions. Highly recommend!"
+                <footer>— Sarah M., Marketing Manager</footer>
             </div>
-            <div class="faq-item">
-                <strong>What is the typical program length?</strong>
-                <p>Most organizations see impact within 3–6 months of a blended program (4–6 workshops plus coaching).</p>
-            </div>
-            <div class="faq-item">
-                <strong>Can sessions be virtual?</strong>
-                <p>Yes—secure video platforms enable interactive, remote delivery.</p>
-            </div>
-            <div class="faq-item">
-                <strong>Do you provide follow-up materials?</strong>
-                <p>Participants receive handouts, guided audio practices, and access to a resource portal.</p>
+            <div class="testimonial-block" style="margin-top: 30px;">
+                "I was hesitant at first, but the emotional intelligence assessment helped me understand myself and my interactions with others so much better. It's truly transformative. The insights were spot-on, and the psychologist was incredibly supportive."
+                <footer>— David K., Entrepreneur</footer>
             </div>
         </section>
 
-        <!-- Image Gallery Section -->
-        <section class="image-gallery-section" id="gallery-section">
-            <h2>Workplace Wellness in Action: Our Gallery</h2>
-            <p>See how our programs foster a positive and productive work environment.</p>
-            <div class="image-grid">
-                <img src="https://placehold.co/400x200/6A0DAD/FFFFFF?text=Team+Workshop" alt="Team participating in a wellness workshop">
-                <img src="https://placehold.co/400x200/008080/FFFFFF?text=Mindfulness+Session" alt="Employees practicing mindfulness">
-                <img src="https://placehold.co/400x200/C3A0DA/000000?text=Leadership+Training" alt="Leadership training session">
-                <img src="https://placehold.co/400x200/4B0082/FFFFFF?text=Group+Activity" alt="Group activity for team building">
-                <img src="https://placehold.co/400x200/66CCCC/000000?text=Stress+Management" alt="Stress management workshop">
-                <img src="https://placehold.co/400x200/E0BBE4/000000?text=Employee+Engagement" alt="Engaged employees in a wellness session">
-            </div>
-        </section>
+        <hr>
 
-        <!-- Call to Action Section -->
-        <section class="cta-section-workplace">
-            <h2>Ready to Transform Your Workplace into a Hub of Well-being and High Performance?</h2>
-            <p>Schedule a complimentary 15-minute consultation to discuss your organization’s goals and design a tailored wellness program with Dr Lydia N.</p>
-            <div class="cta-buttons">
-                <a href="#" class="btn-cta">Book Your Consultation</a>
-                <a href="#" class="btn-cta">Contact Us</a>
-            </div>
+        <!-- Final CTA -->
+        <section class="final-cta-section">
+            <p>Ready to gain deeper self-awareness and drive meaningful change?</p>
+            <a href="https://yourdomain.com/contact" class="btn btn-secondary">
+                Schedule Your Assessment Today
+            </a>
         </section>
 
     </main>
 
-    <!-- Site Footer -->
     <footer class="site-footer">
         &copy; <span id="current-year-footer"></span> Mind Health Consultancy. All rights reserved. |
-        <a href="">Privacy Policy</a> |
-        <a href="">Terms of Service</a>
+        <a href="/privacy-policy">Privacy Policy</a> |
+        <a href="/terms-of-service">Terms of Service</a>
     </footer>
 
-    <!-- Bootstrap and jQuery JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-        // Dynamically set the current year in the footer
         document.getElementById('current-year-footer').textContent = new Date().getFullYear();
 
         // --- Navbar Scroll Effect ---
@@ -942,7 +832,7 @@
         }
 
         // Add smooth scroll listeners for internal links on this page
-        document.querySelectorAll('.main-content-full-width a[href^="#"]').forEach(anchor => {
+        document.querySelectorAll('.main-content-section a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 smoothScrollTo(this.getAttribute('href'));
@@ -954,9 +844,10 @@
             e.preventDefault();
             window.location.href = '/wellnessCenter/#about-us-main';
         });
-        document.querySelector('.navigation-bar ul li a[href="/wellnessCenter/testing/"]').addEventListener('click', function(e) {
+        // Update the Psychometric Testing link in the Services dropdown to point to this new page
+        document.querySelector('#services-dropdown a[href="/psychometricTesting/"]').addEventListener('click', function(e) {
             e.preventDefault();
-            window.location.href = '/wellnessCenter/testing/';
+            window.location.href = '/psychometricTesting/';
         });
         document.querySelector('.navigation-bar ul li a[href="/wellnessCenter/#redefined-ladies-section"]').addEventListener('click', function(e) {
             e.preventDefault();
@@ -971,58 +862,70 @@
             window.location.href = '/wellnessCenter/#gallery-section';
         });
 
-        // Ensure home link works (assuming /wellnessCenter/ is the home page)
-        document.querySelector('.nav-brand').addEventListener('click', function(e) {
+        // Ensure home link works
+        document.querySelector('.navigation-bar .nav-brand').addEventListener('click', function(e) {
             e.preventDefault();
             window.location.href = '/wellnessCenter/';
         });
 
         // Update the main "Services" link to go to the services section on the main page
-        // Note: This specific link is for the parent "Services" dropdown, not its children.
-        document.querySelector('#services-link').addEventListener('click', function(e) {
-            if (window.innerWidth >= 992) { // Only for large screens where it's not a dropdown toggle
-                e.preventDefault();
-                window.location.href = '/wellnessCenter/#our-services-section';
-            }
+        document.querySelector('#services-dropdown a[href="/personalSessions/"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = '/personalSessions/';
+        });
+        document.querySelector('#services-dropdown a[href="/couplesTherapy/"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = '/couplesTherapy/';
+        });
+        document.querySelector('#services-dropdown a[href="/pre-maritalTherapy/"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = '/pre-maritalTherapy/';
+        });
+        document.querySelector('#services-dropdown a[href="/marriageTherapy/"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = '/marriageTherapy/';
+        });
+        document.querySelector('#services-dropdown a[href="/groupCouncelling/"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = '/groupCouncelling/';
+        });
+        document.querySelector('#services-dropdown a[href="/workplace/"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = '/workplace/';
         });
 
 
         // Update the main "Contact" link
-        document.querySelector('a[href="/contact"]').addEventListener('click', function(e) {
+        document.querySelector('.navigation-bar ul li a[href="/contact"]').addEventListener('click', function(e) {
             e.preventDefault();
             window.location.href = '/contact';
         });
 
-        // Update the main "Create Account" link
-        document.querySelector('a[href="/create-account"]').addEventListener('click', function(e) {
+        // Update the main "Book Session" link in the CTA
+        document.querySelector('.page-header .btn-primary').addEventListener('click', function(e) {
             e.preventDefault();
-            window.location.href = '/create-account';
+            window.location.href = 'https://yourdomain.com/book-assessment';
+        });
+        document.querySelector('.final-cta-section .btn-secondary').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = 'https://yourdomain.com/contact';
         });
 
-        // Update the main "Login" link
-        document.querySelector('a[href="/login"]').addEventListener('click', function(e) {
-            e.preventDefault();
-            window.location.href = '/login';
-        });
-
-        // Update the "Book Session" link in the Sessions dropdown
+        // Update the main "Book Session" link in the Sessions dropdown
         document.querySelector('#sessions-dropdown a[href="https://yourdomain.com/book-session"]').addEventListener('click', function(e) {
             e.preventDefault();
             window.location.href = 'https://yourdomain.com/book-session';
         });
 
-        // Update the CTA buttons
-        document.querySelector('.cta-section-workplace .btn-cta[href="#"]').addEventListener('click', function(e) {
+        // Footer links
+        document.querySelector('.site-footer a[href="/privacy-policy"]').addEventListener('click', function(e) {
             e.preventDefault();
-            // Assuming this is the "Book Your Consultation" button
-            window.location.href = 'https://yourdomain.com/book-consultation';
+            window.location.href = '/privacy-policy';
         });
-        document.querySelector('.cta-section-workplace .btn-cta[href="#"]').nextElementSibling.addEventListener('click', function(e) {
+        document.querySelector('.site-footer a[href="/terms-of-service"]').addEventListener('click', function(e) {
             e.preventDefault();
-            // Assuming this is the "Contact Us" button
-            window.location.href = '/contact';
+            window.location.href = '/terms-of-service';
         });
-
 
     </script>
 </body>
