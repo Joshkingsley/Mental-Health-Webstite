@@ -37,7 +37,7 @@
 
         /* Restyled Header/Navigation */
         .page-header-content {
-            background-image: linear-gradient(to right, rgba(0, 163, 163, 0.6), rgba(77, 218, 218, 0.4)), url("{% static 'images/gallery_banner.jpg' %}"); /* Teal overlay with image */
+            background-image: linear-gradient(to right, rgba(0, 163, 163, 0.6), rgba(77, 218, 218, 0.4)), url("images/gallery_banner.jpg"); /* Teal overlay with image */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -296,7 +296,7 @@
 </head>
 <body>
 
-    <a href="/wellnessCenter/" class="back-button-float" aria-label="Back to Home">
+    <a href="index.html" class="back-button-float" aria-label="Back to Home">
         <i class="fas fa-arrow-left"></i>
     </a>
 
@@ -348,12 +348,12 @@
             // For this example, we'll use a mock data structure.
             const mockData = {
                 "images": [
-                    {"src": "{% static 'images/workplaceWellness.jpg' %}", "alt": "Group therapy session"},
-                    {"src": "{% static 'images/capacityBuilding.jpg' %}", "alt": "Mindfulness retreat"},
-                    {"src": "{% static 'images/youngLights.jpg' %}", "alt": "Workshop discussion"},
-                    {"src": "{% static 'images/individualTherapy.jpg' %}", "alt": "One-on-one counseling"},
-                    {"src": "{% static 'images/workplaceWellness2.jpg' %}", "alt": "Outdoor wellness activity"},
-                    {"src": "{% static 'images/galleryImage1.jpg' %}", "alt": "Team building exercise"}
+                    {"src": "images/workplaceWellness.jpg", "alt": "Group therapy session"},
+                    {"src": "images/capacityBuilding.jpg", "alt": "Mindfulness retreat"},
+                    {"src": "images/youngLights.jpg", "alt": "Workshop discussion"},
+                    {"src": "images/individualTherapy.jpg", "alt": "One-on-one counseling"},
+                    {"src": "images/workplaceWellness2.jpg", "alt": "Outdoor wellness activity"},
+                    {"src": "images/galleryImage1.jpg", "alt": "Team building exercise"}
                 ],
                 "videos": [
                     {"src": "https://www.youtube.com/embed/eaHnqL-Bmdk?si=NKCrYIepOO5G40ki", "title": "Gender and Suicide"},
@@ -362,10 +362,10 @@
                     {"src": "https://www.youtube.com/embed/tD6ms3zlRVA?si=P4Pkkpd8zOh9AYVs", "title": "Client Testimonials"}
                 ],
                 "programs": [
-                    {"image": "{% static 'images/refinedLadies.jpg' %}", "title": "Redefined Ladies 1", "description": "Empowering women to embrace their true selves, foster resilience, and build a supportive community.", "link": "/wellnessCenter/#redefined-ladies-section"},
-                    {"image": "{% static 'images/mentorship_program.jpg' %}", "title": "Youth Mentorship Program", "description": "Guiding young minds towards their full potential through personalized support and development.", "link": "/mentorship-program-details/"},
-                    {"image": "{% static 'images/corporate_wellness.jpg' %}", "title": "Corporate Wellness Initiatives", "description": "Tailored programs to enhance mental well-being and productivity in professional environments.", "link": "/workplace/"},
-                    {"image": "{% static 'images/family_harmony.jpg' %}", "title": "Family Harmony Workshops", "description": "Workshops designed to strengthen family bonds and improve communication dynamics.", "link": "/family-harmony-details/"}
+                    {"image": "images/refinedLadies.jpg", "title": "Redefined Ladies 1", "description": "Empowering women to embrace their true selves, foster resilience, and build a supportive community.", "link": "index.html#redefined-ladies-section"},
+                    {"image": "images/mentorship_program.jpg", "title": "Youth Mentorship Program", "description": "Guiding young minds towards their full potential through personalized support and development.", "link": "/mentorship-program-details/"},
+                    {"image": "images/corporate_wellness.jpg", "title": "Corporate Wellness Initiatives", "description": "Tailored programs to enhance mental well-being and productivity in professional environments.", "link": "workplace/Wellness.html"},
+                    {"image": "images/family_harmony.jpg", "title": "Family Harmony Workshops", "description": "Workshops designed to strengthen family bonds and improve communication dynamics.", "link": "/family-harmony-details/"}
                 ]
             };
 

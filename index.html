@@ -3,72 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Workplace Wellness with Dr. Lydia, driving engagement, productivity, and resilience in organizations.">
-    <title>Workplace Wellness - Mind Health Consultancy</title>
+    <meta name="description" content="Mind Health Consultancy by Dr Lydia N. - A sanctuary for healing minds—offering personalized therapy and transformative mental health consultancy.">
+    <title>Mind Health Consultancy by Dr Lydia N. - Minding your mind</title>
     {% load static %}
-    <!-- Bootstrap CSS for responsive grid and components -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
-        /* Define CSS Variables for consistent theming (Purple, Teal, Gold dominant) */
+        /* Updated Color Palette: Lighter Purple dominant, with more dominant teal as an accent, and black/gold included */
         :root {
-            --purple-dark: #5D3FD3; /* Darker Purple for primary elements, nav, CTA */
-            --purple-light: #E6E6FA; /* Very Light Purple for backgrounds, soft accents */
-            --purple-therapeutic: #9370DB; /* Medium Purple for main text, headings */
-
-            --teal-dark: #008080; /* Dominant Teal for accents, button hovers, borders */
-            --teal-light: #66CCCC; /* Lighter Teal for backgrounds, subtle highlights */
-
-            --gold-dark: #FFD700; /* Dominant Gold for key highlights, numbers */
-            --gold-light: #FFFACD; /* Light Gold for subtle touches */
-
-            --text-color-dark: #212529; /* Soft Black for main text */
-            --text-color-light: #FFFFFF; /* White for text on dark backgrounds */
-            --background-main: #F8F8F8; /* Off-white for general page background */
+            --primary-color-dark: #8A2BE2; /* Blue Violet - Lighter, vibrant purple */
+            --primary-color-light: #D8BFD8; /* Thistle - Very light, soft purple */
+            --secondary-color-dark: #5D3FD3; /* Medium Purple - for depth/footer */
+            --secondary-color-light: #E6E6FA; /* Lavender Blush - Very light purple */
+            --accent-teal-dark: #00A3A3; /* Stronger, more vibrant teal - dominant accent */
+            --accent-teal-light: #4DDADA; /* Lighter, brighter teal - for lighter accents */
+            --accent-gold-dark: #B8860B; /* Dark Goldenrod - for emphasis */
+            --accent-gold-light: #FFD700; /* Gold - for lighter emphasis */
+            --text-dark: #000000; /* Pure black */
+            --text-light: #FFFFFF; /* Pure white */
+            --background-light: #F8F8F8; /* Off-white for general backgrounds */
         }
 
-        /* Helper for rgba from hex */
-        .hex-to-rgb-purple-dark { color: #5D3FD3; /* 93, 63, 211 */ }
-        .hex-to-rgb-teal-dark { color: #008080; /* 0, 128, 128 */ }
-
-        /* Base body styles */
+        /* Ensure HTML and Body use full height for vh units to work properly */
         html, body {
             height: 100%;
             margin: 0;
             padding: 0;
-            overflow-x: hidden; /* Prevent horizontal scroll */
-            padding-top: 80px; /* Added padding to push content below the fixed navbar */
+            overflow-x: hidden; /* Prevent horizontal scroll when mobile nav is off-screen */
         }
 
         body {
             font-family: 'Open Sans', sans-serif;
-            color: var(--text-color-dark);
-            background-color: var(--background-main); /* Light background for the page */
+            color: var(--text-dark);
+            background-color: var(--background-light); /* Apply new background color */
         }
 
-        /* Navigation Bar Styling (Consistent across pages) */
+        /* --- New Unified Hero Section Container --- */
+        .hero-section-container {
+            position: relative; /* Crucial for absolute positioning of children */
+            width: 100%;
+            height: 100vh; /* Default full height for large screens */
+            overflow: hidden; /* Contains carousel and fixed content */
+            box-sizing: border-box; /* Include padding in height calculation */
+        }
+
+        /* Media query for small screens - Unified container height adjustment */
+        @media (max-width: 992px) {
+            .hero-section-container {
+                height: 100vh; /* 3/4 (75%) of the viewport height on small screens */
+            }
+        }
+        /* --- End New Unified Hero Section Container --- */
+
+
+        /* Navigation Bar - Initial State (transparent, fixed at top) */
         .navigation-bar {
-            position: fixed;
+            position: fixed; /* Always fixed for smoother transition */
             top: 0;
             left: 0;
             width: 100%;
-            height: auto;
-            z-index: 1000;
-            background-color: var(--purple-dark); /* Purple background for navbar */
+            height: auto; /* Auto height initially */
+            z-index: 1000; /* Ensure it's on top */
+            background-color: transparent; /* Initial state: transparent */
             padding: 15px 20px;
-            border-radius: 0;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: all 0.5s ease-in-out;
+            border-radius: 0; /* Initial state: no border radius */
+            box-shadow: none; /* Initial state: no shadow */
+            transition: all 0.5s ease-in-out; /* Smooth transition for all properties */
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
+            opacity: 0; /* Initially hidden for skeleton effect */
+            pointer-events: none; /* Prevent interaction when hidden */
         }
 
+        /* Navigation Bar - Scrolled State (fixed, white background, no bulging) */
         .navigation-bar.scrolled {
-            background-color: var(--background-main); /* White background when scrolled */
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            top: 0; /* Fixed to top */
+            left: 0;
+            width: 100%;
+            height: auto;
+            border-radius: 0;
+            background-image: none;
+            background-color: var(--background-light); /* White background */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            padding: 15px 20px;
+            border: none;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .navigation-bar .nav-brand {
@@ -80,12 +102,10 @@
         }
 
         .navigation-bar .nav-logo {
-            width: 50px;
-            height: 50px;
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
             margin-right: 10px;
-            background-color: var(--text-color-light);
-            border: 2px solid var(--teal-dark); /* Teal border for logo */
             object-fit: cover;
             flex-shrink: 0;
         }
@@ -99,7 +119,7 @@
         }
 
         .navigation-bar .brand-title {
-            color: var(--text-color-light);
+            color: var(--text-light);
             font-size: 2rem;
             font-weight: 800;
             line-height: 0.9;
@@ -107,11 +127,11 @@
         }
 
         .navigation-bar.scrolled .brand-title {
-            color: var(--purple-dark); /* Deep purple when scrolled */
+            color: var(--primary-color-dark);
         }
 
         .navigation-bar .brand-slogan {
-            color: var(--text-color-light);
+            color: var(--text-light);
             font-size: 0.8rem;
             font-weight: 400;
             margin-top: 2px;
@@ -119,7 +139,7 @@
         }
 
         .navigation-bar.scrolled .brand-slogan {
-            color: var(--purple-dark); /* Deep purple when scrolled */
+            color: var(--accent-gold-light);
         }
 
         .navigation-bar ul {
@@ -141,7 +161,7 @@
         }
 
         .navigation-bar ul li a {
-            color: var(--text-color-light);
+            color: var(--text-light);
             text-decoration: none;
             font-weight: 600;
             font-size: 1.05rem;
@@ -152,11 +172,11 @@
         }
 
         .navigation-bar.scrolled ul li a {
-            color: var(--text-color-dark); /* Dark text when scrolled */
+            color: var(--text-dark);
         }
 
         .navigation-bar ul li a:hover {
-            color: var(--teal-light); /* Lighter teal on hover */
+            color: var(--primary-color-light);
         }
 
         .navigation-bar ul li i {
@@ -164,15 +184,15 @@
             font-size: 1.1rem;
         }
 
-        /* Dropdown Menu Styling */
+        /* Dropdown Menu for large screens (hover) */
         .navigation-bar ul li ul.dropdown-menu {
             display: none;
             position: absolute;
-            top: 85px; /* Fixed position below the navbar */
+            top: 43vw;
             left: 0;
-            background-color: var(--background-main) !important;
+            background-color: var(--background-light) !important;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-            min-width: 220px; /* Slightly wider for content */
+            min-width: 200px;
             border-radius: 8px;
             padding: 10px 0;
             flex-direction: column;
@@ -181,74 +201,92 @@
             z-index: 1050;
         }
 
+        .navigation-bar ul li ul.dropdown-menu-updated {
+            top: 11vw;
+        }
+        .navigation-bar ul li ul.dropdown-menu-updated-2 {
+            top: 7vw;
+        }
+
         .navigation-bar ul li.show-dropdown ul.dropdown-menu {
             display: flex;
             opacity: 1;
         }
 
+        /* Ensure dropdown menu list items are also explicitly light background */
         .navigation-bar ul li ul.dropdown-menu li {
-            background-color: var(--background-main) !important;
-            margin: 0; /* Reset margin for dropdown items */
+            background-color: var(--background-light) !important;
         }
 
+        /* Ensure dropdown menu links are always dark and turn accent-teal-dark on hover */
         .navigation-bar ul li ul.dropdown-menu li a {
-            color: var(--text-color-dark); /* Dark text for dropdown links */
+            color: var(--text-dark);
             padding: 8px 20px;
             font-weight: 500;
             display: block;
             text-align: left;
         }
 
+        /* Fix the hover background to be subtle accent-teal-light */
         .navigation-bar ul li ul.dropdown-menu li a:hover {
-            color: var(--purple-therapeutic); /* Therapeutic purple on hover */
-            background-color: var(--purple-light); /* Very light purple for background */
+            color: var(--accent-teal-dark);
+            background-color: var(--accent-teal-light);
         }
 
-        /* Hamburger button styling */
+        /* Hamburger button styling (visible only on small screens) */
         .navigation-bar .hamburger {
             display: none;
             font-size: 1.8rem;
             cursor: pointer;
             z-index: 1001;
             color: transparent;
-            -webkit-text-stroke: 1.5px var(--purple-light); /* Light purple stroke */
+            -webkit-text-stroke: 1.5px var(--primary-color-light);
             border: none;
             background: none;
             padding: 0;
             transition: -webkit-text-stroke-color 0.3s ease;
         }
-
+        /* Ensure hamburger lines are visible on scrolled light background */
         .navigation-bar.scrolled .hamburger {
-            -webkit-text-stroke-color: var(--purple-dark); /* Deep purple when scrolled */
+            -webkit-text-stroke-color: var(--primary-color-dark);
         }
+
 
         @media (max-width: 992px) {
             .navigation-bar {
-                background-color: var(--purple-dark); /* Always purple on mobile */
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: auto;
+                border-radius: 0;
+                background-image: none;
+                background-color: transparent;
+                box-shadow: none;
+                position: fixed;
             }
             .navigation-bar.scrolled {
-                background-color: var(--purple-dark); /* Keep purple on mobile even when scrolled */
+                background-color: var(--background-light);
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: auto;
+                border-radius: 0;
+                padding: 15px 20px;
+                background-image: none;
+                border: none;
             }
 
+            /* Mobile specific brand styling */
             .navigation-bar .nav-brand .brand-title,
             .navigation-bar .nav-brand .brand-slogan {
-                color: var(--text-color-light); /* Always light text on mobile nav brand */
+                color: var(--primary-color-light);
             }
             .navigation-bar.scrolled .nav-brand .brand-title,
             .navigation-bar.scrolled .nav-brand .brand-slogan {
-                color: var(--text-color-light); /* Keep light text on mobile nav brand even when scrolled */
+                color: var(--primary-color-dark);
             }
-            .navigation-bar .nav-logo {
-                border: 2px solid var(--teal-light); /* Lighter teal border for logo on mobile */
-            }
-            .navigation-bar .hamburger {
-                display: block;
-                -webkit-text-stroke-color: var(--text-color-light); /* White stroke for hamburger on mobile */
-            }
-            .navigation-bar.scrolled .hamburger {
-                -webkit-text-stroke-color: var(--text-color-light); /* Keep white stroke on mobile even when scrolled */
-            }
+
 
             .navigation-bar ul {
                 display: none;
@@ -258,9 +296,9 @@
                 right: -280px;
                 height: 100%;
                 width: 280px;
-                background-color: var(--background-main);
+                background-color: var(--background-light);
                 box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
-                padding: 80px 20px 20px; /* Adjusted padding for mobile menu content */
+                padding: 60px 20px 20px;
                 align-items: flex-start;
                 opacity: 0;
                 transition: right 0.3s ease-out, opacity 0.3s ease-out;
@@ -283,15 +321,19 @@
 
             .navigation-bar ul li a {
                 padding: 12px 0;
-                color: var(--text-color-dark); /* Dark text for mobile menu links */
+                color: var(--text-dark);
             }
 
             .navigation-bar ul li a:hover {
                 background-color: transparent;
-                color: var(--purple-dark); /* Deep purple on hover for mobile links */
+                color: var(--primary-color-dark);
             }
 
-            /* Mobile Dropdown styles */
+            .navigation-bar .hamburger {
+                display: block;
+            }
+
+            /* Mobile Dropdown styles - for when a dropdown is opened within the mobile slide-out menu */
             .navigation-bar ul li ul.dropdown-menu {
                 position: static;
                 background-color: transparent;
@@ -306,282 +348,341 @@
                 display: flex !important;
             }
             .navigation-bar ul li ul.dropdown-menu li a {
-                color: var(--text-color-dark);
+                color: var(--text-dark);
             }
             .navigation-bar ul li ul.dropdown-menu li a:hover {
-                color: var(--purple-dark);
+                color: var(--primary-color-dark);
                 background-color: transparent;
             }
         }
 
-        /* Page Header Styling for Workplace Wellness */
-        .page-header-workplace {
-            /* Purple dominant with teal accent */
-            background-image: linear-gradient(to right, rgba(93, 63, 211, 0.7), rgba(0, 128, 128, 0.4)), url("{% static 'images/workplaceWellness.png' %}"); /* Stronger purple overlay */
-            background-size: cover;
-            background-position: center center;
-            background-repeat: no-repeat;
-            color: var(--text-color-light); /* Light text for contrast */
-            padding: 80px 5%;
-            text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            position: relative;
-            z-index: 100;
-            min-height: 300px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
 
-        .page-header-workplace h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: var(--text-color-light); /* White text for heading */
-            text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-        }
-
-        .page-header-workplace p {
-            font-size: 1.3rem;
-            max-width: 900px;
-            margin: 0 auto;
-            line-height: 1.6;
-            color: var(--text-color-light); /* White text for readability */
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-        }
-
-        /* Main content section for full-width areas */
-        .main-content-full-width {
-            padding: 40px 0; /* Padding top/bottom, no horizontal padding here */
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 0; /* No gap between full-width sections */
-        }
-
-        /* Styling for full-width sections */
-        .full-width-section {
-            background-color: var(--background-main); /* Light background for sections */
-            padding: 60px 5%; /* Padding within the section, 5% on sides */
-            margin-bottom: 40px; /* Space between sections */
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); /* Subtle shadow */
-            text-align: left;
-            border-radius: 0; /* No rounded corners for full width */
-        }
-
-        .full-width-section:nth-child(even) {
-            background-color: var(--purple-light); /* Changed to lighter purple for alternating background */
-        }
-
-        .full-width-section h2 {
-            color: var(--purple-dark); /* Deep purple */
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-            text-align: center;
-            position: relative;
-            padding-bottom: 15px;
-        }
-
-        .full-width-section h2::after {
-            content: '';
+        /* Navigation Board - Hero Section (Carousel Images) */
+        .navigation-board {
             position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            bottom: 0;
-            width: 100px;
-            height: 4px;
-            background-color: var(--teal-dark); /* Dark teal */
-            border-radius: 2px;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 0;
+            overflow: hidden;
+            opacity: 0; /* Initially hidden for skeleton effect */
+            pointer-events: none; /* Prevent interaction when hidden */
+            transition: opacity 0.5s ease-in-out;
         }
 
-        .full-width-section h3 {
-            color: var(--purple-dark); /* Darker purple for subheadings */
-            font-size: 1.8rem;
-            margin-top: 40px;
-            margin-bottom: 20px;
-        }
-
-        .full-width-section p,
-        .full-width-section ul,
-        .full-width-section ol {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: var(--text-color-dark);
-            max-width: 900px; /* Limit text width for readability */
-            margin-left: auto;
-            margin-right: auto;
-            margin-bottom: 20px;
-        }
-
-        .full-width-section ul,
-        .full-width-section ol {
-            list-style-position: outside; /* Ensure bullets/numbers are outside */
-            padding-left: 25px; /* Add padding for list items */
-        }
-
-        .full-width-section ul li,
-        .full-width-section ol li {
-            margin-bottom: 10px;
-        }
-
-        /* Specific styling for numbered lists (How Dr Lydia Guides You, What to Expect) */
-        .full-width-section ol.numbered-steps {
-            counter-reset: therapy-step;
-            list-style: none; /* Remove default numbering */
-            padding-left: 0;
-            display: grid; /* Use grid for better layout of steps */
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive columns */
-            gap: 30px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .full-width-section ol.numbered-steps li {
-            position: relative;
-            padding: 20px;
-            background-color: var(--background-main); /* Off-white background for list items */
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-            text-align: left;
-            padding-left: 60px; /* Space for custom number */
-            transition: transform 0.2s ease;
-        }
-
-        .full-width-section ol.numbered-steps li:hover {
-            transform: translateY(-5px);
-        }
-
-        .full-width-section ol.numbered-steps li::before {
-            counter-increment: therapy-step;
-            content: counter(therapy-step);
-            position: absolute;
-            left: 15px;
-            top: 15px;
-            background-color: var(--purple-dark); /* Changed to deep purple for numbers */
-            color: var(--text-color-light);
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: 700;
-            font-size: 1.2rem;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-
-        .full-width-section ol.numbered-steps li strong {
-            display: block;
-            font-size: 1.2rem;
-            color: var(--purple-dark); /* Deep purple for strong text */
-            margin-bottom: 5px;
-        }
-
-        /* FAQ Section Specifics */
-        .faq-item {
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px dashed var(--purple-light); /* Lighter purple dashed line */
-            max-width: 900px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .faq-item:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-        }
-
-        .faq-item strong {
-            color: var(--purple-dark); /* Changed to dark purple for questions */
-            font-size: 1.15rem;
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        .faq-item p {
-            margin-left: 20px; /* Indent answers slightly */
-            font-size: 1.05rem;
-            color: var(--text-color-dark);
-        }
-
-        /* Image Gallery Section */
-        .image-gallery-section {
-            background-color: var(--background-main);
-            padding: 60px 5%;
-            margin-bottom: 40px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            text-align: center;
+        .navigation-board .carousel-inner,
+        .navigation-board .carousel-item,
+        .navigation-board .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             border-radius: 0;
         }
 
-        .image-gallery-section h2 {
-            color: var(--purple-dark);
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-            position: relative;
-            padding-bottom: 15px;
+        /* Force carousel images to 75vh on small screens */
+        @media (max-width: 768px) {
+            .navigation-board .carousel-inner,
+            .navigation-board .carousel-item,
+            .navigation-board .carousel-item img {
+                height: 100vh !important;
+                object-fit: cover;
+            }
         }
 
-        .image-gallery-section h2::after {
+        /* Ensure carousel controls are clickable */
+        .navigation-board .carousel-control-prev,
+        .navigation-board .carousel-control-next {
+            z-index: 5;
+        }
+
+
+        .navigation-board .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7));
+            z-index: 2;
+        }
+
+        /* Fixed Content on top of Carousel (Mind Health Consultancy, Welcome Message, CTAs) */
+        .fixed-carousel-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 4;
+            text-align: center;
+            color: var(--text-light);
+            padding: 20px;
+            max-width: 900px;
+            width: 90%;
+        }
+
+        .fixed-carousel-content h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--accent-gold-light);
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+        }
+
+        .fixed-carousel-content .hero-welcome-text {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+            line-height: 1.6;
+            margin-left: auto;
+            margin-right: auto;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+            text-align: center;
+        }
+        .fixed-carousel-content .hero-welcome-text p {
+            margin-bottom: 10px;
+        }
+
+
+        .fixed-carousel-content .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .fixed-carousel-content .btn-cta {
+            background-color: var(--primary-color-dark);
+            color: var(--text-light);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .fixed-carousel-content .btn-cta:hover {
+            background-color: var(--accent-teal-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .fixed-carousel-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .fixed-carousel-content .hero-welcome-text {
+                font-size: 1.1rem;
+            }
+            .fixed-carousel-content .hero-welcome-text ul {
+                max-width: 90%;
+            }
+        }
+
+
+        /* About Us Section (formerly Therapeutic Insights Section) */
+        .about-us-section {
+            position: relative;
+            width: 100%;
+            height: 255vh;
+            background: linear-gradient(135deg, var(--primary-color-light) 0%, var(--primary-color-dark) 100%);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 50px 20px;
+            padding-top: 20px;
+            text-align: center;
+            color: var(--text-dark);
+            z-index: 10;
+        }
+
+        /* Background layers for therapeutic files - Re-added */
+        .therapeutic-background-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            z-index: 1;
+        }
+
+        .therapeutic-background-layer.active {
+            opacity: 1;
+        }
+
+        /* Background animations - subtle fireflies/glows */
+        .about-us-section::before,
+        .about-us-section::after {
             content: '';
             position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            bottom: 0;
-            width: 100px;
-            height: 4px;
-            background-color: var(--teal-dark);
-            border-radius: 2px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            animation: floatAndFade 15s infinite ease-in-out alternate;
+            z-index: 2;
         }
 
-        .image-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
+        .about-us-section::before {
+            width: 80px;
+            height: 80px;
+            top: 10%;
+            left: 15%;
+            animation-delay: 0s;
         }
 
-        .image-grid img {
+        .about-us-section::after {
+            width: 120px;
+            height: 120px;
+            bottom: 20%;
+            right: 10%;
+            background: rgba(255, 255, 255, 0.15);
+            animation-delay: 5s;
+        }
+
+        @keyframes floatAndFade {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.5; }
+            50% { transform: translate(50px, -50px) scale(1.1); opacity: 0.8; }
+            100% { transform: translate(0, 0) scale(1); opacity: 0.5; }
+        }
+
+        /* Container for the circular widgets and descriptions */
+        .insights-container-wrapper {
+            position: relative;
             width: 100%;
-            height: 200px; /* Fixed height for consistency */
-            object-fit: cover; /* Cover the area, cropping if necessary */
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 1200px;
+            padding: 20px;
+            z-index: 5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .insight-row {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .insight-row:nth-child(odd) {
+            flex-direction: row;
+        }
+
+        .insight-row:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .insight-circle {
+            width: 160px;
+            height: 160px;
+            border: 3px solid var(--secondary-color-dark);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            color: var(--text-dark);
+            flex-shrink: 0;
         }
 
-        .image-grid img:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        .insight-circle:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
         }
 
-        /* Our Services Section - Scrollable Cards */
+        .insight-circle .number {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--accent-gold-dark);
+            margin-bottom: 5px;
+        }
+
+        .insight-circle .word {
+            font-size: 1.0rem;
+            font-weight: 600;
+            line-height: 1.3;
+            color: var(--text-light);
+        }
+
+        .insight-description {
+            flex-grow: 1;
+            max-width: 600px;
+            text-align: left;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            color: var(--text-dark);
+        }
+
+        .insight-description p {
+            margin: 0;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        /* Responsive adjustments for insights section */
+        @media (max-width: 768px) {
+            .about-us-section {
+                height: auto;
+                min-height: 200vh;
+                padding: 40px 15px;
+                padding-top: 20px;
+            }
+            .insights-container-wrapper {
+                gap: 30px;
+            }
+            .insight-row {
+                flex-direction: column !important;
+                gap: 15px;
+            }
+            .insight-circle {
+                width: 140px;
+                height: 140px;
+            }
+            .insight-circle .number {
+                font-size: 2rem;
+            }
+            .insight-circle .word {
+                font-size: 0.95rem;
+            }
+            .insight-description {
+                max-width: 90%;
+                text-align: center;
+            }
+        }
+
+
+        /* Our Services Section - Reverted to original grid layout */
         .our-services-section {
-            position: relative; /* For positioning scroll buttons */
-            display: flex; /* Changed from grid */
-            overflow-x: auto; /* Enable horizontal scrolling */
-            white-space: nowrap; /* Prevent items from wrapping */
+            display: grid; /* Revert to grid layout */
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Original grid columns */
             gap: 30px;
-            padding: 80px 5%; /* Add horizontal padding */
-            background-color: var(--background-main); /* Light background */
-            scroll-behavior: smooth; /* Smooth scrolling */
-            -webkit-overflow-scrolling: touch; /* Enable momentum scrolling on iOS */
-            scrollbar-width: none; /* Hide scrollbar for Firefox */
-            -ms-overflow-style: none;  /* Hide scrollbar for IE and Edge */
-        }
-
-        /* Hide scrollbar for Webkit browsers (Chrome, Safari) */
-        .our-services-section::-webkit-scrollbar {
-            display: none;
+            padding: 80px 5%; /* Restore original padding */
+            background-color: var(--primary-color-light);
+            overflow-x: hidden; /* Ensure no horizontal scroll */
+            flex-wrap: wrap; /* Allow wrapping */
         }
 
         .our-services-section .image-container {
-            flex-shrink: 0; /* Prevent cards from shrinking */
-            width: 300px; /* Fixed width for cards in scrollable view */
-            background-color: var(--text-color-light); /* White background */
+            /* Original styling for image containers */
+            background-color: var(--text-light);
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
@@ -590,7 +691,9 @@
             padding-bottom: 20px;
             opacity: 0;
             transform: translateY(50px);
-            margin-bottom: 20px; /* Add some bottom margin for spacing if needed */
+            width: auto; /* Allow cards to take auto width in grid */
+            flex-shrink: 1; /* Allow shrinking in grid */
+            max-width: none; /* Remove max-width for grid layout */
         }
 
         .our-services-section .image-container.fade-in {
@@ -602,21 +705,21 @@
             width: 100%;
             height: 220px;
             object-fit: cover;
-            border-bottom: 1px solid var(--teal-light); /* Lighter Teal border */
+            border-bottom: 1px solid var(--primary-color-light);
         }
 
         .our-services-section .image-container b {
             display: block;
             padding: 20px;
             font-size: 1.15rem;
-            color: var(--purple-dark);
+            color: var(--text-dark);
             line-height: 1.5;
             font-weight: 600;
         }
 
         .our-services-section .image-container .btn-view-details {
-            background-color: var(--purple-dark); /* Deep Purple */
-            color: var(--text-color-light);
+            background-color: var(--primary-color-dark);
+            color: var(--text-light);
             border: none;
             padding: 10px 25px;
             border-radius: 30px;
@@ -627,74 +730,71 @@
         }
 
         .our-services-section .image-container .btn-view-details:hover {
-            background-color: var(--teal-dark); /* Dark Teal on hover */
+            background-color: var(--accent-teal-dark);
         }
 
-        /* Scroll Buttons for Services Section */
+        /* Container for the services section and its scroll buttons - modified for no buttons */
+        .services-scroll-wrapper {
+            position: relative;
+            width: 100%;
+            padding: 0; /* Remove padding from wrapper */
+            box-sizing: border-box;
+            background-color: var(--primary-color-light);
+            /* Ensure the h2 is still styled correctly */
+            display: block; /* Change to block to allow h2 to center */
+        }
+        .services-scroll-wrapper h2 {
+            color: var(--text-dark);
+            margin-bottom: 40px;
+            font-weight: 700;
+            text-align: center;
+            padding-top: 80px; /* To match section's top padding */
+        }
+
+
+        /* Scroll buttons styling - Hidden */
         .scroll-button {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(93, 63, 211, 0.7); /* Purple with transparency */
-            color: var(--text-color-light);
-            border: none;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            font-size: 1.5rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            z-index: 10;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: background-color 0.3s ease, opacity 0.3s ease;
-            opacity: 0; /* Hidden by default */
-            pointer-events: none; /* Disable clicks when hidden */
+            display: none; /* Hide buttons completely */
         }
 
-        .scroll-button:hover {
-            background-color: var(--teal-dark); /* Teal on hover */
-        }
-
-        .scroll-button.left {
-            left: 1%;
-        }
-
-        .scroll-button.right {
-            right: 1%;
-        }
-
-        .scroll-button.visible {
-            opacity: 1;
-            pointer-events: all; /* Enable clicks when visible */
-        }
-
-        @media (max-width: 992px) { /* Hide buttons on small screens */
+        /* Media query for smaller screens: no changes needed as it's already grid */
+        @media (max-width: 991px) {
+            .our-services-section {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                overflow-x: hidden;
+                flex-wrap: wrap;
+                justify-content: center;
+                padding: 80px 5%;
+            }
+            .our-services-section .image-container {
+                width: auto;
+                flex-shrink: 1;
+                max-width: none;
+            }
             .scroll-button {
                 display: none;
             }
-            .our-services-section {
-                padding: 40px 15px; /* Adjust padding for mobile scrolling */
-                justify-content: flex-start; /* Align items to start for natural scroll */
+            .services-scroll-wrapper {
+                padding: 0;
             }
-            .our-services-section .image-container {
-                width: 280px; /* Slightly smaller width for mobile cards */
+            .services-scroll-wrapper h2 {
+                padding-top: 0;
             }
         }
 
 
-        /* Main About Section (About Dr Lydia) */
+        /* Main About Section */
         .main-about-section {
-            background-color: var(--background-main); /* Light background */
+            background-color: var(--background-light);
             padding: 80px 5%;
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 40px;
-            position: relative; /* For potential background elements */
-            overflow: hidden; /* To contain any absolute elements */
+            position: relative;
+            overflow: hidden;
         }
 
         .main-about-section::before {
@@ -704,7 +804,7 @@
             left: -50px;
             width: 200px;
             height: 200px;
-            background-color: rgba(93, 63, 211, 0.1); /* Purple with opacity */
+            background-color: rgba(138, 43, 226, 0.1);
             border-radius: 50%;
             filter: blur(50px);
             z-index: 0;
@@ -717,7 +817,7 @@
             right: -50px;
             width: 250px;
             height: 250px;
-            background-color: rgba(0, 128, 128, 0.15); /* Teal with opacity */
+            background-color: rgba(0, 163, 163, 0.15);
             border-radius: 50%;
             filter: blur(60px);
             z-index: 0;
@@ -726,14 +826,14 @@
         .main-about-content {
             max-width: 900px;
             margin: 0 auto;
-            position: relative; /* Ensure content is above pseudo-elements */
+            position: relative;
             z-index: 1;
         }
 
         .main-about-content h2 {
             font-size: 2.8rem;
             font-weight: 700;
-            color: var(--purple-dark); /* Deep Purple */
+            color: var(--primary-color-dark);
             margin-bottom: 25px;
             position: relative;
             display: inline-block;
@@ -747,28 +847,26 @@
             bottom: -10px;
             width: 80px;
             height: 4px;
-            background-color: var(--teal-dark); /* Dark Teal */
+            background-color: var(--accent-teal-dark);
             border-radius: 2px;
         }
 
         .main-about-content p {
             font-size: 1.15rem;
             line-height: 1.8;
-            color: var(--text-color-dark);
+            color: var(--text-dark);
             margin-bottom: 30px;
         }
 
         .main-about-image {
-            width: 90%; /* Adjusted to fit within container margins */
-            max-width: 900px; /* Max width for larger screens */
+            width: 100%;
+            max-width: 600px;
             height: 350px;
             object-fit: cover;
             border-radius: 15px;
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
             margin-top: 20px;
-            margin-left: auto; /* Center the image */
-            margin-right: auto; /* Center the image */
-            display: block; /* Ensure margin auto works */
+            /* Removed top: 0; from here */
         }
 
         @media (max-width: 768px) {
@@ -783,7 +881,6 @@
             }
             .main-about-image {
                 height: 250px;
-                width: 100%; /* Ensure it takes full width on small screens */
             }
         }
 
@@ -796,15 +893,15 @@
             flex-direction: column;
             gap: 30px;
             padding: 40px;
-            background-color: var(--purple-light); /* Lighter Lavender Purple */
+            background-color: var(--primary-color-light);
             border-radius: 15px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-            margin: 40px auto; /* Added margin to separate it from new About section */
+            margin: 40px auto;
         }
 
         .sessions-container b {
             font-size: 1.6rem;
-            color: var(--purple-dark); /* Deep Purple */
+            color: var(--primary-color-dark);
             margin-bottom: 20px;
             text-align: center;
         }
@@ -846,8 +943,8 @@
         }
 
         .sessions-container .action-list li a {
-            background-color: var(--purple-dark); /* Deep Purple */
-            color: var(--text-color-light);
+            background-color: var(--primary-color-dark);
+            color: var(--text-light);
             text-decoration: none;
             padding: 12px 25px;
             border-radius: 30px;
@@ -857,30 +954,30 @@
         }
 
         .sessions-container .action-list li a:hover {
-            background-color: var(--teal-dark); /* Dark Teal on hover */
+            background-color: var(--accent-teal-dark);
             transform: translateY(-2px);
         }
 
-        /* Gallery Section (formerly Upcoming Events) */
+        /* Gallery Section (formerly Upcoming Events Section) */
         .gallery-section {
             padding: 80px 5%;
-            background-color: var(--purple-light); /* Light purple background */
+            background-color: var(--background-light);
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
-            text-align: center; /* Center the heading and button */
+            text-align: center;
         }
 
         .gallery-section h2 {
-            grid-column: 1 / -1; /* Span across all columns */
-            color: var(--purple-dark);
+            grid-column: 1 / -1;
+            color: var(--text-dark);
             margin-bottom: 40px;
             font-weight: 700;
             font-size: 2.5rem;
         }
 
         .gallery-section .video-container {
-            background-color: var(--text-color-light); /* White background */
+            background-color: var(--text-light);
             border-radius: 15px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
             overflow: hidden;
@@ -900,7 +997,7 @@
 
         .gallery-section .video-container iframe {
             width: 100%;
-            height: 200px; /* Fixed height for video embeds */
+            height: 200px;
             border: none;
             border-radius: 15px 15px 0 0;
         }
@@ -908,15 +1005,15 @@
         .gallery-section .video-container b {
             display: block;
             font-size: 1.15rem;
-            color: var(--purple-dark);
+            color: var(--text-dark);
             margin: 20px 20px 15px;
             line-height: 1.5;
         }
 
         .gallery-section .btn-view-full-gallery {
-            grid-column: 1 / -1; /* Span across all columns */
-            background-color: var(--purple-dark); /* Deep Purple */
-            color: var(--text-color-light);
+            grid-column: 1 / -1;
+            background-color: var(--primary-color-dark);
+            color: var(--text-light);
             border: none;
             padding: 12px 28px;
             border-radius: 30px;
@@ -925,16 +1022,16 @@
             text-decoration: none;
             transition: background-color 0.3s ease;
             margin-top: 30px;
-            display: inline-block; /* To allow centering with text-align: center on parent */
+            display: inline-block;
         }
 
         .gallery-section .btn-view-full-gallery:hover {
-            background-color: var(--teal-dark); /* Dark Teal on hover */
+            background-color: var(--accent-teal-dark);
         }
 
         /* Redefined Ladies 2 Program Section */
         .redefined-ladies-section {
-            background-color: var(--teal-light); /* Light Teal background */
+            background-color: var(--secondary-color-light);
             padding: 80px 5%;
             text-align: center;
             display: flex;
@@ -946,30 +1043,30 @@
         .redefined-ladies-section h2 {
             font-size: 2.8rem;
             font-weight: 700;
-            color: var(--purple-dark);
+            color: var(--text-dark);
             margin-bottom: 20px;
         }
 
         .redefined-ladies-section p {
             font-size: 1.2rem;
             line-height: 1.6;
-            color: var(--text-color-dark);
+            color: var(--text-dark);
             max-width: 800px;
             margin-bottom: 30px;
         }
 
         .redefined-ladies-section .poster-image {
-            width: 90%; /* Occupy 90% of screen width */
-            max-width: 900px; /* Max width for larger screens */
-            height: auto; /* Maintain aspect ratio */
+            width: 90%;
+            max-width: 900px;
+            height: auto;
             border-radius: 15px;
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-            object-fit: cover; /* Ensure image covers the area without distortion */
+            object-fit: cover;
         }
 
         .redefined-ladies-section .btn-see-more {
-            background-color: var(--purple-dark); /* Darker Purple */
-            color: var(--text-color-light);
+            background-color: var(--secondary-color-dark);
+            color: var(--text-light);
             border: none;
             padding: 15px 35px;
             border-radius: 50px;
@@ -981,14 +1078,14 @@
         }
 
         .redefined-ladies-section .btn-see-more:hover {
-            background-color: var(--teal-dark); /* Dark Teal on hover */
+            background-color: var(--accent-teal-dark);
             transform: translateY(-3px);
         }
 
         /* Footer */
         .site-footer {
-            background-color: var(--purple-dark); /* Darker Purple */
-            color: var(--text-color-light);
+            background-color: var(--secondary-color-dark);
+            color: var(--text-light);
             padding: 50px 5%;
             font-size: 0.95rem;
         }
@@ -1009,10 +1106,10 @@
         }
 
         .site-footer h4 {
-            color: var(--gold-dark); /* Gold for footer headings */
+            color: var(--primary-color-light);
             font-size: 1.3rem;
             margin-bottom: 20px;
-            border-bottom: 2px solid var(--teal-dark); /* Teal border */
+            border-bottom: 2px solid var(--accent-gold-dark);
             padding-bottom: 10px;
             display: inline-block;
         }
@@ -1024,28 +1121,28 @@
         }
 
         .site-footer ul li {
-            margin-bottom: 10px;
-        }
+                margin-bottom: 10px;
+            }
 
         .site-footer ul li a {
-            color: var(--text-color-light);
+            color: var(--text-light);
             text-decoration: none;
             transition: color 0.3s ease;
         }
 
         .site-footer ul li a:hover {
-            color: var(--gold-light); /* Lighter Gold Accent on hover */
+            color: var(--accent-gold-light);
         }
 
         .site-footer .social-icons a {
-            color: var(--text-color-light);
+            color: var(--text-light);
             font-size: 1.5rem;
             margin-right: 15px;
             transition: color 0.3s ease;
         }
 
         .site-footer .social-icons a:hover {
-            color: var(--gold-light); /* Lighter Gold Accent on hover */
+            color: var(--accent-gold-light);
         }
 
         .site-footer .footer-bottom {
@@ -1053,14 +1150,135 @@
             margin-top: 40px;
             padding-top: 20px;
             border-top: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--accent-gold-light); /* Gold for copyright text */
+        }
+
+        /* Skeleton Loader Styles - General */
+        .skeleton-loader {
+            background-color: #e0e0e0; /* Light gray background */
+            animation: pulse-bg 1.5s infinite;
+            border-radius: 8px; /* Match card border-radius */
+            margin-bottom: 15px; /* Space between skeleton elements */
+        }
+
+        @keyframes pulse-bg {
+            0% { background-color: #e0e0e0; }
+            50% { background-color: #f0f0f0; }
+            100% { background-color: #e0e0e0; }
+        }
+
+        /* Skeleton Loader Styles - Service Cards */
+        .skeleton-image {
+            width: 100%;
+            height: 220px; /* Match image height */
+            border-radius: 15px 15px 0 0; /* Match image border-radius */
+        }
+
+        .skeleton-text {
+            height: 1.2em; /* Approximate line height */
+            width: 80%; /* Shorter lines for text */
+            margin: 15px auto 10px auto; /* Center text and add vertical margin */
+        }
+
+        .skeleton-text:nth-child(3) { /* Second text line, slightly shorter */
+            width: 60%;
+        }
+
+        .skeleton-button {
+            height: 40px; /* Approximate button height */
+            width: 120px; /* Approximate button width */
+            margin: 15px auto 0 auto; /* Center button and add top margin */
+            display: block;
+        }
+
+        /* Skeleton Loader Styles - Hero Section */
+        .hero-skeleton-loader {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #d0d0d0; /* Slightly darker gray for hero */
+            animation: pulse-bg 1.5s infinite;
+            z-index: 99; /* Below navbar (1000), above carousel (initially hidden) */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            transition: opacity 0.5s ease-in-out; /* Smooth fade out */
+        }
+
+        .skeleton-hero-image {
+            width: 90%;
+            max-width: 1200px;
+            height: 60vh; /* Occupy most of the hero height */
+            background-color: #c0c0c0;
+            border-radius: 15px;
+        }
+
+        .skeleton-hero-title {
+            width: 60%;
+            height: 3em; /* Placeholder for H1 */
+            background-color: #c0c0c0;
+            border-radius: 5px;
+        }
+
+        .skeleton-hero-text {
+            width: 40%;
+            height: 1.5em; /* Placeholder for P */
+            background-color: #c0c0c0;
+            border-radius: 5px;
+        }
+
+        .skeleton-hero-button {
+            height: 50px;
+            width: 200px;
+            background-color: #c0c0c0;
+            border-radius: 50px;
+        }
+
+        /* Hide actual content initially for Hero and Services */
+        .image-container .content-wrapper,
+        .navigation-bar,
+        .navigation-board {
+            opacity: 0;
+            pointer-events: none; /* Prevent interaction with hidden elements */
+            transition: opacity 0.5s ease-in-out; /* Smooth fade in */
+        }
+
+        /* Class to show actual content */
+        .content-loaded .image-container .content-wrapper,
+        .content-loaded .navigation-bar,
+        .content-loaded .navigation-board {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* Hide skeleton when content is loaded */
+        .content-loaded .hero-skeleton-loader {
+            opacity: 0;
+            pointer-events: none;
         }
     </style>
 </head>
 <body>
-    <div class="hero-section-container">
+    <div class="hero-section-container" id="heroSectionContainer">
+        <!-- Hero Skeleton Loader (Initially visible) -->
+        <div class="hero-skeleton-loader" id="heroSkeleton">
+            <div class="skeleton-hero-image skeleton-loader"></div>
+            <div class="skeleton-hero-title skeleton-loader"></div>
+            <div class="skeleton-hero-text skeleton-loader"></div>
+            <div style="display: flex; gap: 20px;">
+                <div class="skeleton-hero-button skeleton-loader"></div>
+                <div class="skeleton-hero-button skeleton-loader" style="width: 150px;"></div>
+            </div>
+        </div>
+
+        <!-- Actual Hero Content (Initially hidden) -->
         <nav class="navigation-bar" id="navbar">
             <a class="nav-brand" href="/wellnessCenter">
-                <img src="https://placehold.co/50x50/FFFFFF/000000?text=Logo" alt="Mind Health Logo" class="nav-logo">
+                <img src="images/mindhealthLogo.png" alt="Mind Health Logo" class="nav-logo">
                 <div class="brand-text-container">
                     <span class="brand-title">Mind<br>Health<br>Consultancy</span>
                     <span class="brand-slogan">Minding your mind</span>
@@ -1074,49 +1292,49 @@
                 <li class="dropdown-hover"> <!-- Added dropdown-hover to Services -->
                     <a href="#" id="services-link"><i class="fas fa-hand-holding-heart"></i>Services <i class="fas fa-caret-down ml-2"></i></a>
                     <ul class="dropdown-menu" id="services-dropdown">
-                        <li><a href="/personalSessions/"><i class="fas fa-user"></i>Individual Therapy</a></li>
-                        <li><a href="/couplesTherapy/"><i class="fas fa-heart"></i>Couple Therapy</a></li>
-                        <li><a href="/pre-maritalTherapy/"><i class="fas fa-ring"></i>Pre-marital Counseling</a></li>
-                        <li><a href="/marriageTherapy/"><i class="fas fa-home"></i>Marriage & Family Therapy</a></li>
-                        <li><a href="/groupCouncelling/"><i class="fas fa-users"></i>Group Counseling</a></li>
-                        <li><a href="/Mentorship/"><i class="fas fa-graduation-cap"></i>Mentorship Programs</a></li>
-                        <li><a href="/workplace/"><i class="fas fa-briefcase"></i>Workplace Wellness</a></li>
-                        <li><a href="/wellnessCenter/#psychometric-testing-section"><i class="fas fa-brain"></i>Psychometric Testing</a></li>
+                        <li><a href="#individual-therapy-section"><i class="fas fa-user"></i>Individual Therapy</a></li>
+                        <li><a href="#couple-therapy-section"><i class="fas fa-heart"></i>Couple Therapy</a></li>
+                        <li><a href="#pre-marital-counseling-section"><i class="fas fa-ring"></i>Pre-marital Counseling</a></li>
+                        <li><a href="#marriage-family-therapy-section"><i class="fas fa-home"></i>Marriage & Family Therapy</a></li>
+                        <li><a href="#group-counseling-section"><i class="fas fa-users"></i>Group Counseling</a></li>
+                        <li><a href="#mentorship-programs-section"><i class="fas fa-graduation-cap"></i>Mentorship Programs</a></li>
+                        <li><a href="#workplace-wellness-section"><i class="fas fa-briefcase"></i>Workplace Wellness</a></li>
+                        <li><a href="#psychometric-testing-section"><i class="fas fa-brain"></i>Psychometric Testing</a></li>
                     </ul>
                 </li>
                 <li class="dropdown-hover"> <!-- New "Our Programs" link -->
                     <a href="#" id="programs-link"><i class="fas fa-chalkboard-teacher"></i>Programs <i class="fas fa-caret-down ml-2"></i></a>
                     <ul class="dropdown-menu dropdown-menu-updated" id="programs-dropdown">
-                        <li><a href="#redefined-ladies-section"><i class="fas fa-female"></i>Redefined Ladies 2</a></li>
-                        <li><a href="#other-programs-section"><i class="fas fa-lightbulb"></i>Other Programs</a></li>
+                        <li><a href="index.html#redefined-ladies-section"><i class="fas fa-female"></i>Redefined Ladies 2</a></li>
+                        <li><a href="index.html#redefined-ladies-section"><i class="fas fa-lightbulb"></i>Other Programs</a></li>
                     </ul>
                 </li>
                 <li class="dropdown-hover">
                     <a href="#" id="sessions-link"><i class="fas fa-calendar-check"></i>Sessions <i class="fas fa-caret-down ml-2"></i></a>
                     <ul class="dropdown-menu dropdown-menu-updated-2" id="sessions-dropdown">
-                        <li><a href="https://yourdomain.com/book-session"><i class="fas fa-calendar-plus"></i>Book Session</a></li>
-                        <li><a href="#gallery-section"><i class="fas fa-images"></i>Gallery</a></li>
+                        <li><a href=""><i class="fas fa-calendar-plus"></i>Book Session</a></li>
+                        <li><a href="index.html#gallery-section"><i class="fas fa-images"></i>Gallery</a></li>
                     </ul>
                 </li>
-                <li><a href="/contact"><i class="fas fa-phone-alt"></i> Contact</a></li>
+                <li><a href=""><i class="fas fa-phone-alt"></i> Contact</a></li>
             </ul>
         </nav>
 
-        <div class="navigation-board">
+        <div class="navigation-board" id="heroContent">
             <div id="heroCarousel" class="carousel slide" data-ride="carousel" data-interval="5000">
                 <div class="carousel-inner">
                     <!-- Updated placeholder images to reflect new palette balance (purple dominant) -->
                     <div class="carousel-item active">
-                        <img src="{% static 'images/drLydiah3.jpg' %}" alt="Engaging therapeutic sessions">
+                        <img src="images/drLydiah3.jpg" alt="Engaging therapeutic sessions">
                     </div>
                     <div class="carousel-item">
-                        <img src="{% static 'images/drLydiah1.jpg' %}" alt="People jumping happily as they engage in multiple, calming activities">
+                        <img src="images/drLydiah1.jpg" alt="People jumping happily as they engage in multiple, calming activities">
                     </div>
                     <div class="carousel-item">
-                        <img src="https://placehold.co/1920x1080/5D3FD3/FFFFFF?text=Online+Sessions" alt="We also offer online sessions for personal remote clients">
+                        <img src="https://placehold.co/1920x1080/8A2BE2/FFFFFF?text=Online+Sessions" alt="We also offer online sessions for personal remote clients">
                     </div>
                     <div class="carousel-item">
-                        <img src="https://placehold.co/1920x1080/E6E6FA/212529?text=Capacity+Building" alt="Diverse group of women laughing and engaging, vibrant and full of life.">
+                        <img src="https://placehold.co/1920x1080/E6E6FA/000000?text=Capacity+Building" alt="Diverse group of women laughing and engaging, vibrant and full of life.">
                     </div>
                 </div>
                 <a class="carousel-control-prev" href="#heroCarousel" role="button" data-slide="prev">
@@ -1130,20 +1348,20 @@
                 <div class="overlay"></div>
 
                 <div class="fixed-carousel-content">
-                    <h1 class="animate__animated animate__fadeInDown">Mind Health Consultancy by Dr Lydia Maingi N.</h1>
+                    <h1 class="animate__animated animate__fadeInDown">Dr Lydia Maingi N.</h1>
                     <p class="animate__animated animate__fadeInUp animate__delay-1s hero-welcome-text">
                         Step into a space where healing begins and growth blossoms. Discover your path to peace, resilience, and a more fulfilling life.
                     </p>
                     <div class="cta-buttons animate__animated animate__fadeInUp animate__delay-2s">
-                        <a href="#our-services-section" class="btn btn-cta">Explore Our Services <i class="fas fa-arrow-right ml-2"></i></a>
-                        <a href="https://yourdomain.com/book-session" class="btn btn-cta">Book a Session <i class="fas fa-calendar-alt ml-2"></i></a>
+                        <a href="index.html#our-services-section" class="btn btn-cta">Explore Our Services <i class="fas fa-arrow-right ml-2"></i></a>
+                        <a href="" class="btn btn-cta">Book a Session <i class="fas fa-calendar-alt ml-2"></i></a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- About Us Section (Core Principles) -->
+    <!-- About Us Section (formerly Therapeutic Insights Section) -->
     <section class="about-us-section" id="about-us">
         <h2>Our Core Principles at Mind Health Consultancy</h2>
         <div class="insights-container-wrapper">
@@ -1228,50 +1446,123 @@
     </section>
 
     <!-- Our Services Section -->
-    <div class="our-services-section" id="our-services-section">
-        <h2 class="col-12 text-center" style="color: var(--purple-dark); margin-bottom: 40px; font-weight: 700; flex-shrink: 0; width: 100%;">Our Services</h2>
-        <button class="scroll-button left d-none d-lg-flex" aria-label="Scroll left"><i class="fas fa-chevron-left"></i></button>
-        <div class="image-container" id="individual-therapy-section">
-            <img src="{% static 'images/individualTherapy.jpg' %}" alt="A woman in a therapy session, receiving one-on-one support.">
-            <b>Individual Therapy: Personalized support for your unique journey.</b>
-            <a href="/personalSessions/" class="btn-view-details">Learn More</a>
+    <div class="services-scroll-wrapper">
+        <h2 class="col-12 text-center">Our Services</h2>
+        <div class="our-services-section" id="our-services-section">
+            <div class="image-container" id="individual-therapy-section">
+                <!-- Skeleton Loader for this card -->
+                <div class="skeleton-image skeleton-loader"></div>
+                <div class="skeleton-text skeleton-loader" style="width: 90%;"></div>
+                <div class="skeleton-text skeleton-loader" style="width: 70%;"></div>
+                <div class="skeleton-button skeleton-loader"></div>
+
+                <!-- Actual Content for this card -->
+                <div class="content-wrapper">
+                    <img src="images/Fam.png" alt="A woman in a therapy session, receiving one-on-one support.">
+                    <b>Individual Therapy: Personalized support for your unique journey.</b>
+                    <a href="individual.html" class="btn-view-details">Learn More</a>
+                </div>
+            </div>
+            <div class="image-container" id="couple-therapy-section">
+                <!-- Skeleton Loader for this card -->
+                <div class="skeleton-image skeleton-loader"></div>
+                <div class="skeleton-text skeleton-loader" style="width: 90%;"></div>
+                <div class="skeleton-text skeleton-loader" style="width: 70%;"></div>
+                <div class="skeleton-button skeleton-loader"></div>
+
+                <!-- Actual Content for this card -->
+                <div class="content-wrapper">
+                    <img src="images/kitchenLaughter.png" alt="A couple in a therapy session.">
+                    <b>Couple Therapy: Strengthening bonds and improving communication.</b>
+                    <a href="couples.html" class="btn-view-details">Learn More</a>
+                </div>
+            </div>
+            <div class="image-container" id="pre-marital-counseling-section">
+                <!-- Skeleton Loader for this card -->
+                <div class="skeleton-image skeleton-loader"></div>
+                <div class="skeleton-text skeleton-loader" style="width: 90%;"></div>
+                <div class="skeleton-text skeleton-loader" style="width: 70%;"></div>
+                <div class="skeleton-button skeleton-loader"></div>
+
+                <!-- Actual Content for this card -->
+                <div class="content-wrapper">
+                    <img src="images/premaritalImage.png" alt="A couple discussing pre-marital topics.">
+                    <b>Pre-marital Counseling: Building a strong foundation for your future together.</b>
+                    <a href="pre-marital.html" class="btn-view-details">Learn More</a>
+                </div>
+            </div>
+            <div class="image-container" id="marriage-family-therapy-section">
+                <!-- Skeleton Loader for this card -->
+                <div class="skeleton-image skeleton-loader"></div>
+                <div class="skeleton-text skeleton-loader" style="width: 90%;"></div>
+                <div class="skeleton-text skeleton-loader" style="width: 70%;"></div>
+                <div class="skeleton-button skeleton-loader"></div>
+
+                <!-- Actual Content for this card -->
+                <div class="content-wrapper">
+                    <img src="images/Marital.png" alt="A family in a therapy session.">
+                    <b>Marriage & Family Therapy: Nurturing healthy family dynamics.</b>
+                    <a href="marriageTherapy.html" class="btn-view-details">Learn More</a>
+                </div>
+            </div>
+            <div class="image-container" id="group-counseling-section">
+                <!-- Skeleton Loader for this card -->
+                <div class="skeleton-image skeleton-loader"></div>
+                <div class="skeleton-text skeleton-loader" style="width: 90%;"></div>
+                <div class="skeleton-text skeleton-loader" style="width: 70%;"></div>
+                <div class="skeleton-button skeleton-loader"></div>
+
+                <!-- Actual Content for this card -->
+                <div class="content-wrapper">
+                    <img src="images/communalGathering.png" alt="A group of people in a counseling session.">
+                    <b>Group Counseling: Connect and grow in a supportive community.</b>
+                    <a href="groupCouncelling.html" class="btn-view-details">Learn More</a>
+                </div>
+            </div>
+            <div class="image-container" id="mentorship-programs-section">
+                <!-- Skeleton Loader for this card -->
+                <div class="skeleton-image skeleton-loader"></div>
+                <div class="skeleton-text skeleton-loader" style="width: 90%;"></div>
+                <div class="skeleton-text skeleton-loader" style="width: 70%;"></div>
+                <div class="skeleton-button skeleton-loader"></div>
+
+                <!-- Actual Content for this card -->
+                <div class="content-wrapper">
+                    <img src="images/youngLights.jpg" alt="Young people engaged in a mentorship session.">
+                    <b>Mentorship Programs: Guiding the next generation towards their full potential through personalized support and development.</b>
+                    <a href="" class="btn-view-details">Learn More</a>
+                </div>
+            </div>
+            <div class="image-container" id="workplace-wellness-section">
+                <!-- Skeleton Loader for this card -->
+                <div class="skeleton-image skeleton-loader"></div>
+                <div class="skeleton-text skeleton-loader" style="width: 90%;"></div>
+                <div class="skeleton-text skeleton-loader" style="width: 70%;"></div>
+                <div class="skeleton-button skeleton-loader"></div>
+
+                <!-- Actual Content for this card -->
+                <div class="content-wrapper">
+                    <img src="images/workplaceImage.jpg" alt="Professionals in a corporate wellness workshop.">
+                    <b>Workplace Wellness: Enhancing mental health in professional environments.</b>
+                    <a href="workplace/Wellness.html" class="btn-view-details">Learn More</a>
+                </div>
+            </div>
+            <div class="image-container" id="psychometric-testing-section">
+                <!-- Skeleton Loader for this card -->
+                <div class="skeleton-image skeleton-loader"></div>
+                <div class="skeleton-text skeleton-loader" style="width: 90%;"></div>
+                <div class="skeleton-text skeleton-loader" style="width: 70%;"></div>
+                <div class="skeleton-button skeleton-loader"></div>
+
+                <!-- Actual Content for this card -->
+                <div class="content-wrapper">
+                    <img src="images/assessment.png" alt="A person taking a psychometric test.">
+                    <b>Psychometric Testing: Gaining insights into personality and abilities.</b>
+                    <a href="psychometricPage.html" class="btn-view-details">Learn More</a>
+                </div>
+            </div>
         </div>
-        <div class="image-container" id="couple-therapy-section">
-            <img src="{% static 'images/kitchenLaughter.png' %}" alt="A couple in a therapy session.">
-            <b>Couple Therapy: Strengthening bonds and improving communication.</b>
-            <a href="/couplesTherapy/" class="btn-view-details">Learn More</a>
-        </div>
-        <div class="image-container" id="pre-marital-counseling-section">
-            <img src="{% static 'images/premaritalImage.png' %}" alt="A couple discussing pre-marital topics.">
-            <b>Pre-marital Counseling: Building a strong foundation for your future together.</b>
-            <a href="/pre-maritalTherapy/" class="btn-view-details">Learn More</a>
-        </div>
-        <div class="image-container" id="marriage-family-therapy-section">
-            <img src="{% static 'images/Marital.png' %}" alt="A family in a therapy session.">
-            <b>Marriage & Family Therapy: Nurturing healthy family dynamics.</b>
-            <a href="/marriageTherapy/" class="btn-view-details">Learn More</a>
-        </div>
-        <div class="image-container" id="group-counseling-section">
-            <img src="{% static 'images/communalGathering.png' %}" alt="A group of people in a counseling session.">
-            <b>Group Counseling: Connect and grow in a supportive community.</b>
-            <a href="/groupCouncelling/" class="btn-view-details">Learn More</a>
-        </div>
-        <div class="image-container" id="mentorship-programs-section">
-            <img src="{% static 'images/youngLights.jpg' %}" alt="Young people engaged in a mentorship session.">
-            <b>Mentorship Programs: Guiding the next generation towards their full potential through personalized support and development.</b>
-            <a href="" class="btn-view-details">Learn More</a>
-        </div>
-        <div class="image-container" id="workplace-wellness-section">
-            <img src="{% static 'images/workplaceImage.jpg' %}" alt="Professionals in a corporate wellness workshop.">
-            <b>Workplace Wellness: Enhancing mental health in professional environments.</b>
-            <a href="/workplace/" class="btn-view-details">Learn More</a>
-        </div>
-        <div class="image-container" id="psychometric-testing-section">
-            <img src="{% static 'images/assessment.png' %}" alt="A person taking a psychometric test.">
-            <b>Psychometric Testing: Gaining insights into personality and abilities.</b>
-            <a href="" class="btn-view-details">Learn More</a>
-        </div>
-        <button class="scroll-button right d-none d-lg-flex" aria-label="Scroll right"><i class="fas fa-chevron-right"></i></button>
+        <!-- Scroll buttons removed from here -->
     </div>
 
     <!-- Main About Section -->
@@ -1280,36 +1571,36 @@
             <h2>About Dr Lydia N.</h2>
             <p>Dr. Lydia N. is a highly experienced and compassionate mental health consultant dedicated to guiding individuals, couples, families, and organizations towards holistic well-being. With a profound understanding of human psychology and a commitment to evidence-based practices, Dr. Lydia creates a safe and nurturing environment where clients can explore their challenges, discover inner strengths, and develop effective coping strategies. Her approach is rooted in empathy, respect, and a deep belief in each person's capacity for growth and healing. Dr. Lydia specializes in a range of therapeutic modalities, offering personalized support to help you navigate life's complexities, foster resilience, and achieve lasting peace and happiness. She is passionate about empowering her clients to lead fulfilling lives and build healthier relationships within themselves and their communities.</p>
         </div>
-        <img src="{% static 'images/drLydiah2.jpg' %}" alt="A serene image symbolizing healing and growth" class="main-about-image">
+        <img src="images/drLydiah4.jpg" alt="A serene image symbolizing healing and growth" class="main-about-image">
     </div>
 
     <!-- Gallery Section (formerly Upcoming Events) -->
     <div class="gallery-section" id="gallery-section">
         <h2>Our Gallery</h2>
         <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
-            <b>A snippet of our recent wellness workshop.</b>
+            <iframe src="https://www.youtube.com/embed/eaHnqL-Bmdk?si=NKCrYIepOO5G40ki" allowfullscreen></iframe>
+            <b>Gender and Suicide</b>
         </div>
         <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/M7lc1UVf-VE" allowfullscreen></iframe>
-            <b>Insights from a group therapy session.</b>
+            <iframe src="https://www.youtube.com/embed/ROPekFL4Fvk?si=0xXjTP0Ma4Y_GIvr" allowfullscreen></iframe>
+            <b>Lineage and Suicide</b>
         </div>
         <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/k_9g_0Qx9jY" allowfullscreen></iframe>
-            <b>Dr. Lydia N. on mental health awareness.</b>
+            <iframe src="https://www.youtube.com/embed/FG3YMeQYLUo?si=xH6ZO137RGAodM5x" allowfullscreen></iframe>
+            <b>Dr Lydiah on predicting suicide</b>
         </div>
         <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/z9b_j1lXg9o" allowfullscreen></iframe>
-            <b>Testimonials from our clients.</b>
+            <iframe src="https://www.youtube.com/embed/tD6ms3zlRVA?si=P4Pkkpd8zOh9AYVs" allowfullscreen></iframe>
+            <b>Client Testimonials</b>
         </div>
-        <a href="#" class="btn-view-full-gallery">View Full Gallery</a>
+        <a href="gallery.html" class="btn-view-full-gallery">View Full Gallery</a>
     </div>
 
     <!-- Redefined Ladies 2 Program Section -->
     <section class="redefined-ladies-section" id="redefined-ladies-section">
-        <h2>Redefined Ladies 2</h2>
+        <h2>Our Programs</h2>
         <p>Unleash your inner strength and redefine your potential. This program is designed to empower women to embrace their true selves, foster resilience, and build a supportive community.</p>
-        <img src="{% static 'images/refinedLadies.jpg' %}" alt="Redefined Ladies 2 Program Poster" class="poster-image">
+        <img src="images/refinedLadies.jpg" alt="Redefined Ladies 2 Program Poster" class="poster-image">
         <a href="#" class="btn-see-more">See More Details</a>
     </section>
 
@@ -1331,19 +1622,20 @@
                     <li><a href="#about-us-main">About Us</a></li>
                     <li><a href="#our-services-section">Services</a></li>
                     <li><a href="#redefined-ladies-section">Programs</a></li> <!-- Updated link to Redefined Ladies 2 -->
-                    <li><a href="https://yourdomain.com/book-session">Book a Session</a></li>
-                    <li><a href="/contact">Contact Us</a></li>
+                    <li><a href="#gallery-section">Gallery</a></li>
+                    <li><a href="">Book a Session</a></li>
+                    <li><a href="">Contact Us</a></li>
                 </ul>
             </div>
             <div class="footer-section contact">
                 <h4>Contact Us</h4>
-                <p><i class="fas fa-map-marker-alt"></i> 123 Wellness Way, Nairobi, Kenya</p>
-                <p><i class="fas fa-phone-alt"></i> +254 7XX XXX XXX</p>
+                <p><i class="fas fa-map-marker-alt"></i> Kahawa Sukari Shopping Centre, Mizpah House</p>
+                <p><i class="fas fa-phone-alt"></i> +254 720 568 901</p>
                 <p><i class="fas fa-envelope"></i> info@mindhealthconsultancy.com</p>
             </div>
         </div>
         <div class="footer-bottom">
-            &copy; <span id="current-year"></span> Mind Health Consultancy. All rights reserved. | <a href="" style="color: var(--gold-light);">Privacy Policy</a> | <a href="" style="color: var(--gold-light);">Terms of Service</a>
+            &copy; <span id="current-year"></span> Mind Health Consultancy. All rights reserved. | <a href="" style="color: var(--accent-teal-light);">Privacy Policy</a> | <a href="" style="color: var(--accent-teal-light);">Terms of Service</a>
         </div>
     </footer>
 
@@ -1359,10 +1651,13 @@
             const navbar = document.getElementById('navbar');
             const scrollThreshold = 200; // Scrolls 200px down before changing
 
-            if (window.scrollY > scrollThreshold) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
+            // Only apply scrolled class if content is loaded to avoid conflicts with initial opacity
+            if (document.body.classList.contains('content-loaded')) {
+                if (window.scrollY > scrollThreshold) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
             }
         });
 
@@ -1468,18 +1763,21 @@
         const observerCallback = (entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    if (entry.target.classList.contains('image-container')) {
-                        entry.target.classList.add('fade-in');
-                    } else if (entry.target.closest('.gallery-section')) {
+                    // Service cards' fade-in is now handled by revealContent
+                    if (entry.target.closest('.gallery-section')) {
                         entry.target.classList.add('slide-in');
                     }
-                    observer.unobserve(entry.target);
+                    // Only unobserve if it's not a service card (as service cards are managed by revealContent)
+                    if (!entry.target.classList.contains('image-container')) {
+                        observer.unobserve(entry.target);
+                    }
                 }
             });
         };
 
         const observer = new IntersectionObserver(observerCallback, observerOptions);
 
+        // Observe elements that need fade-in/slide-in
         fadeInElements.forEach(el => observer.observe(el));
         slideInElements.forEach(el => observer.observe(el));
 
@@ -1496,6 +1794,9 @@
 
                 // Scroll to the element, adjusting for fixed navbar height
                 const navbarHeight = document.getElementById('navbar').offsetHeight;
+                console.log('Target Element Offset Top:', targetElement.offsetTop);
+                console.log('Navbar Height:', navbarHeight);
+                console.log('Scroll To Position:', targetElement.offsetTop - navbarHeight);
                 window.scrollTo({
                     top: targetElement.offsetTop - navbarHeight, // Adjust for fixed navbar
                     behavior: 'smooth'
@@ -1503,56 +1804,74 @@
             }
         }
 
-        // Add smooth scroll listeners for all internal anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                const href = this.getAttribute('href');
-                // Only prevent default and smooth scroll if it's an internal anchor and not a dropdown toggle
-                if (href.startsWith('#') && href !== '#') {
-                    e.preventDefault();
-                    smoothScrollTo(href);
+        // Direct reference for "About Us" link
+        const aboutUsLink = document.querySelector('a[href="#about-us-main"]');
+        if (aboutUsLink) {
+            aboutUsLink.addEventListener('click', function(e) {
+                e.preventDefault(); // Prevent default jump
+                smoothScrollTo('#about-us-main');
+            });
+        }
+
+        // Direct reference for "Gallery" link (updated from Upcoming Events)
+        const galleryLink = document.querySelector('a[href="#gallery-section"]');
+        if (galleryLink) {
+            galleryLink.addEventListener('click', function(e) {
+                e.preventDefault(); // Prevent default jump
+                smoothScrollTo('#gallery-section');
+            });
+        }
+
+        // New: Direct reference for "Our Programs" link - now links directly to Redefined Ladies 2
+        const programsLink = document.querySelector('a[href="#redefined-ladies-section"]');
+        if (programsLink) {
+            programsLink.addEventListener('click', function(e) {
+                e.preventDefault(); // Prevent default jump
+                smoothScrollTo('#redefined-ladies-section');
+            });
+        }
+        // Also update the dropdown link itself to point to redefined-ladies-section
+        const redefinedLadiesLinkInDropdown = document.querySelector('#programs-dropdown a[href="#redefined-ladies-section"]');
+        if (redefinedLadiesLinkInDropdown) {
+             redefinedLadiesLinkInDropdown.addEventListener('click', function(e) {
+                e.preventDefault(); // Prevent default jump
+                smoothScrollTo('#redefined-ladies-section');
+            });
+        }
+
+        // New: Direct reference for "Mentorship Programs" link
+        const mentorshipProgramsLink = document.querySelector('a[href="#mentorship-programs-section"]');
+        if (mentorshipProgramsLink) {
+            mentorshipProgramsLink.addEventListener('click', function(e) {
+                e.preventDefault(); // Prevent default jump
+                smoothScrollTo('#mentorship-programs-section');
+            });
+        }
+
+
+        // --- General click listener for the mobile navigation list to close it when any non-dropdown-toggle link is clicked ---
+        document.querySelector('.navigation-bar ul').addEventListener('click', function(e) {
+            // Check if the clicked element is an anchor tag AND it's not a dropdown toggle (href="#")
+            // This now excludes the specific #about-us-main, #gallery-section, and #redefined-ladies-section links which are handled above.
+            if (e.target.tagName === 'A' && e.target.getAttribute('href') !== '#' &&
+                e.target.getAttribute('href') !== '#about-us-main' &&
+                e.target.getAttribute('href') !== '#gallery-section' &&
+                e.target.getAttribute('href') !== '#redefined-ladies-section' &&
+                e.target.getAttribute('href') !== '#mentorship-programs-section') { // Updated this line
+                const navUl = document.querySelector('.navigation-bar ul');
+                if (navUl.classList.contains('show')) {
+                    navUl.classList.remove('show');
+                    document.body.style.overflow = '';
                 }
-            });
-        });
-
-        // Update external links to point to specific pages or external URLs
-        document.querySelector('.nav-brand').addEventListener('click', function(e) {
-            e.preventDefault();
-            window.location.href = '/wellnessCenter/';
-        });
-
-        // Update the main "Contact" link
-        document.querySelector('a[href="/contact"]').addEventListener('click', function(e) {
-            e.preventDefault();
-            window.location.href = '/contact';
-        });
-
-        // Update the "Book Session" link in the Sessions dropdown and hero CTA
-        document.querySelectorAll('a[href="https://yourdomain.com/book-session"]').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                window.location.href = 'https://yourdomain.com/book-session';
-            });
-        });
-
-        // Update the CTA buttons at the bottom of the page
-        document.querySelector('.cta-section-workplace .btn-cta[href="#"]').addEventListener('click', function(e) {
-            e.preventDefault();
-            // Assuming this is the "Book Your Consultation" button
-            window.location.href = 'https://yourdomain.com/book-consultation';
-        });
-        document.querySelector('.cta-section-workplace .btn-cta[href="#"]').nextElementSibling.addEventListener('click', function(e) {
-            e.preventDefault();
-            // Assuming this is the "Contact Us" button
-            window.location.href = '/contact';
+            }
         });
 
         // --- Therapeutic Backgrounds Logic for automatic fade in/out ---
         const backgroundImages = [
-            'https://placehold.co/1920x1080/5D3FD3/FFFFFF?text=Everything+Therapeutic', /* Deep Purple */
-            "{% static 'images/sitin.png' %}", /* Darker Purple */
-            "{% static 'images/blackHappiness.png' %}", /* Lighter Purple */
-            "{% static 'images/blackHappiness.png' %}" /* Dark Teal Accent */
+            `https://placehold.co/1920x1080/${'8A2BE2'.replace('#', '')}/FFFFFF?text=Everything+Therapeutic`, /* New Primary Dark Purple */
+            "images/sitin.png", /* Darker Purple */
+            "images/cozyChair.png", /* Lighter Purple */
+            "images/contemporarySerenity.png" /* Dark Teal Accent */
         ];
         const therapeuticBackgrounds = document.querySelectorAll('.therapeutic-background-layer');
         let currentBackgroundIndex = 0;
@@ -1587,57 +1906,73 @@
         // Start the automatic cycling
         setInterval(cycleBackgrounds, fadeInterval);
 
-        // --- Services Section Scroll Buttons Logic ---
-        const servicesSection = document.getElementById('our-services-section');
-        const scrollLeftBtn = servicesSection.querySelector('.scroll-button.left');
-        const scrollRightBtn = servicesSection.querySelector('.scroll-button.right');
+        // --- Skeleton Loader Logic for Our Services Section and Hero Section ---
+        function revealContent() {
+            // Reveal Service Cards
+            const serviceCards = document.querySelectorAll('.our-services-section .image-container');
+            serviceCards.forEach(card => {
+                const skeletonElements = card.querySelectorAll('.skeleton-loader');
+                const contentWrapper = card.querySelector('.content-wrapper');
 
-        if (servicesSection && scrollLeftBtn && scrollRightBtn) {
-            const scrollAmount = 350; // Amount to scroll per click
-
-            // Function to check scroll position and toggle button visibility
-            const toggleScrollButtons = () => {
-                if (window.innerWidth < 992) { // Hide buttons on small screens
-                    scrollLeftBtn.classList.remove('visible');
-                    scrollRightBtn.classList.remove('visible');
-                    return;
-                }
-
-                // Show/hide buttons based on scroll position
-                if (servicesSection.scrollLeft > 0) {
-                    scrollLeftBtn.classList.add('visible');
-                } else {
-                    scrollLeftBtn.classList.remove('visible');
-                }
-
-                // Check if scrolled to the very end (allow for slight floating point differences)
-                if (servicesSection.scrollLeft + servicesSection.clientWidth >= servicesSection.scrollWidth - 5) {
-                    scrollRightBtn.classList.remove('visible');
-                } else {
-                    scrollRightBtn.classList.add('visible');
-                }
-            };
-
-            // Initial check and on scroll
-            servicesSection.addEventListener('scroll', toggleScrollButtons);
-            window.addEventListener('resize', toggleScrollButtons); // Re-check on resize
-            // A small delay to ensure content is rendered before checking scrollWidth
-            setTimeout(toggleScrollButtons, 500);
-
-            scrollLeftBtn.addEventListener('click', () => {
-                servicesSection.scrollBy({
-                    left: -scrollAmount,
-                    behavior: 'smooth'
+                skeletonElements.forEach(el => {
+                    el.style.display = 'none';
                 });
+
+                if (contentWrapper) {
+                    contentWrapper.style.display = 'block';
+                    card.classList.add('fade-in');
+                }
             });
 
-            scrollRightBtn.addEventListener('click', () => {
-                servicesSection.scrollBy({
-                    left: scrollAmount,
-                    behavior: 'smooth'
+            // Reveal Hero Section
+            const heroSkeleton = document.getElementById('heroSkeleton');
+            const heroSectionContainer = document.getElementById('heroSectionContainer');
+            const navbar = document.getElementById('navbar');
+            const heroContent = document.getElementById('heroContent');
+
+            if (heroSkeleton) {
+                heroSkeleton.style.opacity = '0'; // Fade out skeleton
+                heroSkeleton.addEventListener('transitionend', function handler() {
+                    heroSkeleton.style.display = 'none'; // Hide after fade out
+                    heroSkeleton.removeEventListener('transitionend', handler);
                 });
-            });
+            }
+
+            // Add a class to the body or a main container to trigger content visibility
+            document.body.classList.add('content-loaded');
+
+            // Manually trigger the initial scroll check for navbar to apply 'scrolled' if needed
+            window.dispatchEvent(new Event('scroll'));
         }
+
+        // Simulate a loading delay before revealing content
+        window.addEventListener('load', () => {
+            setTimeout(revealContent, 2000); // 2 seconds delay
+        });
+
+        // --- First Scroll Snap to About Us Section ---
+        let hasScrolledOnce = false;
+
+        function handleFirstScroll() {
+            if (!hasScrolledOnce) {
+                hasScrolledOnce = true;
+                const aboutUsSection = document.getElementById('about-us');
+                    window.scrollTo({
+                        top: aboutUsSection,
+                        behavior: 'smooth'
+                    });
+                // Remove the event listener after the first scroll
+                window.removeEventListener('scroll', handleFirstScroll);
+                window.removeEventListener('wheel', handleFirstScroll); // For mouse wheel
+                window.removeEventListener('touchmove', handleFirstScroll); // For touch devices
+            }
+        }
+
+        // Attach event listeners for the first scroll
+        window.addEventListener('scroll', handleFirstScroll);
+        window.addEventListener('wheel', handleFirstScroll); // Captures mouse wheel scroll
+        window.addEventListener('touchmove', handleFirstScroll); // Captures touch scroll on mobile
+
     </script>
 </body>
 </html>
